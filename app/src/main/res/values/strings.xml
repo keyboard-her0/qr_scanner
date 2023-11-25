@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">QR Scaner</string>
+
+    <!--region All-->
+    <string name="all_button_active">OK</string>
+    <string name="all_button_positive">Cancel</string>
+    <string name="all_btn_close">Close</string>
+    <string name="all_btn_quit">Quit</string>
+    <string name="all_permission_denied">Permission Denied</string>
+    <!--endregion-->
+</resources>
