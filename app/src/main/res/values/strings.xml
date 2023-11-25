@@ -7,5 +7,7 @@
     <string name="all_btn_close">Close</string>
     <string name="all_btn_quit">Quit</string>
     <string name="all_permission_denied">Permission Denied</string>
+    <string name="scan_now">Scan now</string>
+    <string name="my_qr">My Qr</string>
     <!--endregion-->
 </resources>

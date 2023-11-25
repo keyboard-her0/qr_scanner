@@ -9,5 +9,13 @@
         android:id="@+id/mainScreen"
         android:name="com.keyboardhero.qr.features.MainFragment"
         tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainScreen_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.keyboardhero.qr.features.scanner.ScannerFragment"
+        android:label="fragment_scanner"
+        tools:layout="@layout/fragment_scanner" />
 </navigation>
