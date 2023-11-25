@@ -4,6 +4,7 @@ import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,15 +13,16 @@ import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
+import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
+import java.io.File
 
 
 class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
@@ -40,11 +42,11 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
         openCameraView()
     }
 
-    private fun makeFullScreen(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+    private fun makeFullScreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val decorView = requireActivity().window.decorView
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }else{
+        } else {
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
     }
@@ -134,6 +136,24 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
             Toast.makeText(requireContext(), "Image selected! $data", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun scanFromPatch(path: String): String? {
+        try {
+            val file = File(path)
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+
+            val frame = Frame.Builder().setBitmap(bitmap).build()
+
+            val barcodes = barcodeDetector.detect(frame)
+            if (barcodes.size() > 0) {
+                return barcodes.valueAt(0).displayValue
+            }
+        } catch (e: Exception) {
+            e.stackTrace
+        }
+        return null
+    }
+
 
     override fun initObservers() {
 
