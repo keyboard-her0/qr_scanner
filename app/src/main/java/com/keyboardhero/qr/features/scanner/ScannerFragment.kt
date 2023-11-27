@@ -3,18 +3,19 @@ package com.keyboardhero.qr.features.scanner
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
@@ -31,24 +32,14 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
 
     private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
-
+    private val sizeDetection = Size(1920, 1080)
     override fun initData(data: Bundle?) {
 
     }
 
     override fun initViews() {
-        makeFullScreen()
         initCameraSource()
         openCameraView()
-    }
-
-    private fun makeFullScreen() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val decorView = requireActivity().window.decorView
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        } else {
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        }
     }
 
     private fun initCameraSource() {
@@ -56,6 +47,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
             BarcodeDetector.Builder(requireContext()).setBarcodeFormats(Barcode.QR_CODE).build()
 
         cameraSource = CameraSource.Builder(requireContext(), barcodeDetector)
+            .setRequestedPreviewSize(sizeDetection.width, sizeDetection.height)
             .setFacing(CameraSource.CAMERA_FACING_BACK).setRequestedFps(35f)
             .setAutoFocusEnabled(true).build()
     }
@@ -95,13 +87,19 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
 
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 val barcodes = detections.detectedItems
-                Log.d("AAA", "receiveDetections: ${barcodes.size()}")
+
+                val windowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                val display = windowManager.defaultDisplay
+                val rotation = display.rotation
+                Log.d("AAA", "receiveDetections: $rotation")
+
                 if (barcodes.size() > 0) {
+                    Log.d("AAA", "receiveDetections: ${cameraSource.previewSize}")
                     val barcode = barcodes.valueAt(0)
-                    val displayValue = barcode.displayValue
                     val rect = barcode.boundingBox
-                    Log.d("AAA", "receiveDetections: rect = $rect ,displayValue = $displayValue")
-                    cameraSource.stop()
+                    binding.surfaceView.rectDetection(rect, sizeDetection)
+                } else {
+                    binding.surfaceView.setDefault()
                 }
             }
         })
