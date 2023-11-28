@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/scannerFragment"
-        android:name="com.keyboardhero.qr.features.scanner.ScannerFragment"
+        android:name="com.keyboardhero.qr.features.scanner.ScanFragment"
         android:label="fragment_scanner"
         tools:layout="@layout/fragment_scanner" />
 </navigation>

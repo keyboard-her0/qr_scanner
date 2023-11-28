@@ -2,20 +2,19 @@ package com.keyboardhero.qr.features.scanner
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
@@ -23,18 +22,33 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
-import java.io.File
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
+@AndroidEntryPoint
+class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentScannerBinding
         get() = FragmentScannerBinding::inflate
 
+    private val viewModel: ScanViewModel by viewModels()
     private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
+    private lateinit var selectPictureContract: ActivityResultLauncher<String>
     private val sizeDetection = Size(1920, 1080)
-    override fun initData(data: Bundle?) {
+    private var isScanning = true
 
+    override fun initData(data: Bundle?) {
+        selectPictureContract =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                if (uri != null) {
+                    val bitmap = getBitmapFromUri(uri)
+                    val value = scanFromPatch(bitmap)
+                    if (value != null) {
+                        shareData(value)
+                    } else {
+                        Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
     }
 
     override fun initViews() {
@@ -70,8 +84,8 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     private fun startCameraSource() {
-        requestPermissions(CAMERA) { isAllow, _ ->
-            if (isAllow) {
+        requestPermissions(CAMERA) { isGranted, _ ->
+            if (isGranted) {
                 cameraSource.start(binding.surfaceView.holder)
             } else {
                 onBackPressed()
@@ -87,17 +101,13 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
 
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 val barcodes = detections.detectedItems
-
-                val windowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                val display = windowManager.defaultDisplay
-                val rotation = display.rotation
-                Log.d("AAA", "receiveDetections: $rotation")
-
                 if (barcodes.size() > 0) {
-                    Log.d("AAA", "receiveDetections: ${cameraSource.previewSize}")
                     val barcode = barcodes.valueAt(0)
-                    val rect = barcode.boundingBox
-                    binding.surfaceView.rectDetection(rect, sizeDetection)
+                    binding.surfaceView.rectDetection(barcode.boundingBox, sizeDetection)
+
+                    if (isScanning) {
+                        shareData(barcode.displayValue)
+                    }
                 } else {
                     binding.surfaceView.setDefault()
                 }
@@ -105,11 +115,31 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
         })
     }
 
+    override fun onPause() {
+        super.onPause()
+        isScanning = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isScanning = true
+    }
+
+    private fun shareData(value: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, value)
+
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(Intent.createChooser(intent, "Chia sẻ với"))
+        }
+    }
+
     override fun initActions() {
         binding.btnSelectQR.setOnClickListener {
-            requestPermissions(READ_EXTERNAL_STORAGE) { isAllow, _ ->
-                if (isAllow) {
-                    chooseImage()
+            requestPermissions(READ_EXTERNAL_STORAGE) { isGranted, _ ->
+                if (isGranted) {
+                    selectPictureContract.launch(IMAGE_FILTER)
                 } else {
                     showSingleOptionDialog(
                         title = "Lỗi",
@@ -121,25 +151,14 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
         }
     }
 
-    private fun chooseImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    private fun getBitmapFromUri(uri: Uri): Bitmap {
+        val contentResolver = requireContext().contentResolver
+        val inputStream = contentResolver.openInputStream(uri)
+        return BitmapFactory.decodeStream(inputStream)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            val data = data.data
-            Toast.makeText(requireContext(), "Image selected! $data", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun scanFromPatch(path: String): String? {
+    private fun scanFromPatch(bitmap: Bitmap): String? {
         try {
-            val file = File(path)
-            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-
             val frame = Frame.Builder().setBitmap(bitmap).build()
 
             val barcodes = barcodeDetector.detect(frame)
@@ -154,10 +173,10 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>() {
 
 
     override fun initObservers() {
-
+        //Do nothing
     }
 
     companion object {
-        private const val PICK_IMAGE_REQUEST = 12551
+        private const val IMAGE_FILTER = "image/*"
     }
 }

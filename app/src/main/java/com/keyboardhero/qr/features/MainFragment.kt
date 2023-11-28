@@ -1,5 +1,6 @@
 package com.keyboardhero.qr.features
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +15,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         get() = FragmentMainBinding::inflate
 
     override fun initData(data: Bundle?) {
-        // initData
     }
 
     override fun initViews() {
@@ -22,8 +22,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override fun initActions() {
         binding.btnScanNow.setOnClickListener {
-            val action = MainFragmentDirections.actionMainScreenToScannerFragment()
-            findNavController().navigate(action)
+            if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                val action = MainFragmentDirections.actionMainScreenToScannerFragment()
+                findNavController().navigate(action)
+            } else {
+                showSingleOptionDialog(
+                    title = "Lỗi",
+                    message = "Không hỗ trợ",
+                    button = "Đóng"
+                )
+            }
         }
     }
 
