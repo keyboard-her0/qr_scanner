@@ -33,7 +33,6 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
     private lateinit var selectPictureContract: ActivityResultLauncher<String>
-    private val sizeDetection = Size(1920, 1080)
     private var isScanning = true
 
     override fun initData(data: Bundle?) {
@@ -57,13 +56,15 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     private fun initCameraSource() {
-        barcodeDetector =
-            BarcodeDetector.Builder(requireContext()).setBarcodeFormats(Barcode.QR_CODE).build()
+        barcodeDetector = BarcodeDetector.Builder(requireContext())
+            .setBarcodeFormats(Barcode.QR_CODE).build()
 
         cameraSource = CameraSource.Builder(requireContext(), barcodeDetector)
-            .setRequestedPreviewSize(sizeDetection.width, sizeDetection.height)
-            .setFacing(CameraSource.CAMERA_FACING_BACK).setRequestedFps(35f)
-            .setAutoFocusEnabled(true).build()
+            .setRequestedPreviewSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
+            .setFacing(CameraSource.CAMERA_FACING_BACK)
+            .setRequestedFps(CAMERA_PREVIEW_FPS)
+            .setAutoFocusEnabled(true)
+            .build()
     }
 
     private fun openCameraView() {
@@ -103,7 +104,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() > 0) {
                     val barcode = barcodes.valueAt(0)
-                    binding.surfaceView.rectDetection(barcode.boundingBox, sizeDetection)
+
+                    binding.surfaceView.rectDetection(
+                        barcode.boundingBox,
+                        Size(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
+                    )
 
                     if (isScanning) {
                         shareData(barcode.displayValue)
@@ -127,7 +132,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     private fun shareData(value: String) {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
+        intent.type = INTENT_TYPE
         intent.putExtra(Intent.EXTRA_TEXT, value)
 
         if (intent.resolveActivity(requireContext().packageManager) != null) {
@@ -178,5 +183,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     companion object {
         private const val IMAGE_FILTER = "image/*"
+        private const val INTENT_TYPE = "text/plain"
+        private const val CAMERA_PREVIEW_WIDTH = 1920
+        private const val CAMERA_PREVIEW_HEIGHT = 1080
+        private const val CAMERA_PREVIEW_FPS = 35F
     }
 }
