@@ -24,7 +24,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.main.MainFragment
-import com.keyboardhero.qr.features.scan.widget.BarcodePreview
+import com.keyboardhero.qr.features.widget.BarcodePreview
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

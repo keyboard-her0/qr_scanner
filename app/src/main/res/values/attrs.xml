@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="colorBottomBarBackground" format="color" />
+    <declare-styleable name="AppBarWidget">
+        <attr name="title" format="string"/>
+        <attr name="titleCentered" format="boolean"/>
+    </declare-styleable>
 
 </resources>

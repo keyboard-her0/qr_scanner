@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features.scan.widget
+package com.keyboardhero.qr.features.widget
 
 import android.animation.ValueAnimator
 import android.content.Context
