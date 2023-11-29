@@ -1,5 +1,6 @@
 package com.keyboardhero.qr.core.utils
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -63,6 +64,7 @@ object CommonUtils {
      * @param context [Context]
      * @param phoneNumber phone number
      */
+    @SuppressLint("QueryPermissionsNeeded")
     fun openPhoneCall(context: Context, phoneNumber: String?) {
         val number: Uri = Uri.parse(phoneNumber)
         val intent = Intent(Intent.ACTION_CALL, number)
@@ -112,50 +114,5 @@ object CommonUtils {
             result = formatter.format(date)
         }
         return result
-    }
-
-    /**
-     * This method using to format account number or phone number, separat by " "
-     *
-     * @param accountOrPhoneNumber
-     * @param firstIndex first position to add devider " "
-     * @param secondIndex second position to add devider " "
-     * @param thirdIndex third position to add devider " "
-     */
-    fun formatAccountOrPhoneNumber(
-        accountOrPhoneNumber: String,
-        firstIndex: Int,
-        secondIndex: Int,
-        thirdIndex: Int,
-    ): String {
-        val devider = " "
-        val formatted = StringBuilder()
-        var index = 0
-        for (character in accountOrPhoneNumber) {
-            formatted.append(character)
-            index++
-            if (index == firstIndex || index == secondIndex || index == thirdIndex) {
-                formatted.append(devider)
-                index++
-            }
-        }
-        return formatted.toString()
-    }
-
-    /**
-     * This method using to format money in the form ***,***,***
-     *
-     * @param money
-     */
-    fun formatMoney(money: String): String {
-        val decimalFormat = DecimalFormat("#,###,###,###")
-        val value = clearCurrencyToNumber(money)
-        return decimalFormat.format(value?.toDouble()).replace(".", ",")
-    }
-
-    private fun clearCurrencyToNumber(currencyValue: String?): String? {
-        return currencyValue?.replace(Constant.SUFFIX_US, "")
-            ?.replace("[(a-z)|(A-Z)|($,. )]".toRegex(), "")
-            ?: ""
     }
 }

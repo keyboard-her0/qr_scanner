@@ -1,6 +1,5 @@
 package com.keyboardhero.qr.core.utils.glide
 
-import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -20,14 +19,5 @@ object GlideHelper {
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE),
             )
             .into(imageView)
-    }
-
-    fun loadCaptcha(url: Bitmap, captcha: ImageView) {
-        if (captcha.context == null) {
-            return
-        }
-        Glide.with(captcha.context)
-            .load(url)
-            .into(captcha)
     }
 }

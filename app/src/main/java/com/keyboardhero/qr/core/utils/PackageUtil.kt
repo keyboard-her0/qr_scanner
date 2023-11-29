@@ -64,15 +64,15 @@ object PackageUtil {
         }
     }
 
-    private fun capitalize(characters: String?): String {
-        if (characters.isNullOrEmpty()) {
+    private fun capitalize(characters: String): String {
+        if (characters.isEmpty()) {
             return Constant.EMPTY_STRING
         }
         val first = characters[0]
         return if (Character.isUpperCase(first)) {
             characters
         } else {
-            Character.toUpperCase(first).toString() + characters.substring(1)
+            characters.replace(first, Character.toUpperCase(first))
         }
     }
 }
