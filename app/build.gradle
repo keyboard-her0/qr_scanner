@@ -12,7 +12,7 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId "com.keyboardhero.example"
+        applicationId "com.keyboardhero.qr"
         versionCode 1
         versionName "0.1.0"
     }
@@ -34,41 +34,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-//    productFlavors {
-//        def loadEnv = { target, envPath ->
-//            def appPropertiesFile = rootProject.file(envPath)
-//            def appProperties = new Properties()
-//            appProperties.load(new FileInputStream(appPropertiesFile))
-//            target.buildConfigField("String", "BASE_URL", appProperties["BASE_URL"])
-//        }
-//
-//        dev {
-//            flavorDimensions "dev"
-//            applicationIdSuffix ".dev"
-//            versionNameSuffix "-dev"
-//            loadEnv(owner, "./env/dev.properties")
-//        }
-//
-//        qa {
-//            flavorDimensions "qa"
-//            applicationIdSuffix ".qa"
-//            versionNameSuffix "-qa"
-//            loadEnv(owner, "./env/qa.properties")
-//        }
-//
-//        uat {
-//            flavorDimensions "uat"
-//            applicationIdSuffix ".uat"
-//            versionNameSuffix "-uat"
-//            loadEnv(owner, "./env/uat.properties")
-//        }
-//
-//        prod {
-//            flavorDimensions "prod"
-//            loadEnv(owner, "./env/product.properties")
-//        }
-//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
