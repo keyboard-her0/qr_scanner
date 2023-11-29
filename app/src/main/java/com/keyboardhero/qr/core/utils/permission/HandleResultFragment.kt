@@ -1,18 +1,19 @@
 package com.keyboardhero.qr.core.utils.permission
 
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 
 class HandleResultFragment : Fragment() {
     companion object {
-        private const val PERMISSION_REQUEST_CODE = 65535 // Max unsigned integer
         const val TAG = "HandleResultFragment"
     }
 
     private val requestPermissions: HashMap<String, (Permission) -> Unit> = HashMap()
+    private lateinit var requestLauncher: ActivityResultLauncher<Array<String>>
 
     private var onFragmentCreated: (() -> Unit)? = null
 
@@ -22,40 +23,45 @@ class HandleResultFragment : Fragment() {
 
         onFragmentCreated?.invoke()
         onFragmentCreated = null
-    }
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun request(permissions: Array<out String>) {
-        if (isAdded) {
-            requestPermissions(permissions, PERMISSION_REQUEST_CODE)
-        } else {
-            onFragmentCreated = {
-                requestPermissions(permissions, PERMISSION_REQUEST_CODE)
+        requestLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissionsResult ->
+            permissionsResult.forEach { permissionResult ->
+
+                val permissionName = permissionResult.key
+                val permissionIsGranted = permissionResult.value
+
+                val permissionRequested = requestPermissions[permissionName]
+                if (permissionRequested != null) {
+                    val result = if (permissionIsGranted == true) {
+                        Permission(
+                            permission = permissionName,
+                            granted = true,
+                            preventAskAgain = false
+                        )
+                    } else {
+                        Permission(
+                            permission = permissionName,
+                            granted = false,
+                            preventAskAgain = !shouldShowRequestPermissionRationale(permissionName),
+                        )
+                    }
+                    permissionRequested.invoke(result)
+                }
+
+                requestPermissions.remove(permissionName)
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            permissions.forEachIndexed { index, permission ->
-                val permissionRequested = requestPermissions[permission]
-                val permissionResult =
-                    if (grantResults[index] == PackageManager.PERMISSION_GRANTED) {
-                        Permission(permission = permission, granted = true, preventAskAgain = false)
-                    } else {
-                        Permission(
-                            permission = permission,
-                            granted = false,
-                            preventAskAgain = !shouldShowRequestPermissionRationale(permission),
-                        )
-                    }
-                permissionRequested?.invoke(permissionResult)
-                requestPermissions.remove(permission)
+    fun request(permissions: Array<String>) {
+        if (isAdded) {
+            requestLauncher.launch(permissions)
+        } else {
+            onFragmentCreated = {
+                requestLauncher.launch(permissions)
             }
         }
     }

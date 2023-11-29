@@ -57,7 +57,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     private fun initCameraSource() {
         barcodeDetector = BarcodeDetector.Builder(requireContext())
-            .setBarcodeFormats(Barcode.QR_CODE).build()
+            .setBarcodeFormats(Barcode.ALL_FORMATS).build()
 
         cameraSource = CameraSource.Builder(requireContext(), barcodeDetector)
             .setRequestedPreviewSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
