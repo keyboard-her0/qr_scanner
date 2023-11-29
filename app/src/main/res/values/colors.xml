@@ -33,4 +33,6 @@
     <color name="purple_100">#E9DBF5</color>
     <color name="primary_white_blur">#E5E5E5</color>
     <color name="color_blur_white">#888888</color>
+
+    <color name="color_1F2D3A">#FF1F2D3A</color>
 </resources>

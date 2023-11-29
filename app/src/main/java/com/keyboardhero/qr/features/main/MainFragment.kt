@@ -24,6 +24,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private val homePageAdapter: HomePageAdapter by lazy { HomePageAdapter(this) }
     private val screens = listOf(
+        ScanFragment(),
         GenerateFragment(),
         HistoryFragment(),
         SettingsFragment(),
@@ -60,17 +61,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                     }
 
                     R.id.generateFragment -> {
-                        viewPager.currentItem = 0
-                        true
-                    }
-
-                    R.id.historyFragment -> {
                         viewPager.currentItem = 1
                         true
                     }
 
-                    R.id.settingsFragment -> {
+                    R.id.historyFragment -> {
                         viewPager.currentItem = 2
+                        true
+                    }
+
+                    R.id.settingsFragment -> {
+                        viewPager.currentItem = 3
                         true
                     }
 
@@ -87,31 +88,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         val currentItem = binding.viewPager.currentItem
         return screens.getOrNull(currentItem)
     }
-
-//    private fun connectToWifi(ssid: String, password: String) {
-//        val specifier = WifiNetworkSpecifier.Builder()
-//            .setSsid(ssid)
-//            .setWpa2Passphrase(password)
-//            .build()
-//
-//
-//        val request = NetworkRequest.Builder()
-//            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-//            .setNetworkSpecifier(specifier)
-//            .build()
-//
-//        val connectivityManager: ConnectivityManager = requireContext().getSystemService(
-//            ConnectivityManager::class.java
-//        )
-//        connectivityManager.requestNetwork(request, object : NetworkCallback() {
-//            override fun onAvailable(network: Network) {
-//            }
-//
-//            override fun onUnavailable() {
-//
-//            }
-//        })
-//    }
 
     override fun initObservers() {
     }
