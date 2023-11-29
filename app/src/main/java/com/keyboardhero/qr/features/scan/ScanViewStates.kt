@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features.scanner
+package com.keyboardhero.qr.features.scan
 
 data class ScanViewStates(
     val loading: Boolean,

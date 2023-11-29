@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features.scanner
+package com.keyboardhero.qr.features.scan
 
 import com.keyboardhero.qr.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

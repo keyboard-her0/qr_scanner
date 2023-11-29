@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features
+package com.keyboardhero.qr.features.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +23,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun initViews() {
-        // do nothing
     }
 }

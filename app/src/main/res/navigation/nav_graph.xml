@@ -7,15 +7,30 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.keyboardhero.qr.features.MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainScreen_to_scannerFragment"
-            app:destination="@id/scannerFragment" />
-    </fragment>
+        android:name="com.keyboardhero.qr.features.main.MainFragment"
+        tools:layout="@layout/fragment_main" />
+
     <fragment
-        android:id="@+id/scannerFragment"
-        android:name="com.keyboardhero.qr.features.scanner.ScanFragment"
-        android:label="fragment_scanner"
+        android:id="@+id/scanFragment"
+        android:name="com.keyboardhero.qr.features.scan.ScanFragment"
+        android:label="@string/bottom_navigation_scan"
         tools:layout="@layout/fragment_scanner" />
+
+    <fragment
+        android:id="@+id/generateFragment"
+        android:name="com.keyboardhero.qr.features.generate.GenerateFragment"
+        android:label="@string/bottom_navigation_generate"
+        tools:layout="@layout/fragment_generate" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.keyboardhero.qr.features.history.HistoryFragment"
+        android:label="@string/bottom_navigation_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.keyboardhero.qr.features.settings.SettingsFragment"
+        android:label="@string/bottom_navigation_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

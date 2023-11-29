@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.scanner.ScanFragment">
+    tools:context=".features.scan.ScanFragment">
 
-    <com.keyboardhero.qr.features.scanner.widget.BarcodePreview
+    <com.keyboardhero.qr.features.scan.widget.BarcodePreview
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features
+package com.keyboardhero.qr.features.main
 
 import android.util.Size
 import androidx.lifecycle.viewModelScope

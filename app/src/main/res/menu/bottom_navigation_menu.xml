@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/scanFragment"
+        android:icon="@drawable/ic_qr_code_scanner_24"
+        android:title="@string/bottom_navigation_scan" />
+    <item
+        android:id="@+id/generateFragment"
+        android:icon="@drawable/ic_add_qr_code_24"
+        android:title="@string/bottom_navigation_generate" />
+    <item
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/ic_history_24"
+        android:title="@string/bottom_navigation_history" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings_24"
+        android:title="@string/bottom_navigation_settings" />
+</menu>

@@ -1,8 +1,9 @@
-package com.keyboardhero.qr.features.scanner
+package com.keyboardhero.qr.features.scan
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -22,6 +23,8 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
+import com.keyboardhero.qr.features.main.MainFragment
+import com.keyboardhero.qr.features.scan.widget.BarcodePreview
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +36,6 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
     private lateinit var selectPictureContract: ActivityResultLauncher<String>
-    private var isScanning = true
 
     override fun initData(data: Bundle?) {
         selectPictureContract =
@@ -51,8 +53,20 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initViews() {
-        initCameraSource()
-        openCameraView()
+        if (isDeviceSupport()) {
+            initCameraSource()
+            openCameraView()
+        } else {
+            showSingleOptionDialog(
+                title = "Lỗi",
+                message = "Thiết bị của bạn không được hỗ trợ camera",
+                button = "OK"
+            )
+        }
+    }
+
+    private fun isDeviceSupport(): Boolean {
+        return requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
 
     private fun initCameraSource() {
@@ -89,7 +103,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             if (isGranted) {
                 cameraSource.start(binding.surfaceView.holder)
             } else {
-                onBackPressed()
+                showSingleOptionDialog(
+                    title = "Lỗi",
+                    message = "Không có quyền truy cập máy ảnh",
+                    button = "Đóng"
+                )
             }
         }
     }
@@ -110,7 +128,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                         Size(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
                     )
 
-                    if (isScanning) {
+                    if (binding.surfaceView.getStatus() == BarcodePreview.Status.DETECTED) {
                         shareData(barcode.displayValue)
                     }
                 } else {
@@ -122,12 +140,26 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun onPause() {
         super.onPause()
-        isScanning = false
+        cancelCamera()
+    }
+
+    private fun cancelCamera() {
+        val isScanScreen = (parentFragment as? MainFragment)?.getCurrentPage() is ScanFragment
+        if (!isScanScreen) {
+            cameraSource.stop()
+            cameraSource.release()
+            barcodeDetector.release()
+
+            binding.surfaceView.stopAnimation()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        isScanning = true
+        if (binding.surfaceView.getStatus() == BarcodePreview.Status.OFF) {
+            startCameraSource()
+            binding.surfaceView.startAnimation()
+        }
     }
 
     private fun shareData(value: String) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QR Scaner</string>
+    <string name="app_name">QR Scanner</string>
 
     <!--region All-->
     <string name="all_button_active">OK</string>
@@ -7,7 +7,13 @@
     <string name="all_btn_close">Close</string>
     <string name="all_btn_quit">Quit</string>
     <string name="all_permission_denied">Permission Denied</string>
-    <string name="scan_now">Scan now</string>
-    <string name="my_qr">My Qr</string>
     <!--endregion-->
+
+    <!--    Home-->
+    <string name="bottom_navigation_scan">Scan</string>
+    <string name="bottom_navigation_generate">Generate</string>
+    <string name="bottom_navigation_history">History</string>
+    <string name="bottom_navigation_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

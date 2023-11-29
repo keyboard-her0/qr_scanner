@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features.scanner.widget
+package com.keyboardhero.qr.features.scan.widget
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -21,7 +21,7 @@ class BarcodePreview @JvmOverloads constructor(
     private var bgColor = Color.parseColor("#4D000000")
     private lateinit var rectDetection: RectF
     private lateinit var rectDetectionDefault: RectF
-    private var status = Status.CHECKING
+    private var status = Status.OFF
     private val valueZoom = ValueAnimator.ofFloat(0f, ROOM_VALUE, 0F, -ROOM_VALUE)
 
     init {
@@ -38,6 +38,7 @@ class BarcodePreview @JvmOverloads constructor(
             rectDetection = getRectZoomIn(rectDetection, animatedValue)
             invalidate()
         }
+        status = Status.CHECKING
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -57,7 +58,8 @@ class BarcodePreview @JvmOverloads constructor(
         super.dispatchDraw(canvas)
         if (isLaidOut) {
             canvas?.drawRect(rectDetection, backgroundPain)
-            if (status == Status.DETECTED) {
+            if (status == Status.DETECTED || status == Status.OFF) {
+                canvas?.drawRect(rectDetectionDefault, backgroundPain)
                 valueZoom.cancel()
             } else if (!valueZoom.isStarted) {
                 valueZoom.start()
@@ -86,6 +88,18 @@ class BarcodePreview @JvmOverloads constructor(
         invalidate()
     }
 
+    fun startAnimation() {
+        status = Status.CHECKING
+        if (!valueZoom.isStarted) {
+            valueZoom.start()
+        }
+    }
+
+    fun stopAnimation() {
+        status = Status.OFF
+        valueZoom.cancel()
+    }
+
     private fun getRectZoomIn(rectF: RectF, value: Float): RectF {
         rectF.left -= value
         rectF.top -= value
@@ -94,9 +108,12 @@ class BarcodePreview @JvmOverloads constructor(
         return rectF
     }
 
+    fun getStatus() = status
+
     enum class Status {
         CHECKING,
-        DETECTED
+        DETECTED,
+        OFF,
     }
 
     companion object {
