@@ -8,13 +8,11 @@ import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.keyboardhero.qr.core.router.Router
 import com.keyboardhero.qr.databinding.FragmentBaseBinding
 import com.keyboardhero.qr.features.widget.AppBarWidget
-import com.keyboardhero.qr.features.widget.ProcessDialog
+import javax.inject.Inject
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     override val baseActivity: BaseActivity<*>?
@@ -22,15 +20,15 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
 
     private lateinit var baseBinding: FragmentBaseBinding
 
-    protected val headerAppBar :AppBarWidget
+    protected val headerAppBar: AppBarWidget
         get() = baseBinding.appBar
 
     lateinit var binding: VB
         private set
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
-    protected var mNavController: NavController? = null
-    private lateinit var mRootView: View
+    @Inject
+    lateinit var router: Router
 
     @CallSuper
     override fun onCreateView(
@@ -40,21 +38,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     ): View? {
         baseBinding = FragmentBaseBinding.inflate(inflater, container, false)
         binding = bindingInflater.invoke(inflater, baseBinding.contentContainer, true)
-
-        mRootView = baseBinding.root
-        // Remove view on the child's parent first.
-        val parent = mRootView.parent
-        if (parent != null) {
-            parent as ViewGroup
-            parent.removeView(mRootView)
-        }
-        return mRootView
+        return baseBinding.root
     }
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mNavController = (activity as? BaseActivity<*>)?.navController
         initViews()
         initHeaderAppBar()
         initActions()
@@ -77,7 +66,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     }
 
     override fun onBackPressed() {
-        if (!findNavController().popBackStack()) {
+        if (!router.backToPreviousScreen()) {
             requireActivity().finish()
         }
     }
@@ -114,12 +103,5 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
 
     internal fun reCreateActivitySmooth() {
         baseActivity?.reCreateActivitySmooth()
-    }
-
-    /**
-     * This method using to back to previous screen with used navigation controller
-     */
-    internal fun popBackStackNavigate() {
-        mNavController?.popBackStack()
     }
 }

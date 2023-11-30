@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentGenerateBinding
+import com.keyboardhero.qr.features.generate.result.GenerateScreen
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class GenerateFragment : BaseFragment<FragmentGenerateBinding>() {
@@ -41,7 +40,7 @@ class GenerateFragment : BaseFragment<FragmentGenerateBinding>() {
 
     override fun initActions() {
         generateItemAdapter.onItemClick = {
-           mNavController?.navigate(R.id.generateResultFragment)
+            router.navigate(GenerateScreen)
         }
     }
 

@@ -10,9 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.keyboardhero.qr.core.router.Router
+import com.keyboardhero.qr.core.router.RouterImpl
 import com.keyboardhero.qr.core.utils.permission.Permission
 import com.keyboardhero.qr.core.utils.permission.PermissionUtil
 import com.keyboardhero.qr.features.widget.ProcessDialog
+import javax.inject.Inject
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DialogCommonView {
     private lateinit var permissionUtil: PermissionUtil
@@ -23,14 +26,19 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DialogCommo
 
     var navController: NavController? = null
 
+    @Inject
+    lateinit var router: Router
+
     private val processDialog: ProcessDialog by lazy { ProcessDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = bindingInflater.invoke(layoutInflater)
 
-        navController =
-            supportFragmentManager.fragments.find { it is NavHostFragment }?.findNavController()
+        navController = supportFragmentManager.fragments.find { it is NavHostFragment }?.findNavController()
+        navController?.let {
+            (router as? RouterImpl)?.init(it)
+        }
 
         setContentView(binding.root)
         // Init immediately after create activity
