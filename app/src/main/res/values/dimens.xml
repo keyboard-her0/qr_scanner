@@ -41,6 +41,7 @@
     <!-- Define size  -->
     <dimen name="size_0dp">0dp</dimen>
     <dimen name="size_1dp">1dp</dimen>
+    <dimen name="size_2dp">2dp</dimen>
     <dimen name="size_4dp">4dp</dimen>
     <dimen name="size_6dp">6dp</dimen>
     <dimen name="size_5dp">5dp</dimen>

@@ -75,5 +75,4 @@ class AppBarWidget @JvmOverloads constructor(
             null
         }
     }
-
 }

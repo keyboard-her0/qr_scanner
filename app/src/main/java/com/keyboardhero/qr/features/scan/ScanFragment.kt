@@ -55,8 +55,8 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun initViews() {
         if (isDeviceSupport()) {
-            initCameraSource()
-            openCameraView()
+ //           initCameraSource()
+//            openCameraView()
         } else {
             showSingleOptionDialog(
                 title = "Lỗi",
@@ -145,7 +145,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun onPause() {
         super.onPause()
-        cancelCamera()
+//        cancelCamera()
     }
 
     private fun cancelCamera() {
@@ -161,10 +161,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (binding.surfaceView.getStatus() == BarcodePreview.Status.OFF) {
-            startCameraSource()
-            binding.surfaceView.startAnimation()
-        }
+//        if (binding.surfaceView.getStatus() == BarcodePreview.Status.OFF) {
+//            startCameraSource()
+//            binding.surfaceView.startAnimation()
+//        }
     }
 
     private fun shareData(value: String) {

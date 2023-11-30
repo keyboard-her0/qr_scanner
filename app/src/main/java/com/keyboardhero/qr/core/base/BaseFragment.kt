@@ -41,13 +41,19 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
         return baseBinding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            initData(arguments)
+        }
+    }
+
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initHeaderAppBar()
         initActions()
-        initData(arguments)
         initObservers()
 
         (requireActivity() as OnBackPressedDispatcherOwner)

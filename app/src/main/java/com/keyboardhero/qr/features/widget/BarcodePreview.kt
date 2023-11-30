@@ -38,7 +38,7 @@ class BarcodePreview @JvmOverloads constructor(
             rectDetection = getRectZoomIn(rectDetection, animatedValue)
             invalidate()
         }
-        status = Status.CHECKING
+        status = Status.OFF
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -83,7 +83,7 @@ class BarcodePreview @JvmOverloads constructor(
     }
 
     fun setDefault() {
-        status = Status.CHECKING
+       // status = Status.CHECKING
         rectDetection = rectDetectionDefault
         invalidate()
     }
