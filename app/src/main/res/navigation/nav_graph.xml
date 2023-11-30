@@ -33,4 +33,9 @@
         android:name="com.keyboardhero.qr.features.settings.SettingsFragment"
         android:label="@string/bottom_navigation_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/generateResultFragment"
+        android:name="com.keyboardhero.qr.features.generate.result.GenerateResultFragment"
+        android:label="fragment_generate_result"
+        tools:layout="@layout/fragment_generate_result" />
 </navigation>

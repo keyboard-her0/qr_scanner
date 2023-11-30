@@ -18,16 +18,8 @@
 
         <FrameLayout
             android:id="@+id/contentContainer"
+            android:background="?attr/colorOnBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-
-
-    <include
-        android:id="@+id/loadingView"
-        layout="@layout/loading_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        tools:visibility="visible" />
 </FrameLayout>

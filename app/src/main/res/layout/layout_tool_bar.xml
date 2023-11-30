@@ -7,9 +7,10 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolBar"
+        app:navigationIconTint="?attr/headerAppBarContentColor"
+        app:titleTextColor="?attr/headerAppBarContentColor"
         android:layout_width="match_parent"
         app:titleCentered="true"
         android:layout_height="wrap_content"
-
         app:title="@string/app_name" />
 </com.google.android.material.appbar.AppBarLayout>

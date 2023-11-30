@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.keyboardhero.qr.core.utils.permission.Permission
 import com.keyboardhero.qr.core.utils.permission.PermissionUtil
@@ -18,11 +21,16 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DialogCommo
         private set
     abstract val bindingInflater: (LayoutInflater) -> VB
 
+    var navController: NavController? = null
+
     private val processDialog: ProcessDialog by lazy { ProcessDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = bindingInflater.invoke(layoutInflater)
+
+        navController =
+            supportFragmentManager.fragments.find { it is NavHostFragment }?.findNavController()
 
         setContentView(binding.root)
         // Init immediately after create activity

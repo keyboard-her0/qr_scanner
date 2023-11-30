@@ -54,7 +54,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mNavController = NavHostFragment.findNavController(this)
+        mNavController = (activity as? BaseActivity<*>)?.navController
         initViews()
         initHeaderAppBar()
         initActions()

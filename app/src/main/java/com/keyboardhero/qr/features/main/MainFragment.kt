@@ -23,7 +23,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         get() = FragmentMainBinding::inflate
 
 
-    private val homePageAdapter: HomePageAdapter by lazy { HomePageAdapter(this) }
+    private lateinit var homePageAdapter: HomePageAdapter
     private val screens = listOf(
         ScanFragment(),
         GenerateFragment(),
@@ -44,6 +44,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun initViewPager() {
+        homePageAdapter = HomePageAdapter(this)
         homePageAdapter.addScreen(screens)
         binding.viewPager.apply {
             adapter = homePageAdapter
