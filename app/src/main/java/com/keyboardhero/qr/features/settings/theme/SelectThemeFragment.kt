@@ -3,8 +3,10 @@ package com.keyboardhero.qr.features.settings.theme
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keyboardhero.qr.core.base.BaseBottomSheetDialogFragment
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.base.dismissBottomSheet
 import com.keyboardhero.qr.databinding.FragmentSelectThemeBinding
@@ -57,15 +59,15 @@ class SelectThemeFragment : BaseFragment<FragmentSelectThemeBinding>() {
         fun newInstance(
             themes: List<ThemeSetting.Theme>,
             onSelectTheme: ((ThemeSetting.Theme) -> Unit)
-        ): SelectThemeFragment {
-            val fragment = SelectThemeFragment()
-            fragment.arguments = Bundle().apply {
-                putParcelableArrayList(
-                    GET_THEMES_KEY,
-                    arrayListOf<ThemeSetting.Theme>().apply { addAll(themes) })
-            }
-            fragment.onSelectTheme = onSelectTheme
-            return fragment
+        ): BaseBottomSheetDialogFragment {
+            return BaseBottomSheetDialogFragment.newInstance(
+                SelectThemeFragment().apply {
+                    arguments = bundleOf(
+                        GET_THEMES_KEY to arrayListOf<ThemeSetting.Theme>().apply { addAll(themes) }
+                    )
+                    this.onSelectTheme = onSelectTheme
+                }
+            )
         }
 
         private const val GET_THEMES_KEY = "GET_THEMES_KEY"

@@ -38,7 +38,7 @@ class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = BaseButtomSheetLayoutBinding.inflate(inflater, container, false)
         dialog?.window?.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -65,7 +65,6 @@ class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
         }
 
         (view.parent as? View)?.setBackgroundColor(Color.TRANSPARENT)
-
         arguments?.getBoolean(KEY_HIDE_BOTTOM_TOGGLE_VIEW)?.let { isShow ->
             binding.bottomSheetToggleView.isVisible = isShow
         }

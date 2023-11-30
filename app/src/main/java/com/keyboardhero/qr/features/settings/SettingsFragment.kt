@@ -49,11 +49,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                     type = ThemeSetting.ThemeType.NIGHT
                 ),
             )
-            val selectThemeFragment = SelectThemeFragment.newInstance(themes = themes) { theme ->
+            val bottomSheet = SelectThemeFragment.newInstance(themes = themes) { theme ->
                 viewModel.switchThemeMode(theme.type.ordinal)
             }
-            val bottomSheet = BaseBottomSheetDialogFragment.newInstance(selectThemeFragment)
-            bottomSheet.show(childFragmentManager, null)
+            bottomSheet.show(childFragmentManager)
         }
     }
 
