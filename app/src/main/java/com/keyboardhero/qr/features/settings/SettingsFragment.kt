@@ -31,29 +31,29 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     }
 
     override fun initActions() {
-        binding.btnChangeTheme.setOnClickListener {
-            val themes = listOf(
-                ThemeSetting.Theme(
-                    title = "Auto",
-                    resIconId = 0,
-                    type = ThemeSetting.ThemeType.AUTO
-                ),
-                ThemeSetting.Theme(
-                    title = "Day",
-                    resIconId = 0,
-                    type = ThemeSetting.ThemeType.DAY
-                ),
-                ThemeSetting.Theme(
-                    title = "Night",
-                    resIconId = 0,
-                    type = ThemeSetting.ThemeType.NIGHT
-                ),
-            )
-            val bottomSheet = SelectThemeFragment.newInstance(themes = themes) { theme ->
-                viewModel.switchThemeMode(theme.type.ordinal)
-            }
-            bottomSheet.show(childFragmentManager)
-        }
+//        binding.btnChangeTheme.setOnClickListener {
+//            val themes = listOf(
+//                ThemeSetting.Theme(
+//                    title = "Auto",
+//                    resIconId = 0,
+//                    type = ThemeSetting.ThemeType.AUTO
+//                ),
+//                ThemeSetting.Theme(
+//                    title = "Day",
+//                    resIconId = 0,
+//                    type = ThemeSetting.ThemeType.DAY
+//                ),
+//                ThemeSetting.Theme(
+//                    title = "Night",
+//                    resIconId = 0,
+//                    type = ThemeSetting.ThemeType.NIGHT
+//                ),
+//            )
+//            val bottomSheet = SelectThemeFragment.newInstance(themes = themes) { theme ->
+//                viewModel.switchThemeMode(theme.type.ordinal)
+//            }
+//            bottomSheet.show(childFragmentManager)
+//        }
     }
 
     override fun initObservers() {

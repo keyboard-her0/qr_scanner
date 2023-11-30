@@ -168,13 +168,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     private fun shareData(value: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = INTENT_TYPE
-        intent.putExtra(Intent.EXTRA_TEXT, value)
 
-        if (intent.resolveActivity(requireContext().packageManager) != null) {
-            startActivity(Intent.createChooser(intent, "Chia sẻ với"))
-        }
     }
 
     override fun initActions() {
@@ -220,7 +214,6 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     companion object {
         private const val IMAGE_FILTER = "image/*"
-        private const val INTENT_TYPE = "text/plain"
         private const val CAMERA_PREVIEW_WIDTH = 1920
         private const val CAMERA_PREVIEW_HEIGHT = 1080
         private const val CAMERA_PREVIEW_FPS = 35F

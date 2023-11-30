@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.text.InputType
 import android.util.Base64
 import android.widget.Toast
 import com.keyboardhero.qr.NetworkConfig
@@ -124,6 +125,20 @@ object CommonUtils {
         }
     }
 
+    fun createIntentShareStringData(value: String, title: String): Intent {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, value)
+        return Intent.createChooser(intent, title)
+    }
+
+    fun createIntentShareUriData(uri: Uri, title: String): Intent {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        return Intent.createChooser(intent, title)
+    }
+
     @SuppressLint("InternalInsetResource")
     fun getStatusBarHeight(context: Context): Int {
         val statusBarHeightId = context.resources.getIdentifier(
@@ -131,4 +146,6 @@ object CommonUtils {
         )
         return context.resources.getDimensionPixelSize(statusBarHeightId)
     }
+
+
 }
