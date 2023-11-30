@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
@@ -36,6 +37,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override fun initViews() {
         initViewPager()
+    }
+
+    override fun initHeaderAppBar() {
+        headerAppBar.isVisible = false
     }
 
     private fun initViewPager() {

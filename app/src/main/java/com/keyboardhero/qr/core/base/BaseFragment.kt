@@ -13,12 +13,17 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.keyboardhero.qr.databinding.FragmentBaseBinding
+import com.keyboardhero.qr.features.widget.AppBarWidget
+import com.keyboardhero.qr.features.widget.ProcessDialog
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     override val baseActivity: BaseActivity<*>?
         get() = activity as? BaseActivity<*>
 
     private lateinit var baseBinding: FragmentBaseBinding
+
+    protected val headerAppBar :AppBarWidget
+        get() = baseBinding.appBar
 
     lateinit var binding: VB
         private set
@@ -51,6 +56,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
         super.onViewCreated(view, savedInstanceState)
         mNavController = NavHostFragment.findNavController(this)
         initViews()
+        initHeaderAppBar()
         initActions()
         initData(arguments)
         initObservers()

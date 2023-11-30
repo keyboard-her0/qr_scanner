@@ -24,6 +24,8 @@ interface IBaseFragment : DialogCommonView {
      */
     fun initViews()
 
+    fun initHeaderAppBar()
+
     /**
      * Declare listener on views (e.g., listen click on button, view)
      */

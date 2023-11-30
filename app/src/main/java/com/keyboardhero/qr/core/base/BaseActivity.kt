@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.keyboardhero.qr.core.utils.permission.Permission
 import com.keyboardhero.qr.core.utils.permission.PermissionUtil
+import com.keyboardhero.qr.features.widget.ProcessDialog
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DialogCommonView {
     private lateinit var permissionUtil: PermissionUtil
@@ -16,6 +17,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DialogCommo
     lateinit var binding: VB
         private set
     abstract val bindingInflater: (LayoutInflater) -> VB
+
+    private val processDialog: ProcessDialog by lazy { ProcessDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,8 +126,14 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DialogCommo
     }
 
     fun showLoading() {
+        if (!processDialog.isShowing) {
+            processDialog.show()
+        }
     }
 
     fun hideLoading() {
+        if (processDialog.isShowing) {
+            processDialog.dismiss()
+        }
     }
 }

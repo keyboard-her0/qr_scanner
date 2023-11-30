@@ -3,6 +3,7 @@ package com.keyboardhero.qr.features.history
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentHistoryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +17,12 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     override fun initViews() {
+        initHeaderAppBar()
+    }
+
+    override fun initHeaderAppBar() {
+        headerAppBar.title = getString(R.string.bottom_navigation_history)
+        headerAppBar.titleCentered = true
     }
 
     override fun initActions() {

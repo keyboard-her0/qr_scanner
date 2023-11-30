@@ -6,19 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".features.settings.SettingsFragment">
 
-    <com.keyboardhero.qr.features.widget.AppBarWidget
-        android:id="@+id/appBar"
+    <Button
+        android:id="@+id/btnChangeTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/bottom_navigation_settings"
-        app:titleCentered="true"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        app:layout_constraintTop_toBottomOf="@id/appBar"
-        android:id="@+id/btnChangeTheme"
         android:backgroundTint="?attr/colorSecondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

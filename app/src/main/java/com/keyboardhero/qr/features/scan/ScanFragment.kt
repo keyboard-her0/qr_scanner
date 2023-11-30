@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -63,6 +64,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 button = "OK"
             )
         }
+    }
+
+    override fun initHeaderAppBar() {
+        headerAppBar.isVisible = false
     }
 
     private fun isDeviceSupport(): Boolean {

@@ -2,18 +2,18 @@ package com.keyboardhero.qr.core.utils
 
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.util.Base64
 import android.widget.Toast
-import com.keyboardhero.qr.Constant
 import com.keyboardhero.qr.NetworkConfig
 import com.keyboardhero.qr.core.utils.logging.DebugLog
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -114,5 +114,21 @@ object CommonUtils {
             result = formatter.format(date)
         }
         return result
+    }
+
+    fun isGestureNavigationEnabled(contentResolver: ContentResolver): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Settings.Secure.getInt(contentResolver, "navigation_mode", 0) == 2
+        } else {
+            false
+        }
+    }
+
+    @SuppressLint("InternalInsetResource")
+    fun getStatusBarHeight(context: Context): Int {
+        val statusBarHeightId = context.resources.getIdentifier(
+            "status_bar_height", "dimen", "android"
+        )
+        return context.resources.getDimensionPixelSize(statusBarHeightId)
     }
 }
