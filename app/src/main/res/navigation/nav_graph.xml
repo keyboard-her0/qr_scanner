@@ -37,5 +37,9 @@
         android:id="@+id/generateResultFragment"
         android:name="com.keyboardhero.qr.features.generate.result.GenerateResultFragment"
         android:label="fragment_generate_result"
-        tools:layout="@layout/fragment_generate_result" />
+        tools:layout="@layout/fragment_generate_result" >
+        <argument
+            android:name="qrInput"
+            app:argType="com.keyboardhero.qr.shared.domain.dto.input.QrObject" />
+    </fragment>
 </navigation>

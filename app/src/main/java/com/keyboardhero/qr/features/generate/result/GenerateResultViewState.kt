@@ -1,8 +1,8 @@
 package com.keyboardhero.qr.features.generate.result
 
-import android.graphics.Bitmap
+import com.keyboardhero.qr.shared.domain.dto.input.QrObject
 
 data class GenerateResultViewState(
     val loading: Boolean,
-    val bitmapQR: Bitmap?
+    val qrInput: QrObject?
 )

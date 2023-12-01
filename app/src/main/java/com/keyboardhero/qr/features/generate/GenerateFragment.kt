@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentGenerateBinding
-import com.keyboardhero.qr.features.generate.result.GenerateScreen
+import com.keyboardhero.qr.features.generate.result.GenerateResultFragmentArgs
+import com.keyboardhero.qr.features.generate.result.GenerateResultScreen
+import com.keyboardhero.qr.shared.domain.dto.input.TextQr
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +42,10 @@ class GenerateFragment : BaseFragment<FragmentGenerateBinding>() {
 
     override fun initActions() {
         generateItemAdapter.onItemClick = {
-            router.navigate(GenerateScreen)
+            router.navigate(
+                GenerateResultScreen,
+                GenerateResultFragmentArgs(TextQr("123456")).toBundle()
+            )
         }
     }
 

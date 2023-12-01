@@ -14,7 +14,7 @@ object QRUtils {
     fun generateQRBitmap(value: String, size: Size): Bitmap? {
         var bitmap: Bitmap? = null
         try {
-            val hintMap = mapOf(EncodeHintType.MARGIN to 0)
+            val hintMap = mapOf(EncodeHintType.MARGIN to 2)
 
             val bitMatrix = QRCodeWriter().encode(
                 value, BarcodeFormat.QR_CODE, size.width, size.height, hintMap
