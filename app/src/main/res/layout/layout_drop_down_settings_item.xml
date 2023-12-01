@@ -2,7 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_generate_item"
+    android:paddingHorizontal="@dimen/size_8dp"
+    android:paddingVertical="@dimen/size_16dp">
 
     <ImageView
         android:id="@+id/startIcon"
@@ -18,10 +21,9 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_4dp"
         android:layout_toStartOf="@id/tvSelected"
         android:layout_toEndOf="@id/startIcon"
-        android:textSize="@dimen/font_size_16_small"
+        android:textSize="@dimen/font_size_18_medium"
         tools:text="Title" />
 
     <TextView
@@ -31,9 +33,9 @@
         android:layout_below="@id/tvTitle"
         android:layout_alignStart="@id/tvTitle"
         android:layout_marginTop="@dimen/size_4dp"
-        android:layout_marginBottom="@dimen/size_4dp"
         android:layout_toStartOf="@id/tvSelected"
-        android:textSize="@dimen/font_size_12_small"
+        android:textSize="@dimen/font_size_16_small"
+        android:visibility="gone"
         tools:text="Description" />
 
     <TextView

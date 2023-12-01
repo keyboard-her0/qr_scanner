@@ -8,5 +8,8 @@
     </declare-styleable>
 
     <attr name="headerAppBarContentColor" format="color"/>
+    <attr name="headerAppBarBackground" format="color"/>
+    <attr name="statusBarColor" format="color"/>
+    <attr name="navigationBarColor" format="color"/>
 
 </resources>

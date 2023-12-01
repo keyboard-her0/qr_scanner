@@ -27,11 +27,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @SuppressLint("ResourceType")
     private fun initViews() {
-        if (isGestureNavigationEnabled(contentResolver = contentResolver)) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-            window.navigationBarColor = Color.TRANSPARENT
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-        }
+//        if (isGestureNavigationEnabled(contentResolver = contentResolver)) {
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+//            window.navigationBarColor = Color.TRANSPARENT
+//        } else {
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+//        }
     }
 }

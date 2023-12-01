@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".features.settings.SettingsFragment">
 
+    <include
+        android:id="@+id/itemChangeTheme"
+        android:layout_marginTop="@dimen/size_8dp"
+        layout="@layout/layout_drop_down_settings_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
