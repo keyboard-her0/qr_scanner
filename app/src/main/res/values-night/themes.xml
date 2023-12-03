@@ -24,8 +24,8 @@
 
         <item name="colorOnBackground">@color/color_0A1826</item>
         <item name="dividerColor">#DD636262</item>
-        <item name="iconColor">@color/white</item>
-        <item name="textColor">@color/white</item>
+        <item name="iconColor">#9da4a9</item>
+        <item name="textColor">#9da4a9</item>
 
     </style>
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="?attr/colorOnBackground"
     android:layout_height="match_parent"
     tools:context=".features.generate.result.GenerateResultFragment">
 
@@ -22,7 +23,8 @@
             android:id="@+id/imgQr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/size_16dp" />
+            android:padding="@dimen/size_16dp"
+            tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 
 

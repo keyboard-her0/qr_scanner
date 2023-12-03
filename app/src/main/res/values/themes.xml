@@ -25,8 +25,8 @@
 
         <item name="colorOnBackground">@color/color_F3F5FA</item>
         <item name="dividerColor">@color/color_FEAF0FF</item>
-        <item name="iconColor">@color/black</item>
-        <item name="textColor">@color/black</item>
+        <item name="iconColor">#757575</item>
+        <item name="textColor">#757575</item>
 
     </style>
 
