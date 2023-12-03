@@ -7,4 +7,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ScanViewModel @Inject constructor() : BaseViewModel<ScanViewStates, ScanViewEvents>() {
     override fun initState(): ScanViewStates = ScanViewStates(false, "")
+
+    fun enableFlash(){
+        dispatchState(currentState.copy(flashEnable = !currentState.flashEnable))
+    }
 }

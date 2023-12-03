@@ -9,7 +9,6 @@ object NetworkConfig {
 
     const val WRITE_TIMEOUT: Long = 40_000
 
-    const val MESSENGER_APP_URI = "https://play.google.com/store/apps/details?id=com.facebook.orca"
 }
 
 object SharedPreferenceConfig {

@@ -1,21 +1,17 @@
 package com.keyboardhero.qr.core.utils
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.text.InputType
 import android.util.Base64
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import com.keyboardhero.qr.NetworkConfig
-import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -39,29 +35,6 @@ object CommonUtils {
     }
 
     /**
-     * This method using to open messenger chat to an user
-     *
-     * @param context [Context]
-     * @param user user to chat with
-     */
-    fun openAppMessenger(context: Context, user: String?) {
-        val uri: Uri = Uri.parse(user)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-
-        try {
-            context.startActivity(intent)
-        } catch (ex: ActivityNotFoundException) {
-            DebugLog.e("Messenger is not installed")
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(NetworkConfig.MESSENGER_APP_URI),
-                ),
-            )
-        }
-    }
-
-    /**
      * This method using to call to a phone number
      *
      * @param context [Context]
@@ -74,16 +47,6 @@ object CommonUtils {
         if (intent.resolveActivity(context.packageManager) != null) {
             context.startActivity(intent)
         }
-    }
-
-    /**
-     * This method using to show a toast message
-     *
-     * @param context [Context]
-     * @param message message
-     */
-    fun openToastDialog(context: Context, message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -165,4 +128,7 @@ object CommonUtils {
         }
     }
 
+    fun hasFlash(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    }
 }

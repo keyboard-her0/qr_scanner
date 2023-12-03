@@ -12,6 +12,18 @@
         android:layout_height="match_parent" />
 
     <Button
+        android:id="@+id/btnToggleFlash"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Bật đèn"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectQR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/btnSelectQR"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"

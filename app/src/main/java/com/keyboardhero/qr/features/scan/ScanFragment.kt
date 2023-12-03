@@ -6,8 +6,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -24,10 +27,12 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
+import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.main.MainFragment
 import com.keyboardhero.qr.features.widget.BarcodePreview
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ScanFragment : BaseFragment<FragmentScannerBinding>() {
@@ -38,6 +43,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
     private lateinit var selectPictureContract: ActivityResultLauncher<String>
+
+    @Inject
+    lateinit var cameraManager: CameraManager
 
     override fun initData(data: Bundle?) {
         selectPictureContract =
@@ -64,6 +72,15 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 message = "Thiết bị của bạn không được hỗ trợ camera",
                 button = "OK"
             )
+        }
+    }
+
+    private fun enableFlash(enable: Boolean, cameraId: String) {
+        val currentMode = cameraManager.getCameraCharacteristics(cameraId).get(
+            CameraCharacteristics.FLASH_INFO_AVAILABLE
+        )
+        if (currentMode == true){
+            cameraManager.setTorchMode(cameraId, enable)
         }
     }
 
@@ -185,6 +202,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                     )
                 }
             }
+        }
+
+        binding.btnToggleFlash.setOnClickListener {
+
         }
     }
 

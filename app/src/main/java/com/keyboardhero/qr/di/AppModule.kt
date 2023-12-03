@@ -1,6 +1,7 @@
 package com.keyboardhero.qr.di
 
 import android.content.Context
+import android.hardware.camera2.CameraManager
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import dagger.Module
@@ -38,4 +39,9 @@ class AppModule {
     fun providesApplicationScope(
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
     ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
+
+    @Provides
+    fun providerCameraManager(@ApplicationContext context: Context): CameraManager{
+        return context.applicationContext.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+    }
 }
