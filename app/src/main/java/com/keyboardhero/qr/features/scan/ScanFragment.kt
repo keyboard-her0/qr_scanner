@@ -22,6 +22,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.main.MainFragment
@@ -55,8 +56,8 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun initViews() {
         if (isDeviceSupport()) {
- //           initCameraSource()
-//            openCameraView()
+            initCameraSource()
+            openCameraView()
         } else {
             showSingleOptionDialog(
                 title = "Lỗi",
@@ -67,7 +68,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initHeaderAppBar() {
-        headerAppBar.isVisible = false
+        headerAppBar.title = getString(R.string.bottom_navigation_scan)
     }
 
     private fun isDeviceSupport(): Boolean {
@@ -145,7 +146,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun onPause() {
         super.onPause()
-//        cancelCamera()
+        cancelCamera()
     }
 
     private fun cancelCamera() {
@@ -161,10 +162,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun onResume() {
         super.onResume()
-//        if (binding.surfaceView.getStatus() == BarcodePreview.Status.OFF) {
-//            startCameraSource()
-//            binding.surfaceView.startAnimation()
-//        }
+        if (binding.surfaceView.getStatus() == BarcodePreview.Status.OFF) {
+            startCameraSource()
+            binding.surfaceView.startAnimation()
+        }
     }
 
     private fun shareData(value: String) {

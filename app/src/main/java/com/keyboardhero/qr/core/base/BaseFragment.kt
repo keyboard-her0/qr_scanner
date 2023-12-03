@@ -30,6 +30,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     @Inject
     lateinit var router: Router
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            initData(arguments)
+        }
+    }
     @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,22 +44,19 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     ): View? {
         baseBinding = FragmentBaseBinding.inflate(inflater, container, false)
         binding = bindingInflater.invoke(inflater, baseBinding.contentContainer, true)
+
+        initViews()
+        initHeaderAppBar()
+        initActions()
+
         return baseBinding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            initData(arguments)
-        }
-    }
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
-        initHeaderAppBar()
-        initActions()
+
         initObservers()
 
         (requireActivity() as OnBackPressedDispatcherOwner)
