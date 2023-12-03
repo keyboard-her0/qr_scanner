@@ -22,7 +22,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     override fun initHeaderAppBar() {
         headerAppBar.title = getString(R.string.bottom_navigation_history)
-        headerAppBar.titleCentered = true
     }
 
     override fun initActions() {

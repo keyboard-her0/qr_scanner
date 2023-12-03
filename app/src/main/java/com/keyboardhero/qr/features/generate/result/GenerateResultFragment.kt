@@ -45,7 +45,6 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
 
     override fun initHeaderAppBar() {
         headerAppBar.title = getString(R.string.title_generate_result_screen)
-        headerAppBar.titleCentered = true
         headerAppBar.navigationIconId = R.drawable.ic_back_24
     }
 

@@ -32,10 +32,16 @@ object ThemeSetting {
         }
     }
 
-    enum class ThemeType {
-        AUTO,
-        DAY,
-        NIGHT,
+    enum class ThemeType(val value: Int) {
+        AUTO(0),
+        DAY(1),
+        NIGHT(2);
+
+        companion object {
+            fun getValue(value: Int?): ThemeType{
+                return values().find { it.value == value } ?: DEFAULT_THEME_MODE
+            }
+        }
     }
 
     val DEFAULT_THEME_MODE = ThemeType.AUTO

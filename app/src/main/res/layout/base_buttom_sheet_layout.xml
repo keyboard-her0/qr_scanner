@@ -6,14 +6,15 @@
 
     <View
         android:id="@+id/bottomSheetToggleView"
-        android:layout_width="@dimen/size_60dp"
-        android:layout_height="@dimen/size_2dp"
+        android:layout_width="@dimen/size_40dp"
+        android:layout_height="@dimen/size_6dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/size_8dp"
-        android:background="@color/colorPrimary" />
+        android:background="@drawable/background_toggle_view" />
 
     <FrameLayout
         android:id="@+id/bottomSheetHolder"
         android:layout_width="match_parent"
+        android:background="@color/transparent"
         android:layout_height="wrap_content" />
 </LinearLayout>

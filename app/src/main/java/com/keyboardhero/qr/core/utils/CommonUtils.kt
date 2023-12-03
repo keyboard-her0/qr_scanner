@@ -13,8 +13,10 @@ import android.provider.Settings
 import android.text.InputType
 import android.util.Base64
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.keyboardhero.qr.NetworkConfig
 import com.keyboardhero.qr.core.utils.logging.DebugLog
+import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -147,5 +149,20 @@ object CommonUtils {
         return context.resources.getDimensionPixelSize(statusBarHeightId)
     }
 
+    fun switchThemeMode(mode: Int) {
+        when (mode) {
+            ThemeSetting.ThemeType.AUTO.ordinal -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+
+            ThemeSetting.ThemeType.DAY.ordinal -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+            else -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+        }
+    }
 
 }

@@ -24,6 +24,9 @@
         <item name="navigationBarColor">?attr/colorSecondary</item>
 
         <item name="colorOnBackground">@color/color_F3F5FA</item>
+        <item name="dividerColor">@color/color_FEAF0FF</item>
+        <item name="iconColor">@color/black</item>
+        <item name="textColor">@color/black</item>
 
     </style>
 

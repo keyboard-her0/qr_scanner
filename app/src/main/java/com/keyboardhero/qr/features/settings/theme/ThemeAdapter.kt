@@ -2,6 +2,7 @@ package com.keyboardhero.qr.features.settings.theme
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keyboardhero.qr.databinding.ItemSelectLayoutBinding
@@ -26,6 +27,7 @@ class ThemeAdapter :
         fun bind(theme: ThemeSetting.Theme) {
             with(binding) {
                 tvTitle.text = theme.title
+                imgCheck.isVisible = theme.isSelected
             }
         }
     }

@@ -1,19 +1,22 @@
 package com.keyboardhero.qr.features.main
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.WindowManager
 import com.keyboardhero.qr.core.base.BaseActivity
-import com.keyboardhero.qr.core.utils.CommonUtils.isGestureNavigationEnabled
+import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.databinding.ActivityMainBinding
+import com.keyboardhero.qr.shared.data.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
         get() = ActivityMainBinding::inflate
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +30,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @SuppressLint("ResourceType")
     private fun initViews() {
+        initThemes()
 //        if (isGestureNavigationEnabled(contentResolver = contentResolver)) {
 //            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 //            window.navigationBarColor = Color.TRANSPARENT
 //        } else {
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 //        }
+    }
+
+    private fun initThemes() {
+        val typeTheme = appPreference.theme
+        CommonUtils.switchThemeMode(typeTheme)
     }
 }

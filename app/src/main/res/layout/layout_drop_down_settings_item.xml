@@ -13,15 +13,16 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="@dimen/size_8dp"
-        android:src="@drawable/ic_web_24"
+        android:src="@drawable/ic_dark_mode_24"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_web_24" />
+        tools:src="@drawable/ic_dark_mode_24" />
 
     <TextView
         android:id="@+id/tvTitle"
+        android:textColor="?attr/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/tvSelected"
+        android:layout_toStartOf="@id/endIcon"
         android:layout_toEndOf="@id/startIcon"
         android:textSize="@dimen/font_size_18_medium"
         tools:text="Title" />
@@ -33,21 +34,11 @@
         android:layout_below="@id/tvTitle"
         android:layout_alignStart="@id/tvTitle"
         android:layout_marginTop="@dimen/size_4dp"
-        android:layout_toStartOf="@id/tvSelected"
+        android:layout_toStartOf="@id/endIcon"
         android:textSize="@dimen/font_size_16_small"
         android:visibility="gone"
         tools:text="Description" />
 
-    <TextView
-        android:id="@+id/tvSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/size_8dp"
-        android:layout_toStartOf="@id/endIcon"
-        android:textSize="@dimen/font_size_16_small"
-        tools:ignore="RelativeOverlap"
-        tools:text="Selected" />
 
     <ImageView
         android:id="@+id/endIcon"

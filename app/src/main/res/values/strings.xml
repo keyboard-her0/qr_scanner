@@ -20,5 +20,6 @@
     <string name="dialog_process_message">Please wait a moment</string>
     <string name="share">Share</string>
     <string name="save">Save</string>
+    <string name="select_theme">Select theme</string>
 
 </resources>

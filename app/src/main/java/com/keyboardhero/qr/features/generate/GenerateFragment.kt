@@ -37,7 +37,6 @@ class GenerateFragment : BaseFragment<FragmentGenerateBinding>() {
 
     override fun initHeaderAppBar() {
         headerAppBar.title = getString(R.string.bottom_navigation_generate)
-        headerAppBar.titleCentered = true
     }
 
     override fun initActions() {

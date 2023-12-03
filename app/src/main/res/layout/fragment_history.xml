@@ -9,6 +9,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
+        android:background="?attr/headerAppBarBackground"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 

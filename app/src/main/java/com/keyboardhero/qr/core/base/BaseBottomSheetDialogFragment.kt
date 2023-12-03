@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
@@ -32,6 +33,11 @@ class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
         animationRes?.let {
             dialog?.window?.attributes?.windowAnimations = it
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_Design_BottomSheetDialog)
     }
 
     override fun onCreateView(
@@ -59,12 +65,13 @@ class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         childFragment?.also { fragment ->
             childFragmentManager.beginTransaction().apply {
-                replace(R.id.bottomSheetHolder, fragment)
+                replace(binding.bottomSheetHolder.id, fragment)
                 commit()
             }
         }
 
         (view.parent as? View)?.setBackgroundColor(Color.TRANSPARENT)
+
         arguments?.getBoolean(KEY_HIDE_BOTTOM_TOGGLE_VIEW)?.let { isShow ->
             binding.bottomSheetToggleView.isVisible = isShow
         }
