@@ -5,12 +5,10 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.utils.CommonUtils.getStatusBarHeight
-import com.keyboardhero.qr.core.utils.views.dp
 import com.keyboardhero.qr.databinding.LayoutToolBarBinding
 
 class AppBarWidget @JvmOverloads constructor(

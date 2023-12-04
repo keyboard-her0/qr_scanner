@@ -9,13 +9,15 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Size
-import android.view.SurfaceView
+import android.view.View
+import androidx.core.content.ContextCompat
+import com.keyboardhero.qr.R
 
 class BarcodePreview @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : SurfaceView(context, attributeSet, defStyleAttr) {
+) : View(context, attributeSet, defStyleAttr) {
 
     private val backgroundPain = Paint()
     private var bgColor = Color.parseColor("#4D000000")
@@ -28,7 +30,7 @@ class BarcodePreview @JvmOverloads constructor(
         backgroundPain.apply {
             style = Paint.Style.STROKE
             strokeWidth = 5f
-            color = Color.RED
+            color = ContextCompat.getColor(context, R.color.orange)
             isAntiAlias = true
         }
         valueZoom.duration = DURATION_ZOOM
@@ -38,7 +40,6 @@ class BarcodePreview @JvmOverloads constructor(
             rectDetection = getRectZoomIn(rectDetection, animatedValue)
             invalidate()
         }
-        status = Status.CHECKING
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -53,20 +54,11 @@ class BarcodePreview @JvmOverloads constructor(
         )
 
         rectDetection = rectDetectionDefault
-        setDefault()
     }
 
-    override fun dispatchDraw(canvas: Canvas?) {
-        super.dispatchDraw(canvas)
-        if (isLaidOut) {
-            canvas?.drawRect(rectDetection, backgroundPain)
-            if (status == Status.DETECTED || status == Status.OFF) {
-                canvas?.drawRect(rectDetectionDefault, backgroundPain)
-                valueZoom.cancel()
-            } else if (!valueZoom.isStarted) {
-                valueZoom.start()
-            }
-        }
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        canvas?.drawRect(rectDetection, backgroundPain)
     }
 
     fun rectDetection(rectDetection: Rect, sizeDetection: Size) {
@@ -81,25 +73,37 @@ class BarcodePreview @JvmOverloads constructor(
         )
 
         status = Status.DETECTED
+        stopAnimation()
         invalidate()
     }
 
-    fun setDefault() {
-        status = Status.CHECKING
-        rectDetection = rectDetectionDefault
-        invalidate()
+    fun start() {
+        if (status != Status.CHECKING) {
+            status = Status.CHECKING
+            rectDetection = rectDetectionDefault
+            startAnimation()
+        }
     }
 
-    fun startAnimation() {
-        status = Status.CHECKING
+    fun stop(isReset : Boolean = true) {
+        status = Status.OFF
+        if (isReset){
+            stopAnimation()
+            rectDetection = rectDetectionDefault
+            invalidate()
+        }
+    }
+
+    private fun startAnimation() {
         if (!valueZoom.isStarted) {
             valueZoom.start()
         }
     }
 
-    fun stopAnimation() {
-        status = Status.OFF
-        valueZoom.cancel()
+    private fun stopAnimation() {
+        if (valueZoom.isStarted) {
+            valueZoom.cancel()
+        }
     }
 
     private fun getRectZoomIn(rectF: RectF, value: Float): RectF {
@@ -109,8 +113,6 @@ class BarcodePreview @JvmOverloads constructor(
         rectF.bottom += value
         return rectF
     }
-
-    fun getStatus() = status
 
     enum class Status {
         CHECKING,

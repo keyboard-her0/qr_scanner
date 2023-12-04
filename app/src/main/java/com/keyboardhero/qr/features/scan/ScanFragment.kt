@@ -2,7 +2,6 @@ package com.keyboardhero.qr.features.scan
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -10,7 +9,6 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -25,12 +23,8 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
-import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
-import com.keyboardhero.qr.features.main.MainFragment
-import com.keyboardhero.qr.features.widget.BarcodePreview
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -79,7 +73,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         val currentMode = cameraManager.getCameraCharacteristics(cameraId).get(
             CameraCharacteristics.FLASH_INFO_AVAILABLE
         )
-        if (currentMode == true){
+        if (currentMode == true) {
             cameraManager.setTorchMode(cameraId, enable)
         }
     }
@@ -108,7 +102,8 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         binding.surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(p0: SurfaceHolder) {
                 startCameraSource()
-                detectQRCode()
+                startDetectQRCode()
+                binding.barcodePreview.start()
             }
 
             override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {
@@ -135,7 +130,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         }
     }
 
-    private fun detectQRCode() {
+    private fun startDetectQRCode() {
         barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
                 //Do nothing
@@ -146,16 +141,12 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 if (barcodes.size() > 0) {
                     val barcode = barcodes.valueAt(0)
 
-                    binding.surfaceView.rectDetection(
+                    binding.barcodePreview.rectDetection(
                         barcode.boundingBox,
                         Size(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
                     )
-
-                    if (binding.surfaceView.getStatus() == BarcodePreview.Status.DETECTED) {
-                        shareData(barcode.displayValue)
-                    }
                 } else {
-                    binding.surfaceView.setDefault()
+                    binding.barcodePreview.start()
                 }
             }
         })
@@ -163,27 +154,12 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun onPause() {
         super.onPause()
-        cancelCamera()
+        binding.barcodePreview.stop(false)
+        cameraSource.stop()
+//        cameraSource.release()
+//        barcodeDetector.release()
     }
 
-    private fun cancelCamera() {
-        val isScanScreen = (parentFragment as? MainFragment)?.getCurrentPage() is ScanFragment
-        if (!isScanScreen) {
-            cameraSource.stop()
-            cameraSource.release()
-            barcodeDetector.release()
-
-            binding.surfaceView.stopAnimation()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (binding.surfaceView.getStatus() == BarcodePreview.Status.OFF) {
-            startCameraSource()
-            binding.surfaceView.startAnimation()
-        }
-    }
 
     private fun shareData(value: String) {
 
@@ -205,7 +181,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         }
 
         binding.btnToggleFlash.setOnClickListener {
-
+            binding.barcodePreview.start()
         }
     }
 

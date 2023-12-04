@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".features.scan.ScanFragment">
 
-    <com.keyboardhero.qr.features.widget.BarcodePreview
+    <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.keyboardhero.qr.features.widget.BarcodePreview
+        android:id="@+id/barcodePreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <Button
         android:id="@+id/btnToggleFlash"
