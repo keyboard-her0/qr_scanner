@@ -9,8 +9,6 @@
 
     <attr name="headerAppBarContentColor" format="color"/>
     <attr name="headerAppBarBackground" format="color"/>
-    <attr name="statusBarColor" format="color"/>
-    <attr name="navigationBarColor" format="color"/>
     <attr name="dividerColor" format="color"/>
     <attr name="iconColor" format="color"/>
     <attr name="textColor" format="color"/>

@@ -85,7 +85,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initHeaderAppBar() {
-        headerAppBar.title = getString(R.string.bottom_navigation_scan)
+        headerAppBar.isVisible = false
     }
 
     private fun isDeviceSupport(): Boolean {

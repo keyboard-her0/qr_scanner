@@ -3,6 +3,7 @@ package com.keyboardhero.qr.features.main
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.core.view.WindowCompat
 import com.keyboardhero.qr.core.base.BaseActivity
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.databinding.ActivityMainBinding
@@ -31,12 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     @SuppressLint("ResourceType")
     private fun initViews() {
         initThemes()
-//        if (isGestureNavigationEnabled(contentResolver = contentResolver)) {
-//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-//            window.navigationBarColor = Color.TRANSPARENT
-//        } else {
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-//        }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
     private fun initThemes() {

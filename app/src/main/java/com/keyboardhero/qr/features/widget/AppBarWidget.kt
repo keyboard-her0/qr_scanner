@@ -62,7 +62,7 @@ class AppBarWidget @JvmOverloads constructor(
             }
         }
 
-       // binding.root.setPadding(0, getStatusBarHeight(context), 0, 0)
+        binding.root.setPadding(0, getStatusBarHeight(context), 0, 0)
         binding.toolBar.setNavigationOnClickListener {
             navigationOnClickListener?.invoke()
         }
