@@ -56,9 +56,9 @@ class BarcodePreview @JvmOverloads constructor(
         rectDetection = rectDetectionDefault
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?.drawRect(rectDetection, backgroundPain)
+        canvas.drawRect(rectDetection, backgroundPain)
     }
 
     fun rectDetection(rectDetection: Rect, sizeDetection: Size) {

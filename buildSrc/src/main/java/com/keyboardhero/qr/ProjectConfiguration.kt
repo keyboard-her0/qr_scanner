@@ -1,18 +1,18 @@
 package com.keyboardhero.qr
 
 object Versions {
-    const val COMPILE_SDK = 31
+    const val COMPILE_SDK = 34
     const val TARGET_SDK = 31
     const val MIN_SDK = 23
 
     const val BUILD_TOOLS = "30.0.2"
-    const val GRADLE_PLUGIN = "7.0.4"
-    const val KOTLIN_PLUGIN = "1.6.20-M1"
+    const val GRADLE_PLUGIN = "7.2.2"
+    const val KOTLIN_PLUGIN = "1.7.0"
 
     const val COROUTINES = "1.6.0"
     const val CORE_KTX = "1.7.0"
-    const val ACTIVITY = "1.3.0-rc01"
-    const val APPCOMPAT = "1.4.1"
+    const val ACTIVITY = "1.8.0"
+    const val APPCOMPAT = "1.6.1"
     const val CONSTRAINT_LAYOUT = "2.0.4"
     const val RECYCLER_VIEW = "1.1.0"
     const val ROOM = "2.3.0"
@@ -20,7 +20,7 @@ object Versions {
     const val LIFECYCLE = "2.4.0"
     const val NAVIGATION = "2.4.1"
     const val CRYPTO = "1.1.0-alpha03"
-    const val HILT = "2.40.5"
+    const val HILT = "2.42"
     const val OKHTTP_LOGGING = "4.9.0"
     const val GSON = "2.8.7"
     const val RETROFIT = "2.9.0"

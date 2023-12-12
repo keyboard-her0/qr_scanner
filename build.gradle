@@ -13,7 +13,7 @@ buildscript {
 
         classpath Libs.AndroidX.Navigation.SAFE_ARGS_PLUGIN
         classpath Libs.DI.GRADLE_PLUGIN
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20'
+        classpath Libs.Gradle.KOTLIN_PLUGIN
     }
 }
 
@@ -47,7 +47,6 @@ subprojects {
 
                 kotlinOptions {
                     jvmTarget = '1.8'
-                    useIR = true
                 }
 
                 testOptions {

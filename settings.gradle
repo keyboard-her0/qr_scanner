@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "QR Scanner"
+rootProject.name = "QR-Scanner"

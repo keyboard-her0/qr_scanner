@@ -155,7 +155,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     override fun onPause() {
         super.onPause()
         binding.barcodePreview.stop(false)
-        cameraSource.stop()
+        cameraSource.release()
 //        cameraSource.release()
 //        barcodeDetector.release()
     }
