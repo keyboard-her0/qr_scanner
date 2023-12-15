@@ -1,15 +1,14 @@
 package com.keyboardhero.qr.shared.domain.dto.input
 
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class EmailQr(
-    val email: String,
-    val subject: String,
+data class SmsBarcode(
+    val phoneNumber: String,
     val message: String,
     override val isFavorite: Boolean = false
-) : QrObject {
+) : BarcodeData {
     override fun getInputData(): String {
-        return ""
+       return message
     }
 }

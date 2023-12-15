@@ -1,32 +1,38 @@
 package com.keyboardhero.qr.features.scan
 
-import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.hardware.camera2.CameraCharacteristics
-import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
-import android.view.SurfaceHolder
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.OptIn
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.Preview
+import androidx.camera.core.UseCaseGroup
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import com.google.android.gms.vision.CameraSource
-import com.google.android.gms.vision.Detector
-import com.google.android.gms.vision.Frame
-import com.google.android.gms.vision.barcode.Barcode
-import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.common.util.concurrent.ListenableFuture
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.common.InputImage
 import com.keyboardhero.qr.core.base.BaseFragment
+import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ScanFragment : BaseFragment<FragmentScannerBinding>() {
@@ -34,12 +40,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         get() = FragmentScannerBinding::inflate
 
     private val viewModel: ScanViewModel by viewModels()
-    private lateinit var cameraSource: CameraSource
-    private lateinit var barcodeDetector: BarcodeDetector
+    private var camera: Camera? = null
+    private var cameraProvider: ProcessCameraProvider? = null
+    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var selectPictureContract: ActivityResultLauncher<String>
-
-    @Inject
-    lateinit var cameraManager: CameraManager
 
     override fun initData(data: Bundle?) {
         selectPictureContract =
@@ -58,8 +62,8 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun initViews() {
         if (isDeviceSupport()) {
-            initCameraSource()
-            openCameraView()
+            initCamera()
+            binding.previewView.scaleType = PreviewView.ScaleType.FILL_CENTER
         } else {
             showSingleOptionDialog(
                 title = "Lỗi",
@@ -69,13 +73,83 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         }
     }
 
-    private fun enableFlash(enable: Boolean, cameraId: String) {
-        val currentMode = cameraManager.getCameraCharacteristics(cameraId).get(
-            CameraCharacteristics.FLASH_INFO_AVAILABLE
+    private fun initCamera() {
+        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+
+        cameraProvider?.unbindAll()
+        cameraProviderFuture.addListener(
+            {
+                try {
+                    cameraProvider = cameraProviderFuture.get()
+                    processScan()
+                } catch (e: Exception) {
+                    DebugLog.e("initCamera Error: ${e.printStackTrace()}")
+                }
+            },
+            ContextCompat.getMainExecutor(requireContext())
         )
-        if (currentMode == true) {
-            cameraManager.setTorchMode(cameraId, enable)
+    }
+
+    @OptIn(ExperimentalGetImage::class)
+    private fun processScan() {
+        val preview = Preview.Builder()
+            .build()
+
+        val imageAnalysis = ImageAnalysis.Builder()
+            .setTargetAspectRatio(AspectRatio.RATIO_16_9)
+            .build()
+
+        imageAnalysis.setAnalyzer(
+            ContextCompat.getMainExecutor(requireContext())
+        ) { imageProxy ->
+            val image = InputImage.fromMediaImage(
+                imageProxy.image!!, imageProxy.imageInfo.rotationDegrees
+            )
+
+            val options = BarcodeScannerOptions.Builder().build()
+            val scanner = BarcodeScanning.getClient(options)
+
+            scanner.process(image)
+                .addOnSuccessListener { barcodes ->
+                    if (barcodes.isNotEmpty()) {
+                        val rect = barcodes.getOrNull(0)?.boundingBox
+                        if (rect != null) {
+                            binding.barcodePreview.rectDetection(
+                                rect,
+                                Size(imageProxy.width, imageProxy.height)
+                            )
+                        }
+                    } else {
+                        binding.barcodePreview.start()
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to scan.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnCompleteListener(
+                    ContextCompat.getMainExecutor(requireContext())
+                ) { imageProxy.close() }
         }
+
+        preview.setSurfaceProvider(binding.previewView.surfaceProvider)
+
+        val useCaseGroup = UseCaseGroup.Builder()
+            .addUseCase(preview)
+            .addUseCase(imageAnalysis)
+            .build()
+
+        camera = cameraProvider?.bindToLifecycle(
+            viewLifecycleOwner,
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            useCaseGroup
+        )
+    }
+
+    private fun enableFlash(enable: Boolean, cameraId: String) {
+
     }
 
     override fun initHeaderAppBar() {
@@ -85,81 +159,6 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     private fun isDeviceSupport(): Boolean {
         return requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
-
-    private fun initCameraSource() {
-        barcodeDetector = BarcodeDetector.Builder(requireContext())
-            .setBarcodeFormats(Barcode.ALL_FORMATS).build()
-
-        cameraSource = CameraSource.Builder(requireContext(), barcodeDetector)
-            .setRequestedPreviewSize(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
-            .setFacing(CameraSource.CAMERA_FACING_BACK)
-            .setRequestedFps(CAMERA_PREVIEW_FPS)
-            .setAutoFocusEnabled(true)
-            .build()
-    }
-
-    private fun openCameraView() {
-        binding.surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceCreated(p0: SurfaceHolder) {
-                startCameraSource()
-                startDetectQRCode()
-                binding.barcodePreview.start()
-            }
-
-            override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {
-                //Do nothing
-            }
-
-            override fun surfaceDestroyed(p0: SurfaceHolder) {
-                cameraSource.stop()
-            }
-        })
-    }
-
-    private fun startCameraSource() {
-        requestPermissions(CAMERA) { isGranted, _ ->
-            if (isGranted) {
-                cameraSource.start(binding.surfaceView.holder)
-            } else {
-                showSingleOptionDialog(
-                    title = "Lỗi",
-                    message = "Không có quyền truy cập máy ảnh",
-                    button = "Đóng"
-                )
-            }
-        }
-    }
-
-    private fun startDetectQRCode() {
-        barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
-            override fun release() {
-                //Do nothing
-            }
-
-            override fun receiveDetections(detections: Detector.Detections<Barcode>) {
-                val barcodes = detections.detectedItems
-                if (barcodes.size() > 0) {
-                    val barcode = barcodes.valueAt(0)
-
-                    binding.barcodePreview.rectDetection(
-                        barcode.boundingBox,
-                        Size(CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT)
-                    )
-                } else {
-                    binding.barcodePreview.start()
-                }
-            }
-        })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.barcodePreview.stop(false)
-        cameraSource.release()
-//        cameraSource.release()
-//        barcodeDetector.release()
-    }
-
 
     private fun shareData(value: String) {
 
@@ -192,16 +191,16 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     private fun scanFromPatch(bitmap: Bitmap): String? {
-        try {
-            val frame = Frame.Builder().setBitmap(bitmap).build()
-
-            val barcodes = barcodeDetector.detect(frame)
-            if (barcodes.size() > 0) {
-                return barcodes.valueAt(0).displayValue
-            }
-        } catch (e: Exception) {
-            e.stackTrace
-        }
+//        try {
+//            val frame = Frame.Builder().setBitmap(bitmap).build()
+//
+//            val barcodes = barcodeDetector.detect(frame)
+//            if (barcodes.size() > 0) {
+//                return barcodes.valueAt(0).displayValue
+//            }
+//        } catch (e: Exception) {
+//            e.stackTrace
+//        }
         return null
     }
 

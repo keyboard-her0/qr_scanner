@@ -24,7 +24,7 @@ object QRUtils {
 
             for (x in 0 until size.width) {
                 for (y in 0 until size.height) {
-                    bitmap?.setPixel(x, y, getColorWithPixel(bitMatrix = bitMatrix, x = x, y = y))
+                    bitmap.setPixel(x, y, getColorWithPixel(bitMatrix = bitMatrix, x = x, y = y))
                 }
             }
 

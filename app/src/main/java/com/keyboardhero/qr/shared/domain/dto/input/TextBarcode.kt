@@ -3,11 +3,11 @@ package com.keyboardhero.qr.shared.domain.dto.input
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UrlQr(
-    val url: String,
+data class TextBarcode(
+    val data: String,
     override val isFavorite: Boolean = false
-) : QrObject {
+) : BarcodeData {
     override fun getInputData(): String {
-        return url
+        return data
     }
 }

@@ -10,7 +10,7 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentGenerateBinding
 import com.keyboardhero.qr.features.generate.result.GenerateResultFragmentArgs
 import com.keyboardhero.qr.features.generate.result.GenerateResultScreen
-import com.keyboardhero.qr.shared.domain.dto.input.TextQr
+import com.keyboardhero.qr.shared.domain.dto.input.TextBarcode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +43,7 @@ class GenerateFragment : BaseFragment<FragmentGenerateBinding>() {
         generateItemAdapter.onItemClick = {
             router.navigate(
                 GenerateResultScreen,
-                GenerateResultFragmentArgs(TextQr("123456")).toBundle()
+                GenerateResultFragmentArgs(TextBarcode("123456")).toBundle()
             )
         }
     }

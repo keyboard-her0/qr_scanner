@@ -17,7 +17,7 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.qr.QRUtils
 import com.keyboardhero.qr.databinding.FragmentGenerateResultBinding
-import com.keyboardhero.qr.shared.domain.dto.input.QrObject
+import com.keyboardhero.qr.shared.domain.dto.input.BarcodeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -95,7 +95,7 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
         )
     }
 
-    private fun showQrCode(qrInput: QrObject) {
+    private fun showQrCode(qrInput: BarcodeData) {
         lifecycleScope.launch {
             showLoading()
             val size = resources.getDimensionPixelSize(R.dimen.size_200dp)

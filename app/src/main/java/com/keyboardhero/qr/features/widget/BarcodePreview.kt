@@ -85,9 +85,9 @@ class BarcodePreview @JvmOverloads constructor(
         }
     }
 
-    fun stop(isReset : Boolean = true) {
+    fun stop(isReset: Boolean = true) {
         status = Status.OFF
-        if (isReset){
+        if (isReset) {
             stopAnimation()
             rectDetection = rectDetectionDefault
             invalidate()

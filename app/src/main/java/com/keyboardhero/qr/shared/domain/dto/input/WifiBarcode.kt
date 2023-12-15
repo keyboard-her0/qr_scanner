@@ -1,15 +1,15 @@
 package com.keyboardhero.qr.shared.domain.dto.input
 
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class WifiQr(
+data class WifiBarcode(
     val ssid: String,
     val password: String,
     val isHide: Boolean,
     val type: TypeSecurity,
     override val isFavorite: Boolean = false
-) : QrObject {
+) : BarcodeData {
     override fun getInputData(): String {
         return ""
     }

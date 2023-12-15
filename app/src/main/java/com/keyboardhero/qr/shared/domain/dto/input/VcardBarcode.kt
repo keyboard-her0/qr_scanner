@@ -1,9 +1,9 @@
 package com.keyboardhero.qr.shared.domain.dto.input
 
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class VcardQr(
+data class VcardBarcode(
     val firstName: String,
     val lastName: String,
     val mobile: String,
@@ -19,7 +19,7 @@ data class VcardQr(
     val country: String,
     val website: String,
     override val isFavorite: Boolean = false
-) : QrObject {
+) : BarcodeData {
     override fun getInputData(): String {
         return ""
     }
