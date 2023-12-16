@@ -2,7 +2,7 @@ package com.keyboardhero.qr.shared.domain.dto
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 object ThemeSetting {
 

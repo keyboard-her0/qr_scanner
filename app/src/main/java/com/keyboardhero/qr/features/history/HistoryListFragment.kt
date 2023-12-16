@@ -14,7 +14,6 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
         get() = FragmentHistoryListBinding::inflate
 
     override fun initData(data: Bundle?) {
-
     }
 
     override fun initViews() {
@@ -26,6 +25,7 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
     }
 
     override fun initActions() {
+
 
     }
 

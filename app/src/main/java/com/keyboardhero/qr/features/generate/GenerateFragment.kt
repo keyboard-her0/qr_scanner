@@ -10,7 +10,7 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentGenerateBinding
 import com.keyboardhero.qr.features.generate.result.GenerateResultFragmentArgs
 import com.keyboardhero.qr.features.generate.result.GenerateResultScreen
-import com.keyboardhero.qr.shared.domain.dto.input.TextBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.TextBarcode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

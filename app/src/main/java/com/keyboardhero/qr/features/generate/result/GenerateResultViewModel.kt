@@ -1,7 +1,7 @@
 package com.keyboardhero.qr.features.generate.result
 
 import com.keyboardhero.qr.core.base.BaseViewModel
-import com.keyboardhero.qr.shared.domain.dto.input.BarcodeData
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

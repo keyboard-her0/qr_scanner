@@ -4,6 +4,9 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import androidx.room.Room
+import com.keyboardhero.qr.shared.data.db.AppDataBase
+import com.keyboardhero.qr.shared.data.db.dao.HistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +26,21 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDataBase(@ApplicationContext context: Context): AppDataBase {
+        return Room.databaseBuilder(
+            context,
+            AppDataBase::class.java,
+            "qr_data.db"
+        ).fallbackToDestructiveMigration().build()
+    }
+
+    @Provides
+    fun providerHistoryDao(appDataBase: AppDataBase): HistoryDao{
+        return appDataBase.historyDao()
+    }
 
     @Provides
     fun provideWifiManager(@ApplicationContext context: Context): WifiManager =

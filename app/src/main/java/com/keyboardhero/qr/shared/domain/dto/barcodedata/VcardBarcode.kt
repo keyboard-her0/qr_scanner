@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.shared.domain.dto.input
+package com.keyboardhero.qr.shared.domain.dto.barcodedata
 
 import kotlinx.parcelize.Parcelize
 
@@ -18,7 +18,6 @@ data class VcardBarcode(
     val state: String,
     val country: String,
     val website: String,
-    override val isFavorite: Boolean = false
 ) : BarcodeData {
     override fun getInputData(): String {
         return ""

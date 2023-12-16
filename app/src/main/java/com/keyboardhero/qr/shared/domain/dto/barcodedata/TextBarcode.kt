@@ -1,13 +1,12 @@
-package com.keyboardhero.qr.shared.domain.dto.input
+package com.keyboardhero.qr.shared.domain.dto.barcodedata
 
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TextBarcode(
-    val data: String,
-    override val isFavorite: Boolean = false
+    val value: String,
 ) : BarcodeData {
     override fun getInputData(): String {
-        return data
+        return value
     }
 }

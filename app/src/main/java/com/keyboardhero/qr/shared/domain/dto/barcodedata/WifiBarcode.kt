@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.shared.domain.dto.input
+package com.keyboardhero.qr.shared.domain.dto.barcodedata
 
 import kotlinx.parcelize.Parcelize
 
@@ -8,7 +8,6 @@ data class WifiBarcode(
     val password: String,
     val isHide: Boolean,
     val type: TypeSecurity,
-    override val isFavorite: Boolean = false
 ) : BarcodeData {
     override fun getInputData(): String {
         return ""

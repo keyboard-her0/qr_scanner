@@ -17,7 +17,7 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.qr.QRUtils
 import com.keyboardhero.qr.databinding.FragmentGenerateResultBinding
-import com.keyboardhero.qr.shared.domain.dto.input.BarcodeData
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
