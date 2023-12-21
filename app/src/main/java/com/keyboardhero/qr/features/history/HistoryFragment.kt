@@ -3,6 +3,7 @@ package com.keyboardhero.qr.features.history
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
@@ -15,13 +16,15 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHistoryBinding
         get() = FragmentHistoryBinding::inflate
 
-    private lateinit var pageAdapter : HomePageAdapter
+    private lateinit var pageAdapter: HomePageAdapter
     private val tabs = mapOf(
-        "Scan" to HistoryListFragment(), "Generate" to HistoryListFragment()
+        "History" to HistoryListFragment(), "Favorite" to HistoryListFragment()
     )
 
-    override fun initData(data: Bundle?) {
+    private val viewModel: HistoryViewModel by viewModels()
 
+    override fun initData(data: Bundle?) {
+        viewModel.getAllHistory()
     }
 
     override fun initViews() {
@@ -54,4 +57,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     override fun initObservers() {
     }
+
+    fun getHistoryViewModel(): HistoryViewModel = viewModel
 }
