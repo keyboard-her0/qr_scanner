@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentHistoryListBinding
+import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +37,16 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
     }
 
     override fun initActions() {
+        historyAdapter.listener = object : HistoryAdapter.HistoryListener {
+
+            override fun onItemClick(history: HistoryDTO) {
+
+            }
+
+            override fun onFavoriteClick(history: HistoryDTO) {
+                viewModel?.favoriteHistory(history)
+            }
+        }
     }
 
     override fun initObservers() {
@@ -44,11 +55,19 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
             selector = { state -> state.listHistory },
             observer = { listHistory ->
                 if (isFavorite) {
-                    historyAdapter.submitList(listHistory.filter { isFavorite })
+                    historyAdapter.submitList(listHistory.filter { it.favorite })
                 } else {
                     historyAdapter.submitList(listHistory)
                 }
             }
         )
+    }
+
+    companion object {
+        fun newInstance(
+            favorite: Boolean
+        ): HistoryListFragment {
+            return HistoryListFragment().apply { isFavorite = favorite }
+        }
     }
 }

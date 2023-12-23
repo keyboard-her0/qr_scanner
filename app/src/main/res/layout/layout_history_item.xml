@@ -1,63 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/card_elevation_4dp"
-    app:cardUseCompatPadding="true"
     app:cardBackgroundColor="?attr/colorSecondary"
-    xmlns:tools="http://schemas.android.com/tools">
+    app:cardCornerRadius="@dimen/card_elevation_4dp"
+    app:cardUseCompatPadding="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:padding="@dimen/size_16dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_16dp">
 
         <ImageView
             android:id="@+id/imgIcon"
-            tools:src="@drawable/ic_wifi_24"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/size_16dp"
-            android:layout_height="wrap_content"/>
+            tools:src="@drawable/ic_wifi_24" />
 
         <TextView
             android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/imgFavorite"
             android:layout_toEndOf="@id/imgIcon"
-            android:layout_width="wrap_content"
             android:maxLines="1"
-            tools:text="Wifi"
-            android:layout_height="wrap_content"/>
+            tools:text="Wifi" />
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:layout_below="@id/tvTitle"
             android:layout_toStartOf="@+id/imgFavorite"
             android:layout_toEndOf="@id/imgIcon"
+            android:maxLines="1"
             tools:text="SSID: 0000.00" />
 
         <TextView
             android:id="@+id/tvCreateAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:layout_below="@id/tvDescription"
             android:layout_toStartOf="@+id/imgFavorite"
             android:layout_toEndOf="@id/imgIcon"
+            android:maxLines="1"
             tools:text="15:00 22/12/2023" />
 
         <ImageView
             android:id="@+id/imgFavorite"
-            android:background="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/size_4dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/size_16dp"
-            android:src="@drawable/ic_favorite_24" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            tools:src="@drawable/ic_favorite_24" />
 
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

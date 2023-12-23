@@ -33,7 +33,7 @@ class AppModule {
         return Room.databaseBuilder(
             context,
             AppDataBase::class.java,
-            "qr_data.db"
+            "qr_data"
         ).fallbackToDestructiveMigration().build()
     }
 

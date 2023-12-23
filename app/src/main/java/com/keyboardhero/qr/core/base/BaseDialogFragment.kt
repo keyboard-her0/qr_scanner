@@ -1,83 +1,78 @@
 package com.keyboardhero.qr.core.base
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Window
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
+import androidx.viewbinding.ViewBinding
+import com.keyboardhero.qr.R
 
-abstract class BaseDialogFragment : DialogFragment() {
-    companion object {
-        private const val dimValue = 0.5f
+abstract class BaseDialogFragment<VB : ViewBinding> : DialogFragment() {
 
-        @Volatile
-        private var isShowing = false
-    }
+    protected val binding: VB by lazy { getViewBinding() }
+    abstract fun getViewBinding(): VB
 
-    var onBackPressCallback: () -> Unit = {}
+    protected open val isDismissWhenClickOutside: Boolean = false
 
-    override fun onStart() {
-        super.onStart()
-        setLayoutSize()
-    }
+    protected open val isDismissWhenPressBack: Boolean = true
 
-    private fun setLayoutSize() {
-        val width = (resources.displayMetrics.widthPixels * 0.92).toInt()
-        val height = LayoutParams.WRAP_CONTENT
-        dialog?.window?.setLayout(width, height)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initData(arguments)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return object : Dialog(requireContext()) {
+        return object : Dialog(requireActivity(), R.style.DialogStyle) {
             override fun onBackPressed() {
-                onBackPressCallback()
+                if (isDismissWhenPressBack) dismiss()
             }
-        }.apply {
-            window?.run {
-                requestFeature(Window.FEATURE_NO_TITLE)
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                setDimAmount(dimValue)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = binding.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initObserver()
+        initAction()
+    }
+
+    protected open fun initData(arguments: Bundle?) {}
+    protected open fun initView() {
+        setupWindowDialog()
+    }
+
+    protected open fun initObserver() {
+
+    }
+
+    protected open fun initAction() {
+        if (isDismissWhenClickOutside) {
+            binding.root.setOnClickListener {
+                if (isCancelable) {
+                    dismiss()
+                }
             }
-            setCancelable(false)
-            setCanceledOnTouchOutside(false)
-            setContentDialog(this)
-            initListeners(this)
         }
     }
 
-    override fun show(manager: FragmentManager, tag: String?) {
-        if (!isShowing && !isAdded) {
-            isShowing = true
-            super.show(manager, tag)
+    private fun setupWindowDialog() {
+        dialog?.window?.run {
+            setLayout(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT,
+            )
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
     }
-
-    override fun dismiss() {
-        if (isShowing && isAdded) {
-            super.dismiss()
-        }
-    }
-
-    /**
-     * Handle callback when dismiss dialog
-     *
-     * @param dialog [DialogInterface]
-     */
-    override fun onDismiss(dialog: DialogInterface) {
-        if (isShowing) {
-            isShowing = false
-            super.onDismiss(dialog)
-        }
-    }
-
-    /**
-     * This method using to set content view of Dialog
-     */
-    abstract fun setContentDialog(dialog: Dialog)
-
-    abstract fun initListeners(dialog: Dialog)
 }

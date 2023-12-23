@@ -10,7 +10,9 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentGenerateBinding
 import com.keyboardhero.qr.features.generate.result.GenerateResultFragmentArgs
 import com.keyboardhero.qr.features.generate.result.GenerateResultScreen
-import com.keyboardhero.qr.shared.domain.dto.barcodedata.TextBarcode
+import com.keyboardhero.qr.features.widget.GenerateDialog
+import com.keyboardhero.qr.shared.domain.dto.BarcodeType
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,10 +43,22 @@ class GenerateFragment : BaseFragment<FragmentGenerateBinding>() {
 
     override fun initActions() {
         generateItemAdapter.onItemClick = {
+            GenerateDialog.newInstance(it.type, onDialogListener).apply {
+                show(this@GenerateFragment.childFragmentManager, it.title)
+            }
+        }
+    }
+
+    private val onDialogListener = object : GenerateDialog.DialogListener {
+        override fun onPositiveClick(barcodeData: BarcodeData, barcodeType: BarcodeType) {
             router.navigate(
                 GenerateResultScreen,
-                GenerateResultFragmentArgs(TextBarcode("123456")).toBundle()
+                GenerateResultFragmentArgs(barcodeData = barcodeData, type = barcodeType).toBundle()
             )
+        }
+
+        override fun onNegativeClick() {
+
         }
     }
 

@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.keyboardhero.qr.R
 import com.keyboardhero.qr.databinding.LayoutHistoryItemBinding
 import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 
 class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>(diff) {
 
-    private var listener: HistoryListener? = null
+     var listener: HistoryListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val binding = LayoutHistoryItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -32,7 +33,7 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
         } else {
             payloads.forEach { payload ->
                 if (payload == PAYLOAD_FAVORITE) {
-                    holder.bindFavorite(getItem(position).favorite)
+                    holder.bindFavorite(getItem(position))
                 }
             }
         }
@@ -43,26 +44,31 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
         listener: HistoryListener? = null
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        private lateinit var historyDTO: HistoryDTO
         init {
             with(binding) {
                 itemView.setOnClickListener {
-                    listener?.onItemClick(adapterPosition)
+                    listener?.onItemClick(historyDTO)
                 }
 
                 imgFavorite.setOnClickListener {
-                    listener?.onFavoriteClick(adapterPosition)
+                    listener?.onFavoriteClick(historyDTO)
                 }
             }
         }
 
         fun bind(history: HistoryDTO) {
+            historyDTO = history
             with(binding) {
-
+                tvTitle.text = history.id.toString()
+                tvCreateAt.text = history.createAt.toString()
             }
+            bindFavorite(history)
         }
 
-        fun bindFavorite(favorite: Boolean) {
-
+        fun bindFavorite(history: HistoryDTO) {
+            historyDTO = history
+            binding.imgFavorite.setImageResource(if (history.favorite) R.drawable.ic_favorite_24 else R.drawable.ic_favorite_border_24)
         }
     }
 
@@ -87,7 +93,7 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
 
 
     interface HistoryListener {
-        fun onItemClick(position: Int)
-        fun onFavoriteClick(position: Int)
+        fun onItemClick(history: HistoryDTO)
+        fun onFavoriteClick(history: HistoryDTO)
     }
 }

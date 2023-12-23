@@ -39,7 +39,10 @@
         android:label="fragment_generate_result"
         tools:layout="@layout/fragment_generate_result" >
         <argument
-            android:name="qrInput"
+            android:name="type"
+            app:argType="com.keyboardhero.qr.shared.domain.dto.BarcodeType" />
+        <argument
+            android:name="barcodeData"
             app:argType="com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData" />
     </fragment>
 </navigation>

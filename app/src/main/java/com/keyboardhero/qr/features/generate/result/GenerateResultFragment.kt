@@ -35,8 +35,7 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
     private var bitmapQr: Bitmap? = null
 
     override fun initData(data: Bundle?) {
-        val qrInput = args.qrInput
-        viewModel.setData(qrInput = qrInput)
+        viewModel.setup(type = args.type, barcodeData = args.barcodeData)
     }
 
     override fun initViews() {
@@ -86,7 +85,7 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
     override fun initObservers() {
         viewModel.observe(
             owner = viewLifecycleOwner,
-            selector = { state -> state.qrInput },
+            selector = { state -> state.barcodeData },
             observer = { qrInput ->
                 if (qrInput != null) {
                     showQrCode(qrInput)
@@ -95,12 +94,12 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
         )
     }
 
-    private fun showQrCode(qrInput: BarcodeData) {
+    private fun showQrCode(barcodeData: BarcodeData) {
         lifecycleScope.launch {
             showLoading()
             val size = resources.getDimensionPixelSize(R.dimen.size_200dp)
             val bitmapTask: Deferred<Bitmap?> = async(Dispatchers.Default) {
-                generateQRBitmap(qrInput.getInputData(), size = Size(size, size))
+                generateQRBitmap(barcodeData.getInputData(), size = Size(size, size))
             }
 
             bitmapQr = bitmapTask.await()

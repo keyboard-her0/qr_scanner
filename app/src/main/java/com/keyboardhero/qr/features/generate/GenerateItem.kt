@@ -1,11 +1,12 @@
 package com.keyboardhero.qr.features.generate
 
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
+import com.keyboardhero.qr.shared.domain.dto.BarcodeType
 
 data class GenerateItem(
     val title: String,
     val resIconId: Int,
-    val type: GenerateType
+    val type: BarcodeType
 ) {
     companion object {
         val DIFF = object : ItemCallback<GenerateItem>() {

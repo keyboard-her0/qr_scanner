@@ -22,4 +22,15 @@
     <string name="save">Save</string>
     <string name="select_theme">Select theme</string>
 
+
+    <string name="enter_text">Enter text</string>
+    <string name="enter_url">Enter Url</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_number">Enter number</string>
+    <string name="enter_message">Enter message</string>
+    <string name="enter_ssid">Enter SSID</string>
+    <string name="enter_password">Enter password</string>
+
+
+
 </resources>

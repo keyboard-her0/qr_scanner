@@ -18,12 +18,15 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     private lateinit var pageAdapter: HomePageAdapter
     private val tabs = mapOf(
-        "History" to HistoryListFragment(), "Favorite" to HistoryListFragment()
+        "History" to HistoryListFragment(), "Favorite" to HistoryListFragment.newInstance(true)
     )
 
     private val viewModel: HistoryViewModel by viewModels()
 
     override fun initData(data: Bundle?) {
+    }
+    override fun onResume() {
+        super.onResume()
         viewModel.getAllHistory()
     }
 
