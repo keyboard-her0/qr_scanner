@@ -20,7 +20,7 @@ object QRUtils {
                 value, BarcodeFormat.QR_CODE, size.width, size.height, hintMap
             )
 
-            bitmap = Bitmap.createBitmap(size.width, size.height, Bitmap.Config.RGB_565)
+            bitmap = Bitmap.createBitmap(size.width, size.height, Bitmap.Config.ARGB_8888)
 
             for (x in 0 until size.width) {
                 for (y in 0 until size.height) {

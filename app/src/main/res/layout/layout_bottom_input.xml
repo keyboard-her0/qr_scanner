@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btnCreate"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_48dp"
+    android:layout_margin="@dimen/size_16dp"
+    android:background="@drawable/background_border_16"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_qr_code_24"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_16dp"
+        android:text="@string/create_qr_code"
+        android:textColor="?attr/textColor" />
+</LinearLayout>

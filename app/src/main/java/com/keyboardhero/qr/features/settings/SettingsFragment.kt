@@ -26,7 +26,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     }
 
     private fun initChangeThemeItem() {
-        with(binding){
+        with(binding) {
             itemChangeTheme.apply {
                 tvTitle.text = "Change Themes"
             }
@@ -34,14 +34,20 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     }
 
     override fun initHeaderAppBar() {
-        headerAppBar.title = getString(R.string.bottom_navigation_settings)
+        headerAppBar.title = getString(R.string.settings)
+        headerAppBar.navigationIconId = R.drawable.ic_back_24
+        headerAppBar.titleCentered = true
     }
 
     override fun initActions() {
+        headerAppBar.navigationOnClickListener = {
+            onBackPressed()
+        }
         binding.itemChangeTheme.root.setOnClickListener {
-            val bottomSheet = SelectThemeFragment.newInstance(themes = viewModel.currentState.themes) { theme ->
-                viewModel.changeTheme(theme)
-            }
+            val bottomSheet =
+                SelectThemeFragment.newInstance(themes = viewModel.currentState.themes) { theme ->
+                    viewModel.changeTheme(theme)
+                }
             bottomSheet.show(childFragmentManager)
         }
     }

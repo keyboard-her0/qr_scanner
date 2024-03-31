@@ -8,6 +8,6 @@ data class SmsBarcode(
     val message: String,
 ) : BarcodeData {
     override fun getInputData(): String {
-       return message
+       return "smsto:$phoneNumber:$message"
     }
 }

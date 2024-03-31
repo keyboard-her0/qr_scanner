@@ -10,13 +10,14 @@ data class WifiBarcode(
     val type: TypeSecurity,
 ) : BarcodeData {
     override fun getInputData(): String {
-        return ""
+        return "WIFI:S:$ssid;T:$type;P:$password;H:$isHide;"
     }
 
-    enum class TypeSecurity {
-        NONE,
-        WPA,
-        WEP
+    enum class TypeSecurity(val typeName: String) {
+        WPA2("WPA2"),
+        WPA("WPA"),
+        WEP("WEP"),
+        NONE("None");
     }
 }
 

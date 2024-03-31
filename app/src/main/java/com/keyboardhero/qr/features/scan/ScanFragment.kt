@@ -1,30 +1,27 @@
 package com.keyboardhero.qr.features.scan
 
+import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.OptIn
-import androidx.camera.core.AspectRatio
-import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
-import androidx.camera.core.UseCaseGroup
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -39,10 +36,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentScannerBinding
         get() = FragmentScannerBinding::inflate
 
-    private val viewModel: ScanViewModel by viewModels()
-    private var camera: Camera? = null
-    private var cameraProvider: ProcessCameraProvider? = null
+    private lateinit var cameraSelector: CameraSelector
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+    private var processCameraProvider: ProcessCameraProvider? = null
+    private lateinit var imageAnalysis: ImageAnalysis
     private lateinit var selectPictureContract: ActivityResultLauncher<String>
 
     override fun initData(data: Bundle?) {
@@ -52,7 +49,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                     val bitmap = getBitmapFromUri(uri)
                     val value = scanFromPatch(bitmap)
                     if (value != null) {
-                        shareData(value)
+                        //shareData(value)
                     } else {
                         Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show()
                     }
@@ -61,26 +58,20 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initViews() {
-        if (isDeviceSupport()) {
-            initCamera()
-            binding.previewView.scaleType = PreviewView.ScaleType.FILL_CENTER
-        } else {
-            showSingleOptionDialog(
-                title = "Lỗi",
-                message = "Thiết bị của bạn không được hỗ trợ camera",
-                button = "OK"
-            )
-        }
+
     }
 
     private fun initCamera() {
-        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraSelector = CameraSelector.Builder()
+            .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+            .build()
 
-        cameraProvider?.unbindAll()
+        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        processCameraProvider?.unbindAll()
         cameraProviderFuture.addListener(
             {
                 try {
-                    cameraProvider = cameraProviderFuture.get()
+                    processCameraProvider = cameraProviderFuture.get()
                     processScan()
                 } catch (e: Exception) {
                     DebugLog.e("initCamera Error: ${e.printStackTrace()}")
@@ -92,11 +83,15 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     @OptIn(ExperimentalGetImage::class)
     private fun processScan() {
+
         val preview = Preview.Builder()
+            .setTargetRotation(binding.previewView.display.rotation)
             .build()
 
-        val imageAnalysis = ImageAnalysis.Builder()
-            .setTargetAspectRatio(AspectRatio.RATIO_16_9)
+        preview.setSurfaceProvider(binding.previewView.surfaceProvider)
+
+        imageAnalysis = ImageAnalysis.Builder()
+            .setTargetRotation(binding.previewView.display.rotation)
             .build()
 
         imageAnalysis.setAnalyzer(
@@ -112,15 +107,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
                     if (barcodes.isNotEmpty()) {
-                        val rect = barcodes.getOrNull(0)?.boundingBox
-                        if (rect != null) {
-                            binding.barcodePreview.rectDetection(
-                                rect,
-                                Size(imageProxy.width, imageProxy.height)
-                            )
-                        }
+                        stopScanAnimation()
+                        val barcode = barcodes.getOrNull(0)
+
                     } else {
-                        binding.barcodePreview.start()
+                        startScanAnimation()
                     }
                 }.addOnFailureListener {
                     Toast.makeText(
@@ -134,21 +125,18 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 ) { imageProxy.close() }
         }
 
-        preview.setSurfaceProvider(binding.previewView.surfaceProvider)
-
-        val useCaseGroup = UseCaseGroup.Builder()
-            .addUseCase(preview)
-            .addUseCase(imageAnalysis)
-            .build()
-
-        camera = cameraProvider?.bindToLifecycle(
-            viewLifecycleOwner,
-            CameraSelector.DEFAULT_BACK_CAMERA,
-            useCaseGroup
-        )
-    }
-
-    private fun enableFlash(enable: Boolean, cameraId: String) {
+        try {
+            processCameraProvider?.bindToLifecycle(
+                viewLifecycleOwner,
+                cameraSelector,
+                preview,
+                imageAnalysis
+            )
+        } catch (illegalStateException: IllegalStateException) {
+            DebugLog.e("Unhandled exception $illegalStateException.message")
+        } catch (illegalArgumentException: IllegalArgumentException) {
+            DebugLog.e("Unhandled exception $illegalArgumentException.message")
+        }
 
     }
 
@@ -156,31 +144,46 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         headerAppBar.isVisible = false
     }
 
+    private fun startScanAnimation() {
+        binding.barcodePreview.isScanAnimation = true
+    }
+
+    private fun stopScanAnimation() {
+        binding.barcodePreview.isScanAnimation = false
+    }
+
     private fun isDeviceSupport(): Boolean {
         return requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
 
-    private fun shareData(value: String) {
-
-    }
-
     override fun initActions() {
-        binding.btnSelectQR.setOnClickListener {
-            requestPermissions(READ_EXTERNAL_STORAGE) { isGranted, _ ->
-                if (isGranted) {
-                    selectPictureContract.launch(IMAGE_FILTER)
+        with(binding) {
+            imgBack.setOnClickListener {
+                onBackPressed()
+            }
+
+            btnSelectPhoto.setOnClickListener {
+                val permissionImage = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
+                    READ_MEDIA_IMAGES
                 } else {
-                    showSingleOptionDialog(
-                        title = "Lỗi",
-                        message = "Không có quyền truy cập thư viện",
-                        button = "Đóng"
-                    )
+                    READ_EXTERNAL_STORAGE
+                }
+
+                requestPermissions(permissionImage) { isGranted, _ ->
+                    if (isGranted) {
+                        selectPictureContract.launch(IMAGE_FILTER)
+                    } else {
+                        showSingleOptionDialog(
+                            title = "Lỗi",
+                            message = "Không có quyền truy cập thư viện",
+                            button = "Đóng"
+                        )
+                    }
                 }
             }
-        }
 
-        binding.btnToggleFlash.setOnClickListener {
-            binding.barcodePreview.start()
+            btnToggleFlash.setOnClickListener {
+            }
         }
     }
 
@@ -205,8 +208,42 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        if (isDeviceSupport()) {
+            requestPermissions(CAMERA) { isGranted, _ ->
+                if (isGranted) {
+                    initCamera()
+                } else {
+                    showSingleOptionDialog(
+                        title = "Lỗi",
+                        message = "Không có quyền truy cập máy ảnh",
+                        button = "Đóng"
+                    )
+                }
+            }
+        } else {
+            showSingleOptionDialog(
+                title = "Lỗi",
+                message = "Thiết bị của bạn không được hỗ trợ camera",
+                button = "OK"
+            )
+        }
+        startScanAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopScanAnimation()
+    }
+
     override fun initObservers() {
         //Do nothing
+    }
+
+    override fun onDestroyView() {
+        processCameraProvider?.unbindAll()
+        super.onDestroyView()
     }
 
     companion object {

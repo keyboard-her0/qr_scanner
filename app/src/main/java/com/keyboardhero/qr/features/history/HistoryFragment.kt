@@ -17,14 +17,12 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         get() = FragmentHistoryBinding::inflate
 
     private lateinit var pageAdapter: HomePageAdapter
-    private val tabs = mapOf(
-        "History" to HistoryListFragment(), "Favorite" to HistoryListFragment.newInstance(true)
-    )
 
     private val viewModel: HistoryViewModel by viewModels()
 
     override fun initData(data: Bundle?) {
     }
+
     override fun onResume() {
         super.onResume()
         viewModel.getAllHistory()
@@ -36,6 +34,11 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     private fun initViewPager() {
+        val tabs = mapOf(
+            getString(R.string.scanned) to HistoryListFragment.newInstance(true),
+            getString(R.string.created) to HistoryListFragment.newInstance(false)
+        )
+
         pageAdapter = HomePageAdapter(this)
         pageAdapter.addScreen(tabs.values.toList())
         binding.viewPager.apply {
@@ -52,10 +55,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     override fun initHeaderAppBar() {
-        headerAppBar.title = getString(R.string.bottom_navigation_history)
+        headerAppBar.title = getString(R.string.history)
+        headerAppBar.navigationIconId = R.drawable.ic_back_24
+        headerAppBar.titleCentered = true
     }
 
     override fun initActions() {
+        headerAppBar.navigationOnClickListener = { onBackPressed() }
     }
 
     override fun initObservers() {

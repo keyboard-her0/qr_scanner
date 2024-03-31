@@ -1,6 +1,7 @@
 package com.keyboardhero.qr.core.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,9 +24,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     protected val headerAppBar: AppBarWidget
         get() = baseBinding.appBar
 
-    lateinit var binding: VB
+    protected lateinit var binding: VB
         private set
-    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
+    protected abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
     @Inject
     lateinit var router: Router

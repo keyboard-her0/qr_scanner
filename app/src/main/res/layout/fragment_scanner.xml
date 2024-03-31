@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".features.scan.ScanFragment">
 
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_16dp"
+        android:layout_marginTop="@dimen/size_32dp"
+        android:src="@drawable/ic_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_32dp"
+        android:text="@string/scan_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
@@ -14,30 +34,49 @@
     <com.keyboardhero.qr.features.widget.BarcodePreview
         android:id="@+id/barcodePreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
 
     <Button
         android:id="@+id/btnToggleFlash"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Bật đèn"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@id/btnSelectQR"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/size_8dp"
+        app:icon="@drawable/ic_history_24"
+        app:layout_constraintBottom_toTopOf="@id/tvToggleFlash"
+        app:layout_constraintEnd_toStartOf="@id/btnSelectPhoto"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnSelectQR"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    <TextView
+        android:id="@+id/tvToggleFlash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Ảnh có sẵn"
-        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/size_32dp"
+        android:text="@string/flash"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btnToggleFlash"
+        app:layout_constraintStart_toStartOf="@id/btnToggleFlash" />
+
+    <Button
+        android:id="@+id/btnSelectPhoto"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_8dp"
+        app:icon="@drawable/ic_dark_mode_24"
+        app:layout_constraintBottom_toTopOf="@id/tvSelectPhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/btnToggleFlash" />
+
+    <TextView
+        android:id="@+id/tvSelectPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_32dp"
+        android:text="@string/photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btnSelectPhoto"
+        app:layout_constraintStart_toStartOf="@id/btnSelectPhoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,9 @@ class AppBarWidget @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : AppBarLayout(context, attributeSet, defStyleAttr) {
 
-    private val binding = LayoutToolBarBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = LayoutToolBarBinding.inflate(
+        LayoutInflater.from(context), this, true
+    )
 
     var title: String = ""
         set(value) {

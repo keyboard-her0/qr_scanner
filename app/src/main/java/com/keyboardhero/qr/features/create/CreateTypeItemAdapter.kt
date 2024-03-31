@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features.generate
+package com.keyboardhero.qr.features.create
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keyboardhero.qr.databinding.LayoutGenerateItemBinding
 
-class GenerateItemAdapter :
-    ListAdapter<GenerateItem, GenerateItemAdapter.GenerateItemViewHolder>(GenerateItem.DIFF) {
+class CreateTypeItemAdapter :
+    ListAdapter<CreateTypeItem, CreateTypeItemAdapter.GenerateItemViewHolder>(CreateTypeItem.DIFF) {
 
-    var onItemClick: ((GenerateItem) -> Unit)? = null
+    var onItemClick: ((CreateTypeItem) -> Unit)? = null
 
     inner class GenerateItemViewHolder(
         private val binding: LayoutGenerateItemBinding,
-        onItemClick: ((GenerateItem) -> Unit)?
+        onItemClick: ((CreateTypeItem) -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -22,10 +22,10 @@ class GenerateItemAdapter :
             }
         }
 
-        fun bind(generateItem: GenerateItem) {
+        fun bind(generateItem: CreateTypeItem) {
             with(binding) {
                 imgItem.setImageResource(generateItem.resIconId)
-                tvTitle.text = generateItem.title
+                tvTitle.text = itemView.context.getString(generateItem.titleResId)
             }
         }
     }

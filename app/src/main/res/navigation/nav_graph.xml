@@ -13,31 +13,32 @@
     <fragment
         android:id="@+id/scanFragment"
         android:name="com.keyboardhero.qr.features.scan.ScanFragment"
-        android:label="@string/bottom_navigation_scan"
+        android:label="@string/scan_code"
         tools:layout="@layout/fragment_scanner" />
 
     <fragment
-        android:id="@+id/generateFragment"
-        android:name="com.keyboardhero.qr.features.generate.GenerateFragment"
-        android:label="@string/bottom_navigation_generate"
-        tools:layout="@layout/fragment_generate" />
+        android:id="@+id/createFragment"
+        android:name="com.keyboardhero.qr.features.create.CreateFragment"
+        android:label="@string/create"
+        tools:layout="@layout/fragment_create" />
 
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.keyboardhero.qr.features.history.HistoryFragment"
-        android:label="@string/bottom_navigation_history"
+        android:label="@string/history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.keyboardhero.qr.features.settings.SettingsFragment"
-        android:label="@string/bottom_navigation_settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+
     <fragment
         android:id="@+id/generateResultFragment"
-        android:name="com.keyboardhero.qr.features.generate.result.GenerateResultFragment"
+        android:name="com.keyboardhero.qr.features.create.result.GenerateResultFragment"
         android:label="fragment_generate_result"
-        tools:layout="@layout/fragment_generate_result" >
+        tools:layout="@layout/fragment_generate_result">
         <argument
             android:name="type"
             app:argType="com.keyboardhero.qr.shared.domain.dto.BarcodeType" />
@@ -45,4 +46,21 @@
             android:name="barcodeData"
             app:argType="com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData" />
     </fragment>
+    <fragment
+        android:id="@+id/inputSmsDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.sms.InputSmsDataFragment"
+        android:label="InputSmsDataFragment"
+        tools:layout="@layout/fragment_input_sms_data" />
+    <fragment
+        android:id="@+id/inputContactDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.contact.InputContactDataFragment"
+        android:label="InputContactDataFragment" />
+    <fragment
+        android:id="@+id/inputWifiDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.wifi.InputWifiDataFragment"
+        android:label="InputWifiDataFragment" />
+    <fragment
+        android:id="@+id/inputUrlDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.url.InputUrlDataFragment"
+        android:label="InputUrlDataFragment" />
 </navigation>

@@ -1,100 +1,52 @@
 package com.keyboardhero.qr.features.main
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentMainBinding
-import com.keyboardhero.qr.features.generate.GenerateFragment
-import com.keyboardhero.qr.features.history.HistoryFragment
-import com.keyboardhero.qr.features.scan.ScanFragment
-import com.keyboardhero.qr.features.settings.SettingsFragment
+import com.keyboardhero.qr.features.create.CreateScreen
+import com.keyboardhero.qr.features.history.HistoryScreen
+import com.keyboardhero.qr.features.scan.ScanScreen
+import com.keyboardhero.qr.features.settings.SettingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-@RequiresApi(Build.VERSION_CODES.Q)
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding
         get() = FragmentMainBinding::inflate
 
-
-    private lateinit var homePageAdapter: HomePageAdapter
-    private val screens = listOf(
-        ScanFragment(),
-        GenerateFragment(),
-        HistoryFragment(),
-        SettingsFragment(),
-    )
-
     override fun initData(data: Bundle?) {
-
+        //Do nothing
     }
 
     override fun initViews() {
-        initViewPager()
+        //Do nothing
     }
 
     override fun initHeaderAppBar() {
         headerAppBar.isVisible = false
     }
 
-    private fun initViewPager() {
-        homePageAdapter = HomePageAdapter(this)
-        homePageAdapter.addScreen(screens)
-        binding.viewPager.apply {
-            adapter = homePageAdapter
-            isUserInputEnabled = false
-            offscreenPageLimit = homePageAdapter.itemCount
-        }
-    }
-
     override fun initActions() {
-        handleBottomNavigationAction()
-    }
-
-    private fun handleBottomNavigationAction() {
         with(binding) {
-            bottomNavigation.setOnItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.scanFragment -> {
-                        viewPager.currentItem = 0
-                        true
-                    }
-
-                    R.id.generateFragment -> {
-                        viewPager.currentItem = 1
-                        true
-                    }
-
-                    R.id.historyFragment -> {
-                        viewPager.currentItem = 2
-                        true
-                    }
-
-                    R.id.settingsFragment -> {
-                        viewPager.currentItem = 3
-                        true
-                    }
-
-                    else -> {
-                        //Do nothing
-                        false
-                    }
-                }
+            itemScan.setOnClickListener {
+                router.navigate(ScanScreen)
+            }
+            itemCreate.setOnClickListener {
+                router.navigate(CreateScreen)
+            }
+            itemHistory.setOnClickListener {
+                router.navigate(HistoryScreen)
+            }
+            itemSettings.setOnClickListener {
+                router.navigate(SettingsScreen)
             }
         }
     }
 
-    fun getCurrentPage(): Fragment? {
-        val currentItem = binding.viewPager.currentItem
-        return screens.getOrNull(currentItem)
-    }
-
     override fun initObservers() {
+        //Do nothing
     }
 }

@@ -17,15 +17,6 @@ class HistoryViewModel @Inject constructor(
     BaseViewModel<HistoryViewState, HistoryViewEvents>() {
     override fun initState(): HistoryViewState = HistoryViewState(false, emptyList())
 
-    fun favoriteHistory(history: HistoryDTO) {
-        viewModelScope.launch {
-            val result = editHistoryUseCase.invoke(history.copy(favorite = !history.favorite))
-            result.getOrNull()?.let {
-                dispatchState(currentState.copy(listHistory = it))
-            }
-        }
-    }
-
     fun getAllHistory() {
         viewModelScope.launch {
             dispatchState(currentState.copy(loading = true))

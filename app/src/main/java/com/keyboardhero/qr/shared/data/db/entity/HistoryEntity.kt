@@ -10,8 +10,8 @@ data class HistoryEntity(
     @ColumnInfo(name = "Id")
     val id: Long,
 
-    @ColumnInfo(name = "favorite")
-    val favorite: Boolean,
+    @ColumnInfo(name = "isScan")
+    val isScan: Boolean,
 
     @ColumnInfo(name = "createAt")
     val createAt: Long,

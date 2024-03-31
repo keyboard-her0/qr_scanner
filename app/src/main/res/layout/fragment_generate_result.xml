@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="?attr/colorOnBackground"
     android:layout_height="match_parent"
-    tools:context=".features.generate.result.GenerateResultFragment">
+    tools:context=".features.create.result.GenerateResultFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardQr"

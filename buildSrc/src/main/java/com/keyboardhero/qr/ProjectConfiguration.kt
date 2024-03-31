@@ -2,7 +2,7 @@ package com.keyboardhero.qr
 
 object Versions {
     const val COMPILE_SDK = 34
-    const val TARGET_SDK = 31
+    const val TARGET_SDK = 34
     const val MIN_SDK = 23
 
     const val BUILD_TOOLS = "30.0.2"

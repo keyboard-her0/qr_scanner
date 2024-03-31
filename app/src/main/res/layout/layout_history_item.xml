@@ -19,13 +19,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/size_16dp"
-            tools:src="@drawable/ic_wifi_24" />
+            tools:src="@drawable/ic_wifi_24"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/imgFavorite"
+            android:layout_toStartOf="@+id/imgEndIcon"
             android:layout_toEndOf="@id/imgIcon"
             android:maxLines="1"
             tools:text="Wifi" />
@@ -35,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTitle"
-            android:layout_toStartOf="@+id/imgFavorite"
+            android:layout_toStartOf="@+id/imgEndIcon"
             android:layout_toEndOf="@id/imgIcon"
             android:maxLines="1"
             tools:text="SSID: 0000.00" />
@@ -45,21 +46,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvDescription"
-            android:layout_toStartOf="@+id/imgFavorite"
+            android:layout_toStartOf="@+id/imgEndIcon"
             android:layout_toEndOf="@id/imgIcon"
             android:maxLines="1"
             tools:text="15:00 22/12/2023" />
 
         <ImageView
-            android:id="@+id/imgFavorite"
+            android:id="@+id/imgEndIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/size_4dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/size_16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            tools:src="@drawable/ic_favorite_24" />
+            android:src="@drawable/ic_forward_24"
+            tools:src="@drawable/ic_forward_24"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

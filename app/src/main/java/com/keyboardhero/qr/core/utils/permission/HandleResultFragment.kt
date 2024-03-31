@@ -1,10 +1,8 @@
 package com.keyboardhero.qr.core.utils.permission
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 
 class HandleResultFragment : Fragment() {
@@ -34,7 +32,7 @@ class HandleResultFragment : Fragment() {
 
                 val permissionRequested = requestPermissions[permissionName]
                 if (permissionRequested != null) {
-                    val result = if (permissionIsGranted == true) {
+                    val result = if (permissionIsGranted) {
                         Permission(
                             permission = permissionName,
                             granted = true,
@@ -55,7 +53,6 @@ class HandleResultFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     fun request(permissions: Array<String>) {
         if (isAdded) {
             requestLauncher.launch(permissions)

@@ -89,9 +89,12 @@
     <dimen name="size_50dp">50dp</dimen>
     <dimen name="size_60dp">60dp</dimen>
     <dimen name="size_100dp">100dp</dimen>
+    <dimen name="size_150dp">150dp</dimen>
     <dimen name="size_200dp">200dp</dimen>
     <dimen name="size_240dp">240dp</dimen>
     <dimen name="size_340dp">340dp</dimen>
+    <dimen name="size_400dp">400dp</dimen>
+    <dimen name="size_500dp">500dp</dimen>
 
     <dimen name="viewpager_next_item_visible">45dp</dimen>
     <dimen name="viewpager_current_item_horizontal_margin">70dp</dimen>

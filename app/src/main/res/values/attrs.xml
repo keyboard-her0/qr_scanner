@@ -2,15 +2,21 @@
 <resources>
 
     <declare-styleable name="AppBarWidget">
-        <attr name="title" format="string"/>
-        <attr name="titleCentered" format="boolean"/>
-        <attr name="navigationIcon" format="reference"/>
+        <attr name="title" format="string" />
+        <attr name="titleCentered" format="boolean" />
+        <attr name="navigationIcon" format="reference" />
     </declare-styleable>
 
-    <attr name="headerAppBarContentColor" format="color"/>
-    <attr name="headerAppBarBackground" format="color"/>
-    <attr name="dividerColor" format="color"/>
-    <attr name="iconColor" format="color"/>
-    <attr name="textColor" format="color"/>
+    <declare-styleable name="InputDataView">
+        <attr name="startIcon" format="reference" />
+        <attr name="android:inputType" />
+        <attr name="android:maxLines" />
+    </declare-styleable>
+
+    <attr name="headerAppBarContentColor" format="color" />
+    <attr name="headerAppBarBackground" format="color" />
+    <attr name="dividerColor" format="color" />
+    <attr name="iconColor" format="color" />
+    <attr name="textColor" format="color" />
 
 </resources>

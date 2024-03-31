@@ -1,41 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
     <color name="black">#000000</color>
-
-    <color name="gray">#cccccc</color>
-
     <color name="orange">#FB9B27</color>
-
+    <color name="green">#00D763</color>
     <color name="transparent">#00000000</color>
-
-    <!-- sign up fast color -->
-    <color name="color_app_background">#F6F6FE</color>
     <color name="white">#ffffff</color>
-    <color name="light_purple">#ad8ad8</color>
-    <color name="purple_4">#C7B8D9</color>
-    <color name="dark_purple">#42236a</color>
-
-    <!-- help -->
-    <color name="primary_neutral_background">#F8F8FA</color>
-    <color name="lemon_grass">#8D8D8C</color>
-    <color name="white_silver">#F6F6FE</color>
-    <color name="colorPrimary">#7B35BB</color>
-    <color name="purple_1">#42236A</color>
-    <color name="gray_2">#CCCCCC</color>
-    <color name="gray_500">#E1E3E8</color>
-    <color name="purple_100">#E9DBF5</color>
     <color name="primary_white_blur">#E5E5E5</color>
-    <color name="color_blur_white">#888888</color>
 
-    <color name="color_1F2D3A">#FF1F2D3A</color>
-    <color name="color_0A1826">#FF0A1826</color>
+
     <color name="color_F3F5FA">#FFF3F5FA</color>
     <color name="color_FEAF0FF">#FFEAF0FF</color>
+    <color name="color_131314">#131314</color>
+    <color name="color_1d2227">#1d2227</color>
+    <color name="color_191c1f">#191c1f</color>
 </resources>

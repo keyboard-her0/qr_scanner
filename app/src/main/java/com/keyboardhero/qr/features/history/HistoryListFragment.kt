@@ -16,7 +16,7 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
         get() = FragmentHistoryListBinding::inflate
 
     private var viewModel: HistoryViewModel? = null
-    private var isFavorite = false
+    private var isScan = false
     private val historyAdapter by lazy { HistoryAdapter() }
 
     override fun initData(data: Bundle?) {
@@ -42,10 +42,6 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
             override fun onItemClick(history: HistoryDTO) {
 
             }
-
-            override fun onFavoriteClick(history: HistoryDTO) {
-                viewModel?.favoriteHistory(history)
-            }
         }
     }
 
@@ -54,20 +50,16 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
             owner = viewLifecycleOwner,
             selector = { state -> state.listHistory },
             observer = { listHistory ->
-                if (isFavorite) {
-                    historyAdapter.submitList(listHistory.filter { it.favorite })
-                } else {
-                    historyAdapter.submitList(listHistory)
-                }
+                historyAdapter.submitList(listHistory.filter { it.isScan == isScan })
             }
         )
     }
 
     companion object {
         fun newInstance(
-            favorite: Boolean
+            scan: Boolean
         ): HistoryListFragment {
-            return HistoryListFragment().apply { isFavorite = favorite }
+            return HistoryListFragment().apply { isScan = scan }
         }
     }
 }

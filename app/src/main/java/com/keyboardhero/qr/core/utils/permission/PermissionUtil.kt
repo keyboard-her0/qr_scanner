@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.fragment.app.FragmentActivity
 
-class PermissionUtil constructor(private val activity: FragmentActivity) {
+class PermissionUtil(private val activity: FragmentActivity) {
 
     private val requestFragment: HandleResultFragment
 
