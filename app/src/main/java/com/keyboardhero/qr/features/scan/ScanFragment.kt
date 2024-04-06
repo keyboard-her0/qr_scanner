@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.OptIn
+import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
@@ -22,13 +23,17 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
+import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
+import com.keyboardhero.qr.features.scan.resutl.ResultScanFragmentArgs
+import com.keyboardhero.qr.features.scan.resutl.ResultScanScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,11 +41,16 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentScannerBinding
         get() = FragmentScannerBinding::inflate
 
+    private val viewModel: ScanViewModel by viewModels()
+
     private lateinit var cameraSelector: CameraSelector
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
-    private var processCameraProvider: ProcessCameraProvider? = null
+    private lateinit var preview: Preview
     private lateinit var imageAnalysis: ImageAnalysis
     private lateinit var selectPictureContract: ActivityResultLauncher<String>
+
+    private var processCameraProvider: ProcessCameraProvider? = null
+    private var camera: Camera? = null
 
     override fun initData(data: Bundle?) {
         selectPictureContract =
@@ -58,33 +68,16 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initViews() {
-
+        //Do nothing
     }
 
+    @OptIn(ExperimentalGetImage::class)
     private fun initCamera() {
         cameraSelector = CameraSelector.Builder()
             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
             .build()
 
-        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-        processCameraProvider?.unbindAll()
-        cameraProviderFuture.addListener(
-            {
-                try {
-                    processCameraProvider = cameraProviderFuture.get()
-                    processScan()
-                } catch (e: Exception) {
-                    DebugLog.e("initCamera Error: ${e.printStackTrace()}")
-                }
-            },
-            ContextCompat.getMainExecutor(requireContext())
-        )
-    }
-
-    @OptIn(ExperimentalGetImage::class)
-    private fun processScan() {
-
-        val preview = Preview.Builder()
+        preview = Preview.Builder()
             .setTargetRotation(binding.previewView.display.rotation)
             .build()
 
@@ -93,7 +86,6 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         imageAnalysis = ImageAnalysis.Builder()
             .setTargetRotation(binding.previewView.display.rotation)
             .build()
-
         imageAnalysis.setAnalyzer(
             ContextCompat.getMainExecutor(requireContext())
         ) { imageProxy ->
@@ -108,8 +100,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 .addOnSuccessListener { barcodes ->
                     if (barcodes.isNotEmpty()) {
                         stopScanAnimation()
-                        val barcode = barcodes.getOrNull(0)
-
+                        val barcode = barcodes.getOrNull(0)?.rawValue
+                        if (barcode?.isNotBlank() == true) {
+                            navigateToResultScreen(barcode)
+                        }
                     } else {
                         startScanAnimation()
                     }
@@ -125,19 +119,54 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 ) { imageProxy.close() }
         }
 
+        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture.addListener(
+            {
+                try {
+                    processCameraProvider?.unbindAll()
+                    processCameraProvider = cameraProviderFuture.get()
+                    processScan()
+                } catch (e: Exception) {
+                    DebugLog.e("initCamera Error: ${e.printStackTrace()}")
+                }
+            },
+            ContextCompat.getMainExecutor(requireContext())
+        )
+    }
+
+    private fun navigateToResultScreen(barcode: String) {
+        router.navigate(
+            ResultScanScreen,
+            ResultScanFragmentArgs(
+                scanData = barcode
+            ).toBundle()
+        )
+    }
+
+    private fun processScan() {
         try {
-            processCameraProvider?.bindToLifecycle(
+            processCameraProvider?.unbindAll()
+            camera = processCameraProvider?.bindToLifecycle(
                 viewLifecycleOwner,
                 cameraSelector,
                 preview,
                 imageAnalysis
             )
+
+            val hasFlashUnit = camera?.cameraInfo?.hasFlashUnit()
+            val hasFrontCamera = processCameraProvider?.hasCamera(
+                CameraSelector.DEFAULT_FRONT_CAMERA
+            )
+            viewModel.setHasFlashUnit(hasFlashUnit ?: false)
+            viewModel.setHasFrontCamera(hasFrontCamera ?: false)
+            viewModel.setFlashEnable(false)
+            viewModel.setIsBackCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+
         } catch (illegalStateException: IllegalStateException) {
             DebugLog.e("Unhandled exception $illegalStateException.message")
         } catch (illegalArgumentException: IllegalArgumentException) {
             DebugLog.e("Unhandled exception $illegalArgumentException.message")
         }
-
     }
 
     override fun initHeaderAppBar() {
@@ -183,7 +212,49 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             }
 
             btnToggleFlash.setOnClickListener {
+                handleActionFlash()
             }
+
+            imgSwitchCamera.setOnClickListener {
+                handleSwitchCamera()
+            }
+        }
+    }
+
+    private fun handleActionFlash() {
+        if (viewModel.currentState.hasFlashUnit) {
+            if (!viewModel.currentState.flashEnable) {
+                camera?.cameraControl?.enableTorch(true)
+                viewModel.setFlashEnable(true)
+            } else {
+                camera?.cameraControl?.enableTorch(false)
+                viewModel.setFlashEnable(false)
+            }
+        } else {
+            showSingleOptionDialog(
+                title = "Lỗi",
+                message = "Thiết bị không hỗ trợ đèn flash",
+                button = "Đóng"
+            )
+        }
+    }
+
+    private fun handleSwitchCamera() {
+        if (viewModel.currentState.hasFrontCamera) {
+            if (viewModel.currentState.isBackCamera) {
+                cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                viewModel.setIsBackCamera(false)
+            } else {
+                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+                viewModel.setIsBackCamera(true)
+            }
+            processScan()
+        } else {
+            showSingleOptionDialog(
+                title = "Lỗi",
+                message = "Thiết bị của bạn không được hỗ trợ camera trước",
+                button = "OK"
+            )
         }
     }
 
@@ -238,7 +309,15 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initObservers() {
-        //Do nothing
+        viewModel.observe(
+            owner = viewLifecycleOwner,
+            selector = { state -> state.flashEnable },
+            observer = { flashEnable ->
+                binding.btnToggleFlash.setImageResource(
+                    if (flashEnable) R.drawable.ic_flash_on else R.drawable.ic_flash_off
+                )
+            }
+        )
     }
 
     override fun onDestroyView() {

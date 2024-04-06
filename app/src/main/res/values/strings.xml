@@ -16,6 +16,7 @@
     <string name="created">Created</string>
     <string name="history">History</string>
     <string name="settings">Settings</string>
+    <string name="result">Result</string>
     <string name="title_generate_result_screen">Generate QR</string>
 
     <string name="dialog_process_title">Processing…</string>

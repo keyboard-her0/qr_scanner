@@ -83,21 +83,20 @@ dependencies {
 
     implementation Libs.GLIDE.GLIDE
     annotationProcessor Libs.GLIDE.GLIDE_COMPILER
-
     implementation Libs.AndroidX.Preference.PREFERENCE
 
     // ROOM
-    implementation Libs.ROOM.ROOM_RUNTIME
-    annotationProcessor Libs.ROOM.ROOM_COMPILER
-    kapt Libs.ROOM.ROOM_COMPILER
-    implementation Libs.ROOM.ROOM_RX
-    implementation Libs.ROOM.ROOM_KTX
+//    implementation Libs.ROOM.ROOM_RUNTIME
+//    annotationProcessor Libs.ROOM.ROOM_COMPILER
+//    kapt Libs.ROOM.ROOM_COMPILER
+//    implementation Libs.ROOM.ROOM_RX
+//    implementation Libs.ROOM.ROOM_KTX
 
     implementation Libs.Animation.LOTTIE
 
     implementation "com.google.android.material:material:1.11.0"
     implementation 'com.google.android.gms:play-services-vision:20.1.3'
-    implementation 'com.google.zxing:core:3.5.0'
+    implementation 'com.google.zxing:core:3.5.2'
 
     implementation "com.google.mlkit:barcode-scanning:17.2.0"
     implementation "androidx.camera:camera-camera2:1.3.2"

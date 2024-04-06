@@ -63,4 +63,12 @@
         android:id="@+id/inputUrlDataFragment"
         android:name="com.keyboardhero.qr.features.create.input.url.InputUrlDataFragment"
         android:label="InputUrlDataFragment" />
+    <fragment
+        android:id="@+id/resultScanFragment"
+        android:name="com.keyboardhero.qr.features.scan.resutl.ResultScanFragment"
+        android:label="ResultScanFragment" >
+        <argument
+            android:name="scanData"
+            app:argType="string" />
+    </fragment>
 </navigation>

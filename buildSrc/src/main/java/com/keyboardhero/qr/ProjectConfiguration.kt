@@ -15,7 +15,7 @@ object Versions {
     const val APPCOMPAT = "1.6.1"
     const val CONSTRAINT_LAYOUT = "2.0.4"
     const val RECYCLER_VIEW = "1.1.0"
-    const val ROOM = "2.3.0"
+    const val ROOM = "2.4.0"
     const val LEGACY_SUPPORT_V4 = "1.0.0"
     const val LIFECYCLE = "2.4.0"
     const val NAVIGATION = "2.4.1"
@@ -126,12 +126,5 @@ object Libs {
     object GLIDE {
         const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
         const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${Versions.GLIDE_COMPILER}"
-    }
-
-    object ROOM {
-        const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM_VERSION}"
-        const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM_VERSION}"
-        const val ROOM_RX = "androidx.room:room-rxjava2:${Versions.ROOM_VERSION}"
-        const val ROOM_KTX = "androidx.room:room-ktx:${Versions.ROOM_VERSION}"
     }
 }

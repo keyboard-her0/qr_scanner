@@ -1,7 +1,8 @@
 package com.keyboardhero.qr.features.scan
 
 data class ScanViewStates(
-    val loading: Boolean,
-    val data: String,
-    val flashEnable: Boolean = false
+    val flashEnable: Boolean = false,
+    val isBackCamera: Boolean = true,
+    val hasFrontCamera: Boolean = false,
+    val hasFlashUnit: Boolean = false
 )

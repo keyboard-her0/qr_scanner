@@ -6,9 +6,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScanViewModel @Inject constructor() : BaseViewModel<ScanViewStates, ScanViewEvents>() {
-    override fun initState(): ScanViewStates = ScanViewStates(false, "")
+    override fun initState(): ScanViewStates = ScanViewStates()
 
-    fun enableFlash(){
-        dispatchState(currentState.copy(flashEnable = !currentState.flashEnable))
+    fun setHasFrontCamera(value: Boolean) {
+        dispatchState(currentState.copy(hasFrontCamera = value))
+    }
+
+    fun setHasFlashUnit(value: Boolean) {
+        dispatchState(currentState.copy(hasFlashUnit = value))
+    }
+
+    fun setFlashEnable(value: Boolean) {
+        dispatchState(currentState.copy(flashEnable = value))
+    }
+
+    fun setIsBackCamera(value: Boolean) {
+        dispatchState(currentState.copy(isBackCamera = value))
     }
 }

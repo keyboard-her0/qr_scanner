@@ -6,26 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".features.scan.ScanFragment">
 
-    <ImageView
-        android:id="@+id/imgBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/size_16dp"
-        android:layout_marginTop="@dimen/size_32dp"
-        android:src="@drawable/ic_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_32dp"
-        android:text="@string/scan_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
@@ -36,17 +16,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_16dp"
+        android:layout_marginTop="@dimen/size_45dp"
+        android:src="@drawable/ic_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-    <Button
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_code"
+        app:layout_constraintBottom_toBottomOf="@id/imgBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgBack" />
+
+    <ImageView
+        android:id="@+id/imgSwitchCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/size_16dp"
+        android:src="@drawable/ic_camera_switch"
+        app:layout_constraintBottom_toBottomOf="@id/imgBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgBack"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
         android:id="@+id/btnToggleFlash"
-        style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_8dp"
-        app:icon="@drawable/ic_history_24"
+        android:padding="@dimen/size_10dp"
+        android:src="@drawable/ic_flash_off"
         app:layout_constraintBottom_toTopOf="@id/tvToggleFlash"
         app:layout_constraintEnd_toStartOf="@id/btnSelectPhoto"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tvToggleFlash"
@@ -58,16 +69,17 @@
         app:layout_constraintEnd_toEndOf="@id/btnToggleFlash"
         app:layout_constraintStart_toStartOf="@id/btnToggleFlash" />
 
-    <Button
+    <ImageView
         android:id="@+id/btnSelectPhoto"
-        style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_8dp"
-        app:icon="@drawable/ic_dark_mode_24"
+        android:padding="@dimen/size_10dp"
+        android:src="@drawable/ic_dark_mode_24"
         app:layout_constraintBottom_toTopOf="@id/tvSelectPhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnToggleFlash" />
+        app:layout_constraintStart_toEndOf="@id/btnToggleFlash"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tvSelectPhoto"
