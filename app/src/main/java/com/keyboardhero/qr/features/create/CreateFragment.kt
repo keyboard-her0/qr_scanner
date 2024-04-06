@@ -20,7 +20,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCreateBinding
         get() = FragmentCreateBinding::inflate
 
-    private val generateItemAdapter: CreateTypeItemAdapter by lazy { CreateTypeItemAdapter() }
+    private val generateItemAdapter: BarCodeTypeItemAdapter by lazy { BarCodeTypeItemAdapter() }
     private val viewModel: CreateViewModel by viewModels()
 
     override fun initData(data: Bundle?) {
@@ -46,14 +46,14 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>() {
     override fun initActions() {
         headerAppBar.navigationOnClickListener = { onBackPressed() }
         generateItemAdapter.onItemClick = {
-            val screen = when (it.type) {
-                BarcodeType.TEXT -> InputUrlScreen
-                BarcodeType.PHONE -> InputUrlScreen
-                BarcodeType.SMS -> InputSmsScreen
-                BarcodeType.CONTACT -> InputContactScreen
-                BarcodeType.WIFI -> InputWifiScreen
-                BarcodeType.EMAIl -> InputWifiScreen
-                BarcodeType.URL -> InputUrlScreen
+            val screen = when (it) {
+                BarcodeType.Text -> InputUrlScreen
+                BarcodeType.Phone -> InputUrlScreen
+                BarcodeType.Sms -> InputSmsScreen
+                BarcodeType.Contact -> InputContactScreen
+                BarcodeType.Wifi -> InputWifiScreen
+                BarcodeType.Email -> InputWifiScreen
+                BarcodeType.Url -> InputUrlScreen
             }
             router.navigate(
                 screen

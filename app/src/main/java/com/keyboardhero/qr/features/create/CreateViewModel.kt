@@ -10,11 +10,6 @@ class CreateViewModel @Inject constructor() :
     BaseViewModel<CreateViewState, CreateViewEvents>() {
     override fun initState(): CreateViewState = CreateViewState(false, generateItems)
 
-    private val generateItems = BarcodeType.values().map { barcodeType ->
-        CreateTypeItem(
-            titleResId = barcodeType.typeNameResId,
-            resIconId = barcodeType.resIcon,
-            type = barcodeType
-        )
-    }
+    private val generateItems = BarcodeType.values()
+
 }

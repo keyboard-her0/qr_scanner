@@ -1,6 +1,5 @@
 package com.keyboardhero.qr.features.create
 
-import android.media.browse.MediaBrowser.ItemCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,14 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keyboardhero.qr.databinding.LayoutGenerateItemBinding
 import com.keyboardhero.qr.shared.domain.dto.BarcodeType
 
-class CreateTypeItemAdapter :
-    ListAdapter<CreateTypeItem, CreateTypeItemAdapter.GenerateItemViewHolder>(CreateTypeItem.DIFF) {
+class BarCodeTypeItemAdapter :
+    ListAdapter<BarcodeType, BarCodeTypeItemAdapter.GenerateItemViewHolder>(BarcodeType.DIFF) {
 
-    var onItemClick: ((CreateTypeItem) -> Unit)? = null
+    var onItemClick: ((BarcodeType) -> Unit)? = null
 
     inner class GenerateItemViewHolder(
         private val binding: LayoutGenerateItemBinding,
-        onItemClick: ((CreateTypeItem) -> Unit)?
+        onItemClick: ((BarcodeType) -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -24,10 +23,10 @@ class CreateTypeItemAdapter :
             }
         }
 
-        fun bind(generateItem: CreateTypeItem) {
+        fun bind(barcodeType: BarcodeType) {
             with(binding) {
-                imgItem.setImageResource(generateItem.resIconId)
-                tvTitle.text = itemView.context.getString(generateItem.titleResId)
+                imgItem.setImageResource(barcodeType.resIcon)
+                tvTitle.text = itemView.context.getString(barcodeType.typeNameResId)
             }
         }
     }

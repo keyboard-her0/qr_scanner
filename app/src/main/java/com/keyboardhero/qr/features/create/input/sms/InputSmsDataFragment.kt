@@ -42,7 +42,7 @@ class InputSmsDataFragment : BaseInputFragment<FragmentInputSmsDataBinding>() {
                     phoneNumber = binding.inputView.text,
                     message = binding.editTextMessage.text.toString()
                 ),
-                type = BarcodeType.SMS
+                type = BarcodeType.Sms
             ).toBundle()
         )
     }
