@@ -38,8 +38,10 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
         fun bind(history: HistoryDTO) {
             historyDTO = history
             with(binding) {
-                tvTitle.text = history.id.toString()
+                tvTitle.text = itemView.context.getString(history.barcodeType.typeNameResId)
+                tvDescription.text = history.barcodeData.getInputData()
                 tvCreateAt.text = history.createAt.toString()
+                imgIcon.setImageResource(history.barcodeType.resIcon)
             }
         }
     }

@@ -41,7 +41,7 @@ class InputUrlDataFragment : BaseInputFragment<FragmentInputUrlDataBinding>() {
                 barcodeData = UrlBarcode(
                     url = binding.inputUrl.text
                 ),
-                type = BarcodeType.SMS
+                type = BarcodeType.URL
             ).toBundle()
         )
     }

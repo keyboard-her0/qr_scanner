@@ -52,7 +52,6 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>() {
                 BarcodeType.SMS -> InputSmsScreen
                 BarcodeType.CONTACT -> InputContactScreen
                 BarcodeType.WIFI -> InputWifiScreen
-                BarcodeType.VCARD -> InputWifiScreen
                 BarcodeType.EMAIl -> InputWifiScreen
                 BarcodeType.URL -> InputUrlScreen
             }

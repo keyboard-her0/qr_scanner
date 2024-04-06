@@ -43,7 +43,7 @@ class InputContactDataFragment : BaseInputFragment<FragmentInputContactDataBindi
                     phoneNumber = binding.inputPhone.text
 
                 ),
-                type = BarcodeType.SMS
+                type = BarcodeType.CONTACT
             ).toBundle()
         )
     }

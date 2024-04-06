@@ -1,10 +1,12 @@
 package com.keyboardhero.qr.features.create
 
+import android.media.browse.MediaBrowser.ItemCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keyboardhero.qr.databinding.LayoutGenerateItemBinding
+import com.keyboardhero.qr.shared.domain.dto.BarcodeType
 
 class CreateTypeItemAdapter :
     ListAdapter<CreateTypeItem, CreateTypeItemAdapter.GenerateItemViewHolder>(CreateTypeItem.DIFF) {

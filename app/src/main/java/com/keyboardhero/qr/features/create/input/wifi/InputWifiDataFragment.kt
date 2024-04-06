@@ -72,7 +72,7 @@ class InputWifiDataFragment : BaseInputFragment<FragmentInputWifiDataBinding>() 
                     type = WifiBarcode.TypeSecurity.values()[typeSecuritySelected]
 
                 ),
-                type = BarcodeType.SMS
+                type = BarcodeType.WIFI
             ).toBundle()
         )
     }

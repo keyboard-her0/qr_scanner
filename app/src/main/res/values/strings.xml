@@ -40,6 +40,7 @@
     <string name="link">Link</string>
     <string name="photo">Photo</string>
     <string name="sms">SMS</string>
+    <string name="email">Email</string>
     <string name="text">Text</string>
     <string name="message">Message</string>
     <string name="name">Name</string>
