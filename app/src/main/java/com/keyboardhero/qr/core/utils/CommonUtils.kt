@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -12,6 +11,7 @@ import android.os.Build
 import android.provider.Settings
 import android.util.Base64
 import androidx.appcompat.app.AppCompatDelegate
+import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -26,6 +26,7 @@ object CommonUtils {
      * @param context [Context]
      * @param url url
      */
+    @SuppressLint("QueryPermissionsNeeded")
     fun openWebPage(context: Context, url: String?) {
         val webpage: Uri = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, webpage)
@@ -68,16 +69,15 @@ object CommonUtils {
      *
      * @param format format you want
      */
-    fun getTimeNow(format: String): String {
-        val result: String
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    fun getTimeNow(format: String = "HH:mm  -  dd/MM/yyyy"): String {
+        val result: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern(format)
-            result = current.format(formatter)
+            current.format(formatter)
         } else {
             val date = Date()
             val formatter = SimpleDateFormat(format, Locale.getDefault())
-            result = formatter.format(date)
+            formatter.format(date)
         }
         return result
     }
@@ -104,7 +104,7 @@ object CommonUtils {
         return Intent.createChooser(intent, title)
     }
 
-    @SuppressLint("InternalInsetResource")
+    @SuppressLint("InternalInsetResource", "DiscouragedApi")
     fun getStatusBarHeight(context: Context): Int {
         val statusBarHeightId = context.resources.getIdentifier(
             "status_bar_height", "dimen", "android"
@@ -128,7 +128,18 @@ object CommonUtils {
         }
     }
 
-    fun hasFlash(context: Context): Boolean {
-        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    @SuppressLint("SimpleDateFormat")
+    fun convertDateToString(
+        timestamp: Long,
+        dateFormat: String = "HH:mm  -  dd/MM/yyyy",
+    ): String {
+        return runCatching {
+            val sdf = SimpleDateFormat(dateFormat)
+            val date = Date(timestamp)
+            sdf.format(date)
+        }.getOrElse { error ->
+            DebugLog.w(error.message ?: "convertDateTo $dateFormat failed")
+            ""
+        }
     }
 }

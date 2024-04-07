@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="@dimen/size_8dp"
-        android:src="@drawable/ic_web_24"
+        android:src="@drawable/ic_browser"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_web_24" />
+        tools:src="@drawable/ic_browser" />
 
     <TextView
         android:id="@+id/tvTitle"

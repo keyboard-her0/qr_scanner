@@ -39,11 +39,20 @@ class InputContactDataFragment : BaseInputFragment<FragmentInputContactDataBindi
             GenerateResultScreen,
             GenerateResultFragmentArgs(
                 barcodeData = ContactBarcode(
-                    name = binding.inputName.text,
-                    phoneNumber = binding.inputPhone.text
-
+                    firstName = binding.editFirstName.text.toString(),
+                    lastName = binding.editLastName.text.toString(),
+                    phoneNumber = binding.inputPhone.text.trim(),
+                    email = binding.inputEmail.text.trim(),
+                    company = binding.editCompany.text.toString(),
+                    jobTitle = binding.editJob.text.toString(),
+                    country = binding.editCountry.text.toString(),
+                    city = binding.editCity.text.toString(),
+                    zip = binding.editZipCode.text.toString(),
+                    state = binding.editState.text.toString(),
+                    street = binding.editStreet.text.toString(),
+                    website = binding.inputWebsite.text.trim()
                 ),
-                type = BarcodeType.Contact
+                type = BarcodeType.Contact,
             ).toBundle()
         )
     }

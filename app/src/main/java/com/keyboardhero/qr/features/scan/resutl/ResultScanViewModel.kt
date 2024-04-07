@@ -1,6 +1,7 @@
 package com.keyboardhero.qr.features.scan.resutl
 
 import com.keyboardhero.qr.core.base.BaseViewModel
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.TextBarcode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,6 +10,6 @@ class ResultScanViewModel @Inject constructor(): BaseViewModel<ResultScanViewSta
     override fun initState(): ResultScanViewState = ResultScanViewState()
 
     fun iniData(data: String) {
-        dispatchState(currentState.copy(barcodeData = data))
+        dispatchState(currentState.copy(barcodeData = TextBarcode(data)))
     }
 }

@@ -39,7 +39,7 @@ class InputSmsDataFragment : BaseInputFragment<FragmentInputSmsDataBinding>() {
             GenerateResultScreen,
             GenerateResultFragmentArgs(
                 barcodeData = SmsBarcode(
-                    phoneNumber = binding.inputView.text,
+                    phoneNumber = binding.inputView.text.trim(),
                     message = binding.editTextMessage.text.toString()
                 ),
                 type = BarcodeType.Sms

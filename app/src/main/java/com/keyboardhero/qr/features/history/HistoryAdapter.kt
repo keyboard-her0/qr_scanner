@@ -7,6 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keyboardhero.qr.databinding.LayoutHistoryItemBinding
 import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.ContactBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.EmailBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.PhoneBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.SmsBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.TextBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.UrlBarcode
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.WifiBarcode
 
 class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>(diff) {
 
@@ -39,9 +47,22 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
             historyDTO = history
             with(binding) {
                 tvTitle.text = itemView.context.getString(history.barcodeType.typeNameResId)
-                tvDescription.text = history.barcodeData.getInputData()
-                tvCreateAt.text = history.createAt.toString()
+                tvDescription.text = getDescription(barcodeData = history.barcodeData)
+                tvCreateAt.text = history.createAt
                 imgIcon.setImageResource(history.barcodeType.resIcon)
+            }
+        }
+
+        private fun getDescription(barcodeData: BarcodeData): String {
+            return when (barcodeData) {
+                is TextBarcode -> barcodeData.value
+                is PhoneBarcode -> barcodeData.phoneNumber
+                is WifiBarcode -> "${barcodeData.ssid} - ${barcodeData.password}"
+                is UrlBarcode -> barcodeData.url
+                is ContactBarcode -> "${barcodeData.firstName} - ${barcodeData.lastName} - ${barcodeData.phoneNumber}"
+                is EmailBarcode -> barcodeData.email
+                is SmsBarcode -> "${barcodeData.message} - ${barcodeData.phoneNumber}"
+                else -> ""
             }
         }
     }

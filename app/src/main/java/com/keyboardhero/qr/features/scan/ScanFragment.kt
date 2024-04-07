@@ -3,9 +3,8 @@ package com.keyboardhero.qr.features.scan
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.READ_MEDIA_IMAGES
+import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -27,6 +26,7 @@ import androidx.fragment.app.viewModels
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
@@ -35,6 +35,7 @@ import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.scan.resutl.ResultScanFragmentArgs
 import com.keyboardhero.qr.features.scan.resutl.ResultScanScreen
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 
 @AndroidEntryPoint
 class ScanFragment : BaseFragment<FragmentScannerBinding>() {
@@ -56,12 +57,16 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         selectPictureContract =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
                 if (uri != null) {
-                    val bitmap = getBitmapFromUri(uri)
-                    val value = scanFromPatch(bitmap)
-                    if (value != null) {
-                        //shareData(value)
-                    } else {
-                        Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show()
+                    scanFromPatch(requireContext(), uri) { barcodes ->
+                        if (!barcodes.isNullOrEmpty()) {
+                            handleScanResult(barcodes)
+                        } else {
+                            showSingleOptionDialog(
+                                title = "Lỗi",
+                                message = "Không có thể tìm thấy nội dung từ ảnh",
+                                button = "Đóng"
+                            )
+                        }
                     }
                 }
             }
@@ -100,10 +105,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 .addOnSuccessListener { barcodes ->
                     if (barcodes.isNotEmpty()) {
                         stopScanAnimation()
-                        val barcode = barcodes.getOrNull(0)?.rawValue
-                        if (barcode?.isNotBlank() == true) {
-                            navigateToResultScreen(barcode)
-                        }
+                        handleScanResult(barcodes)
                     } else {
                         startScanAnimation()
                     }
@@ -132,6 +134,13 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             },
             ContextCompat.getMainExecutor(requireContext())
         )
+    }
+
+    private fun handleScanResult(barcodes: List<Barcode>) {
+        val barcode = barcodes.getOrNull(0)?.rawValue
+        if (barcode?.isNotBlank() == true) {
+            navigateToResultScreen(barcode)
+        }
     }
 
     private fun navigateToResultScreen(barcode: String) {
@@ -258,24 +267,25 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         }
     }
 
-    private fun getBitmapFromUri(uri: Uri): Bitmap {
-        val contentResolver = requireContext().contentResolver
-        val inputStream = contentResolver.openInputStream(uri)
-        return BitmapFactory.decodeStream(inputStream)
-    }
-
-    private fun scanFromPatch(bitmap: Bitmap): String? {
-//        try {
-//            val frame = Frame.Builder().setBitmap(bitmap).build()
-//
-//            val barcodes = barcodeDetector.detect(frame)
-//            if (barcodes.size() > 0) {
-//                return barcodes.valueAt(0).displayValue
-//            }
-//        } catch (e: Exception) {
-//            e.stackTrace
-//        }
-        return null
+    private fun scanFromPatch(
+        context: Context,
+        imageUri: Uri,
+        result: (List<Barcode>?) -> Unit
+    ) {
+        val options = BarcodeScannerOptions.Builder().build()
+        val scanner = BarcodeScanning.getClient(options)
+        try {
+            val image = InputImage.fromFilePath(context, imageUri)
+            scanner.process(image).addOnSuccessListener { barcodes: List<Barcode> ->
+                result(barcodes)
+            }.addOnFailureListener { e: Exception ->
+                result(null)
+                e.printStackTrace()
+            }
+        } catch (e: IOException) {
+            result(null)
+            e.printStackTrace()
+        }
     }
 
 
@@ -327,8 +337,5 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     companion object {
         private const val IMAGE_FILTER = "image/*"
-        private const val CAMERA_PREVIEW_WIDTH = 1920
-        private const val CAMERA_PREVIEW_HEIGHT = 1080
-        private const val CAMERA_PREVIEW_FPS = 35F
     }
 }

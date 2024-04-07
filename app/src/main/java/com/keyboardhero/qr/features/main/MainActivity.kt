@@ -1,9 +1,7 @@
 package com.keyboardhero.qr.features.main
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import com.keyboardhero.qr.core.base.BaseActivity
@@ -22,7 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     lateinit var appPreference: AppPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (isUsingGestureNavigation()) {
+        if (CommonUtils.isGestureNavigationEnabled(this.contentResolver)) {
             enableEdgeToEdge()
         }
         super.onCreate(savedInstanceState)
@@ -43,18 +41,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun initThemes() {
         val typeTheme = appPreference.theme
         CommonUtils.switchThemeMode(typeTheme)
-    }
-
-    private fun isUsingGestureNavigation(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val navBarPosition = Settings.Secure.getInt(
-                this.contentResolver,
-                "navigation_mode",
-                -1
-            )
-            navBarPosition == 2 // 2 represents gesture navigation in Android Q and above
-        } else {
-            false // Gesture navigation is not supported in Android versions prior to Q
-        }
     }
 }

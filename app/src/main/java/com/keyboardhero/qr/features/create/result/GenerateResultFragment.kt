@@ -22,9 +22,15 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
 
     private val args: GenerateResultFragmentArgs by navArgs()
     private val viewModel: GenerateResultViewModel by viewModels()
+    private var isCreateNew: Boolean = true
 
     override fun initData(data: Bundle?) {
-        viewModel.setup(type = args.type, barcodeData = args.barcodeData)
+        isCreateNew = args.isCreateNew
+        viewModel.setup(
+            type = args.type,
+            barcodeData = args.barcodeData,
+            isCreateNew = isCreateNew
+        )
     }
 
     override fun initViews() {
@@ -32,7 +38,9 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
     }
 
     override fun initHeaderAppBar() {
-        headerAppBar.title = getString(R.string.title_generate_result_screen)
+        headerAppBar.title = getString(
+            if (isCreateNew) R.string.title_generate_result_screen else R.string.detail
+        )
         headerAppBar.navigationIconId = R.drawable.ic_back_24
     }
 

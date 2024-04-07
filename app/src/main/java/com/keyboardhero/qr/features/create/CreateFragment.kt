@@ -9,7 +9,10 @@ import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentCreateBinding
 import com.keyboardhero.qr.features.create.input.contact.InputContactScreen
+import com.keyboardhero.qr.features.create.input.email.InputEmailScreen
+import com.keyboardhero.qr.features.create.input.phone.InputPhoneScreen
 import com.keyboardhero.qr.features.create.input.sms.InputSmsScreen
+import com.keyboardhero.qr.features.create.input.text.InputTextScreen
 import com.keyboardhero.qr.features.create.input.url.InputUrlScreen
 import com.keyboardhero.qr.features.create.input.wifi.InputWifiScreen
 import com.keyboardhero.qr.shared.domain.dto.BarcodeType
@@ -47,12 +50,12 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>() {
         headerAppBar.navigationOnClickListener = { onBackPressed() }
         generateItemAdapter.onItemClick = {
             val screen = when (it) {
-                BarcodeType.Text -> InputUrlScreen
-                BarcodeType.Phone -> InputUrlScreen
+                BarcodeType.Text -> InputTextScreen
+                BarcodeType.Phone -> InputPhoneScreen
                 BarcodeType.Sms -> InputSmsScreen
                 BarcodeType.Contact -> InputContactScreen
                 BarcodeType.Wifi -> InputWifiScreen
-                BarcodeType.Email -> InputWifiScreen
+                BarcodeType.Email -> InputEmailScreen
                 BarcodeType.Url -> InputUrlScreen
             }
             router.navigate(

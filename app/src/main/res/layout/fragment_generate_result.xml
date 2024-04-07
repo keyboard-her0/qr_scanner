@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_generate_item"
             android:padding="@dimen/size_16dp"
-            android:src="@drawable/ic_share_24"
+            android:src="@drawable/ic_share"
             tools:ignore="ContentDescription" />
 
     </androidx.cardview.widget.CardView>
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_generate_item"
             android:padding="@dimen/size_16dp"
-            android:src="@drawable/ic_save_24"
+            android:src="@drawable/ic_save"
             tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 

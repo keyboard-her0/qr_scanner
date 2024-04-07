@@ -20,31 +20,31 @@ sealed class BarcodeType(
     val resIcon: Int
 ) : Parcelable {
     object Email : BarcodeType(
-        EmailBarcode::class.java, 1, R.string.email, R.drawable.ic_text_24
+        EmailBarcode::class.java, 1, R.string.email, R.drawable.ic_email
     )
 
     object Sms : BarcodeType(
-        SmsBarcode::class.java, 2, R.string.sms, R.drawable.ic_text_24
+        SmsBarcode::class.java, 2, R.string.sms, R.drawable.ic_sms
     )
 
     object Phone : BarcodeType(
-        PhoneBarcode::class.java, 3, R.string.phone, R.drawable.ic_text_24
+        PhoneBarcode::class.java, 3, R.string.phone, R.drawable.ic_call
     )
 
     object Contact : BarcodeType(
-        ContactBarcode::class.java, 4, R.string.contact, R.drawable.ic_text_24
+        ContactBarcode::class.java, 4, R.string.contact, R.drawable.ic_contacts
     )
 
     object Text : BarcodeType(
-        TextBarcode::class.java, 5, R.string.text, R.drawable.ic_text_24
+        TextBarcode::class.java, 5, R.string.text, R.drawable.ic_text
     )
 
     object Url : BarcodeType(
-        UrlBarcode::class.java, 6, R.string.website, R.drawable.ic_text_24
+        UrlBarcode::class.java, 6, R.string.website, R.drawable.ic_browser
     )
 
     object Wifi : BarcodeType(
-        WifiBarcode::class.java, 7, R.string.wifi, R.drawable.ic_text_24
+        WifiBarcode::class.java, 7, R.string.wifi, R.drawable.ic_wifi
     )
 
     companion object {

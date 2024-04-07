@@ -5,51 +5,245 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="@dimen/size_16dp">
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:text="@string/name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.keyboardhero.qr.features.widget.InputDataView
-            android:id="@+id/inputName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:inputType="text"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/tvPhone"
-            app:startIcon="@drawable/ic_contact_24" />
+            android:layout_height="0dp"
+            android:paddingHorizontal="@dimen/size_16dp">
 
-        <TextView
-            android:id="@+id/tvMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:text="@string/phone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputName" />
+            <TextView
+                android:id="@+id/tvFirstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/first_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.keyboardhero.qr.features.widget.InputDataView
-            android:id="@+id/inputPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:inputType="phone"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/tvMessage"
-            app:startIcon="@drawable/ic_contact_24" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editFirstName"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvFirstName" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/last_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editFirstName" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editLastName"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvLastName" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editLastName" />
+
+            <com.keyboardhero.qr.features.widget.InputDataView
+                android:id="@+id/inputPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:inputType="phone"
+                android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@id/tvPhone"
+                app:startIcon="@drawable/ic_call" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputPhone" />
+
+            <com.keyboardhero.qr.features.widget.InputDataView
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@id/tvEmail"
+                app:startIcon="@drawable/ic_email" />
+
+            <TextView
+                android:id="@+id/tvCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/company"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputEmail" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCompany"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvCompany" />
+
+            <TextView
+                android:id="@+id/tvJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/your_job"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editCompany" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editJob"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvJob" />
+
+            <TextView
+                android:id="@+id/tvStreet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/street"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editJob" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editStreet"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvStreet" />
+
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/city"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editStreet" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCity"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvCity" />
+
+            <TextView
+                android:id="@+id/tvState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/state"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editCity" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editState"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvState" />
+
+            <TextView
+                android:id="@+id/tvCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/country"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editState" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCountry"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvCountry" />
+
+            <TextView
+                android:id="@+id/tvZipCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/zip_code"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editCountry" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editZipCode"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:background="@drawable/background_input_view"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvZipCode" />
+
+            <TextView
+                android:id="@+id/tvWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:text="@string/website"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editZipCode" />
+
+            <com.keyboardhero.qr.features.widget.InputDataView
+                android:id="@+id/inputWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@id/tvWebsite"
+                app:startIcon="@drawable/ic_browser" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/layoutBottom"

@@ -1,6 +1,5 @@
 package com.keyboardhero.qr.shared.domain.dto.barcodedata
 
-import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -10,6 +9,6 @@ data class EmailBarcode(
     val message: String,
 ) : BarcodeData {
     override fun getInputData(): String {
-        return ""
+        return "MATMSG:TO:$email;SUB:$subject;BODY:$message"
     }
 }

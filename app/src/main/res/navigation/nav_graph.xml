@@ -45,6 +45,10 @@
         <argument
             android:name="barcodeData"
             app:argType="com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData" />
+        <argument
+            android:name="isCreateNew"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
     <fragment
         android:id="@+id/inputSmsDataFragment"
@@ -71,4 +75,16 @@
             android:name="scanData"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/inputPhoneDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.phone.InputPhoneDataFragment"
+        android:label="InputPhoneDataFragment" />
+    <fragment
+        android:id="@+id/inputEmailDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.email.InputEmailDataFragment"
+        android:label="InputEmailDataFragment" />
+    <fragment
+        android:id="@+id/inputTextDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.text.InputTextDataFragment"
+        android:label="InputTextDataFragment" />
 </navigation>

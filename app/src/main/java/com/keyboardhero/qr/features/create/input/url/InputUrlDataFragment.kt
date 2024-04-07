@@ -39,7 +39,7 @@ class InputUrlDataFragment : BaseInputFragment<FragmentInputUrlDataBinding>() {
             GenerateResultScreen,
             GenerateResultFragmentArgs(
                 barcodeData = UrlBarcode(
-                    url = binding.inputUrl.text
+                    url = binding.inputUrl.text.trim()
                 ),
                 type = BarcodeType.Url
             ).toBundle()

@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/size_8dp"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_contact_24" />
+        tools:src="@drawable/ic_contacts" />
 
     <View
         android:id="@+id/divider"

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/size_16dp"
-            tools:src="@drawable/ic_wifi_24"
+            tools:src="@drawable/ic_wifi"
             tools:ignore="ContentDescription" />
 
         <TextView

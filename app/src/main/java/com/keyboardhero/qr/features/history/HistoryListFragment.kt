@@ -7,6 +7,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentHistoryListBinding
+import com.keyboardhero.qr.features.create.result.GenerateResultFragmentArgs
+import com.keyboardhero.qr.features.create.result.GenerateResultScreen
 import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,11 +40,25 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
 
     override fun initActions() {
         historyAdapter.listener = object : HistoryAdapter.HistoryListener {
-
             override fun onItemClick(history: HistoryDTO) {
+                if (isScan) {
 
+                } else {
+                    navigateToCreateResultScreen(history)
+                }
             }
         }
+    }
+
+    private fun navigateToCreateResultScreen(history: HistoryDTO) {
+        router.navigate(
+            GenerateResultScreen,
+            GenerateResultFragmentArgs(
+                barcodeData = history.barcodeData,
+                type = history.barcodeType,
+                isCreateNew = false
+            ).toBundle()
+        )
     }
 
     override fun initObservers() {

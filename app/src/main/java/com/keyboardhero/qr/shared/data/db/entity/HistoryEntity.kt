@@ -14,7 +14,7 @@ data class HistoryEntity(
     val isScan: Boolean,
 
     @ColumnInfo(name = "createAt")
-    val createAt: Long,
+    val createAt: String,
 
     @ColumnInfo(name = "jsonData")
     val jsonData: String,

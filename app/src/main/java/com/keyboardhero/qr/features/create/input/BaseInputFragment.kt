@@ -16,7 +16,7 @@ import com.keyboardhero.qr.databinding.LayoutBottomInputBinding
 
 abstract class BaseInputFragment<VB : ViewBinding> : BaseFragment<VB>(), IBaseInputDataFragment {
 
-    private var bottomBinding: LayoutBottomInputBinding? = null
+    protected var bottomBinding: LayoutBottomInputBinding? = null
 
 
     abstract val title: String

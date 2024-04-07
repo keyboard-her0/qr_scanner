@@ -66,11 +66,10 @@ class InputWifiDataFragment : BaseInputFragment<FragmentInputWifiDataBinding>() 
             GenerateResultScreen,
             GenerateResultFragmentArgs(
                 barcodeData = WifiBarcode(
-                    ssid = binding.inputName.text,
+                    ssid = binding.inputName.text.trim(),
                     password = binding.inputPassword.text,
                     isHide = binding.cbHide.isChecked,
                     type = WifiBarcode.TypeSecurity.values()[typeSecuritySelected]
-
                 ),
                 type = BarcodeType.Wifi
             ).toBundle()
