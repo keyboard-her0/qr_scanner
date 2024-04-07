@@ -9,5 +9,5 @@ data class ResultScanViewState(
     val loading: Boolean = false,
     val barcodeData: BarcodeData = TextBarcode(""),
     val barcodeType: BarcodeType = BarcodeType.Text,
-    val actions: List<Action> = listOf(Action.Search, Action.Share, Action.Copy)
+    val actions: List<Action> = emptyList()
 )

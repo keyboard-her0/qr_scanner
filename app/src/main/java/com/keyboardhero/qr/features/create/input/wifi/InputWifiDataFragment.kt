@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.utils.views.hideKeyboard
 import com.keyboardhero.qr.databinding.FragmentInputWifiDataBinding
+import com.keyboardhero.qr.features.create.CreateScreen
 import com.keyboardhero.qr.features.create.input.BaseInputFragment
 import com.keyboardhero.qr.features.create.result.GenerateResultFragmentArgs
 import com.keyboardhero.qr.features.create.result.GenerateResultScreen
@@ -72,7 +74,12 @@ class InputWifiDataFragment : BaseInputFragment<FragmentInputWifiDataBinding>() 
                     type = WifiBarcode.TypeSecurity.values()[typeSecuritySelected]
                 ),
                 type = BarcodeType.Wifi
-            ).toBundle()
+            ).toBundle(),
+            navOptions {
+                popUpTo(CreateScreen.getScreenId()) {
+                    inclusive = false
+                }
+            }
         )
     }
 }

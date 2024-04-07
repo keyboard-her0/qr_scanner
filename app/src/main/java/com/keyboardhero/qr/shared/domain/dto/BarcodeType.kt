@@ -50,7 +50,7 @@ sealed class BarcodeType(
     companion object {
 
         fun values() = listOf(
-            Email, Sms, Phone, Contact, Text, Url, Wifi
+            Email, Sms, Phone, Text, Url, Wifi
         )
 
         fun getTypeFormId(typeId: Int): BarcodeType {

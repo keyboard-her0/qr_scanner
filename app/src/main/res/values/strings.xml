@@ -67,9 +67,21 @@
     <string name="flash">Flash</string>
     <string name="copy">Copy</string>
     <string name="search">Search</string>
-    <string name="open_in_browse">Open In Browse</string>
+    <string name="open">Open</string>
     <string name="connect">Connect</string>
     <string name="call">Call</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="send_email">Send Email</string>
+
+    <string name="result_wifi">Wifi name: %s\nPassword: %s\nType: %s\n</string>
+    <string name="result_email">Email to: %s\nSubject: %s\nMessage: %s</string>
+    <string name="result_sms">Phone number: %s\nMessage: %s</string>
+
+    <string name="result_contact_first_name">First name: %s\n</string>
+    <string name="result_contact_last_name">Last name: %s\n</string>
+    <string name="result_contact_phone_number">Phone number: %s\n</string>
+    <string name="result_contact_email">Email: %s\n</string>
+    <string name="result_contact_company">Company: %s\n</string>
     <!-- endregion-->
 
 </resources>

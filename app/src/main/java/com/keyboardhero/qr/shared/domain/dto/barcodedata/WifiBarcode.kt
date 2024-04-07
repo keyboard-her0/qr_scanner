@@ -18,6 +18,12 @@ data class WifiBarcode(
         WPA("WPA"),
         WEP("WEP"),
         NONE("None");
+
+        companion object {
+            fun getValue(typeName: String): TypeSecurity {
+                return values().find { it.typeName == typeName } ?: WPA2
+            }
+        }
     }
 }
 

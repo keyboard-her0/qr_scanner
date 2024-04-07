@@ -26,14 +26,14 @@ class GenerateResultViewModel @Inject constructor(
     fun setup(type: BarcodeType, barcodeData: BarcodeData, isCreateNew: Boolean) {
         viewModelScope.launch {
             dispatchState(currentState.copy(loading = true))
-            val historyDTO = HistoryDTO(
-                id = 0,
-                isScan = false,
-                createAt = CommonUtils.getTimeNow(),
-                barcodeType = type,
-                barcodeData = barcodeData
-            )
             if (isCreateNew) {
+                val historyDTO = HistoryDTO(
+                    id = 0,
+                    isScan = false,
+                    createAt = CommonUtils.getTimeNow(),
+                    barcodeType = type,
+                    barcodeData = barcodeData
+                )
                 saveHistory(historyDTO)
             }
             renderIntoBitmap(

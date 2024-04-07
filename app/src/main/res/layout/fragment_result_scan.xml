@@ -1,23 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvData"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="@dimen/size_16dp"
+        android:layout_marginTop="@dimen/size_32dp"
+        app:cardCornerRadius="@dimen/card_elevation_4dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_16dp">
+
+            <ImageView
+                android:id="@+id/imgType"
+                android:layout_width="@dimen/size_50dp"
+                android:layout_height="@dimen/size_50dp"
+                android:padding="@dimen/size_6dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/tvCreateAt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_text" />
+
+            <TextView
+                android:id="@+id/tvType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:textSize="@dimen/font_size_20_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/imgType"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/wifi" />
+
+            <TextView
+                android:id="@+id/tvCreateAt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_6dp"
+                android:textSize="@dimen/font_size_16_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvType"
+                app:layout_constraintTop_toBottomOf="@id/tvType"
+                tools:text="20/22/2022  12H00" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_1dp"
+                android:layout_marginTop="@dimen/size_6dp"
+                android:background="#C8C8C8"
+                app:layout_constraintTop_toBottomOf="@id/tvCreateAt" />
+
+            <TextView
+                android:id="@+id/tvData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/size_20dp"
+                android:gravity="center"
+                android:textSize="@dimen/font_size_20_medium"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                tools:text="@string/title_generate_result_screen" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/layoutAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_16dp"
+        android:layout_marginTop="@dimen/size_32dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvData" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal" />
+</LinearLayout>

@@ -9,6 +9,8 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.databinding.FragmentHistoryListBinding
 import com.keyboardhero.qr.features.create.result.GenerateResultFragmentArgs
 import com.keyboardhero.qr.features.create.result.GenerateResultScreen
+import com.keyboardhero.qr.features.scan.resutl.ResultScanFragmentArgs
+import com.keyboardhero.qr.features.scan.resutl.ResultScanScreen
 import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +44,13 @@ class HistoryListFragment : BaseFragment<FragmentHistoryListBinding>() {
         historyAdapter.listener = object : HistoryAdapter.HistoryListener {
             override fun onItemClick(history: HistoryDTO) {
                 if (isScan) {
-
+                    router.navigate(
+                        ResultScanScreen,
+                        ResultScanFragmentArgs(
+                            scanData = history.barcodeData.getInputData(),
+                            isCreateNew = false
+                        ).toBundle()
+                    )
                 } else {
                     navigateToCreateResultScreen(history)
                 }

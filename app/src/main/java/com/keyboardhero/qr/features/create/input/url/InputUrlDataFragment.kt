@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.databinding.FragmentInputUrlDataBinding
+import com.keyboardhero.qr.features.create.CreateScreen
 import com.keyboardhero.qr.features.create.input.BaseInputFragment
 import com.keyboardhero.qr.features.create.result.GenerateResultFragmentArgs
 import com.keyboardhero.qr.features.create.result.GenerateResultScreen
@@ -42,7 +44,12 @@ class InputUrlDataFragment : BaseInputFragment<FragmentInputUrlDataBinding>() {
                     url = binding.inputUrl.text.trim()
                 ),
                 type = BarcodeType.Url
-            ).toBundle()
+            ).toBundle(),
+            navOptions {
+                popUpTo(CreateScreen.getScreenId()) {
+                    inclusive = false
+                }
+            }
         )
     }
 }
