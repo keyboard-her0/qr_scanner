@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/size_16dp"
         android:layout_marginTop="@dimen/size_32dp"
+        app:cardBackgroundColor="?attr/colorSecondary"
         app:cardCornerRadius="@dimen/card_elevation_4dp"
         app:cardUseCompatPadding="true">
 

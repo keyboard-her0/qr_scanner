@@ -13,8 +13,8 @@ plugins {
 android {
     defaultConfig {
         applicationId "com.keyboardhero.qr"
-        versionCode 2
-        versionName "0.1.2"
+        versionCode 5
+        versionName "0.1.5"
     }
 
     buildTypes {
@@ -84,13 +84,6 @@ dependencies {
     implementation Libs.GLIDE.GLIDE
     annotationProcessor Libs.GLIDE.GLIDE_COMPILER
     implementation Libs.AndroidX.Preference.PREFERENCE
-
-    // ROOM
-//    implementation Libs.ROOM.ROOM_RUNTIME
-//    annotationProcessor Libs.ROOM.ROOM_COMPILER
-//    kapt Libs.ROOM.ROOM_COMPILER
-//    implementation Libs.ROOM.ROOM_RX
-//    implementation Libs.ROOM.ROOM_KTX
 
     implementation Libs.Animation.LOTTIE
 

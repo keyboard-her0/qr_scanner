@@ -21,10 +21,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     private val viewModel: HistoryViewModel by viewModels()
 
     override fun initData(data: Bundle?) {
-    }
-
-    override fun onResume() {
-        super.onResume()
         viewModel.getAllHistory()
     }
 
@@ -65,6 +61,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     override fun initObservers() {
+        viewModel.observe(
+            owner = viewLifecycleOwner,
+            selector = { state -> state.loading },
+            observer = { loading ->
+                if (loading) showLoading() else hideLoading()
+            }
+        )
     }
 
     fun getHistoryViewModel(): HistoryViewModel = viewModel

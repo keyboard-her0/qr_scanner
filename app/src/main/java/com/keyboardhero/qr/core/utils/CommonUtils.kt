@@ -2,22 +2,27 @@ package com.keyboardhero.qr.core.utils
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Base64
 import androidx.appcompat.app.AppCompatDelegate
 import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 object CommonUtils {
     /**
@@ -141,5 +146,39 @@ object CommonUtils {
             DebugLog.w(error.message ?: "convertDateTo $dateFormat failed")
             ""
         }
+    }
+
+    suspend fun saveImage(bitmap: Bitmap, context: Context): Boolean {
+        return suspendCoroutine { continuation ->
+            val resolver = context.contentResolver
+            val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            } else {
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            }
+            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val imageName = "QRCode_$timeStamp.jpg"
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, imageName)
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put(MediaStore.Images.Media.WIDTH, bitmap.width)
+                put(MediaStore.Images.Media.HEIGHT, bitmap.height)
+            }
+            try {
+                resolver.insert(imageCollection, contentValues)
+                    ?.also { resultUri ->
+                        resolver.openOutputStream(resultUri)?.use { outputStream ->
+                            if (!bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)) {
+                                throw IOException("Unable to save bitmap")
+                            }
+                        }
+                    } ?: throw IOException("Unable to create MediaStore entry")
+                continuation.resume(true)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                continuation.resume(false)
+            }
+        }
+
     }
 }

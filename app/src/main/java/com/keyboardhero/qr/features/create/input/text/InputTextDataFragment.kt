@@ -30,6 +30,7 @@ class InputTextDataFragment : BaseInputFragment<FragmentInputTextDataBinding>() 
     }
 
     override fun initViewsInput() {
+        bottomBinding?.btnCreate?.isEnabled = binding.editText.text?.isNotBlank() == true
         binding.editText.doAfterTextChanged {
             bottomBinding?.btnCreate?.isEnabled = it?.isNotBlank() == true
         }

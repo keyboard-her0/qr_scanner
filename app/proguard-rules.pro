@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keepattributes *Annotation*
+-keepattributes Signature
+-keep class java.lang.Exception { *; }
+-keep class com.keyboardhero.qr.shared.domain.dto.barcodedata.* { *;}
+-keep class com.keyboardhero.qr.shared.domain.dto.* { *;}

@@ -8,8 +8,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-import android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 import androidx.core.view.isVisible
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.databinding.LayoutDialogLoadingBinding

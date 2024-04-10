@@ -31,6 +31,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.logging.DebugLog
+import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.scan.resutl.ResultScanFragmentArgs
 import com.keyboardhero.qr.features.scan.resutl.ResultScanScreen
@@ -196,11 +197,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun initActions() {
         with(binding) {
-            imgBack.setOnClickListener {
+            imgBack.onSafeClick {
                 onBackPressed()
             }
 
-            btnSelectPhoto.setOnClickListener {
+            btnSelectPhoto.onSafeClick {
                 val permissionImage = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
                     READ_MEDIA_IMAGES
                 } else {
@@ -220,11 +221,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 }
             }
 
-            btnToggleFlash.setOnClickListener {
+            btnToggleFlash.onSafeClick {
                 handleActionFlash()
             }
 
-            imgSwitchCamera.setOnClickListener {
+            imgSwitchCamera.onSafeClick {
                 handleSwitchCamera()
             }
         }

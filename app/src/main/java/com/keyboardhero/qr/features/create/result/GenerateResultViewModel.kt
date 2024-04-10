@@ -59,7 +59,6 @@ class GenerateResultViewModel @Inject constructor(
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888).apply {
                 setPixels(pixels, 0, width, 0, 0, width, height)
             }
-
             dispatchState(currentState.copy(bitmap = bitmap))
         }
     }

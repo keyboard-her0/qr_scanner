@@ -5,14 +5,20 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
+import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.databinding.FragmentGenerateResultBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -41,6 +47,7 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
         headerAppBar.title = getString(
             if (isCreateNew) R.string.title_generate_result_screen else R.string.detail
         )
+        headerAppBar.titleCentered = true
         headerAppBar.navigationIconId = R.drawable.ic_back_24
     }
 
@@ -49,12 +56,27 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
             onBackPressed()
         }
 
-        binding.btnShare.setOnClickListener {
+        binding.btnShare.onSafeClick {
             handleShareQr()
         }
 
-        binding.btnSave.setOnClickListener {
+        binding.btnSave.onSafeClick {
+            handleSaveImage()
+        }
+    }
 
+    private fun handleSaveImage() {
+        viewModel.currentState.bitmap?.let { bitmap ->
+            lifecycleScope.launch {
+                val result = withContext(Dispatchers.IO) {
+                    CommonUtils.saveImage(bitmap, requireContext())
+                }
+                Toast.makeText(
+                    requireContext(),
+                    if (result) "Lưu ảnh thành công" else "Lưu ảnh thất bại",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -65,9 +87,11 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
             "temp-file_qr",
             null
         )
-        val uri = Uri.parse(path)
-        val intent = CommonUtils.createIntentShareUriData(uri, "Chia sẻ với")
-        startActivity(intent)
+        if (path != null) {
+            val uri = Uri.parse(path)
+            val intent = CommonUtils.createIntentShareUriData(uri, "Chia sẻ với")
+            startActivity(intent)
+        }
     }
 
     override fun initObservers() {

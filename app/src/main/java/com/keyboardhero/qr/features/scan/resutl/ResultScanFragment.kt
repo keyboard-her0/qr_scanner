@@ -13,12 +13,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateMargins
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
+import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.databinding.FragmentResultScanBinding
 import com.keyboardhero.qr.shared.domain.dto.Action
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.EmailBarcode
@@ -127,8 +130,7 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
-                layoutParams.marginStart = 30
-                layoutParams.marginEnd = 30
+                layoutParams.updateMargins(30,4,30,4)
 
                 actions.forEach { action ->
 
@@ -141,15 +143,20 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
                         setCompoundDrawablesWithIntrinsicBounds(null, insetDrawable, null, null)
                         text = getString(action.actionNameResId)
                         setPadding(padding, padding, padding, padding)
-                        setBackgroundResource(R.drawable.background_border_16)
-                        setOnClickListener {
-                            handleActionButtonClick(action = action)
-                        }
+                        setBackgroundResource(R.drawable.background_generate_item)
                         gravity = Gravity.CENTER
                         minWidth = resources.getDimensionPixelOffset(R.dimen.size_80dp)
+                        onSafeClick {
+                            handleActionButtonClick(action = action)
+                        }
                     }
 
-                    binding.layoutAction.addView(actionButton, layoutParams)
+                    val card = CardView(requireContext()).apply {
+                        radius = resources.getDimensionPixelOffset(R.dimen.size_8dp).toFloat()
+                    }
+                    card.addView(actionButton)
+
+                    binding.layoutAction.addView(card, layoutParams)
                 }
             }
         )

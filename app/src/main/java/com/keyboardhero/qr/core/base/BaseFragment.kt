@@ -1,7 +1,6 @@
 package com.keyboardhero.qr.core.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +36,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
             initData(arguments)
         }
     }
+
     @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,9 +57,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IBaseFragment {
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initObservers()
-
         (requireActivity() as OnBackPressedDispatcherOwner)
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner) {
