@@ -7,13 +7,13 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/size_16dp"
         android:layout_marginTop="@dimen/size_32dp"
-        app:cardBackgroundColor="?attr/colorSecondary"
-        app:cardCornerRadius="@dimen/card_elevation_4dp"
+        app:cardBackgroundColor="?attr/colorOnSurface"
+        app:cardCornerRadius="@dimen/size_8dp"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +75,7 @@
                 tools:text="@string/title_generate_result_screen" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/layoutAction"

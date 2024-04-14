@@ -8,20 +8,18 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/teal_200</item>
+        <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryVariant">@color/teal_700</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/color_1d2227</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
 
-        <item name="headerAppBarContentColor">@color/white</item>
-        <item name="headerAppBarBackground">?attr/colorSecondary</item>
+        <item name="headerAppBarContentColor">@color/color_c6c6c6</item>
+        <item name="headerAppBarBackground">#12181f</item>
 
-        <item name="colorOnBackground">@color/color_131314</item>
-        <item name="dividerColor">#DD636262</item>
+        <item name="colorOnBackground">#0b0e13</item>
+        <item name="colorOnSurface">#12181f</item>
+        <item name="dividerColor">#323942</item>
         <item name="iconColor">@color/white</item>
         <item name="textColor">@color/white</item>
+        <item name="colorBackgroundItem">#19212a</item>
     </style>
 </resources>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.scan.ScanFragment">
+    tools:context=".features.scan.ScanFragment"
+    tools:ignore="HardcodedText">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
@@ -16,53 +17,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/size_16dp"
         android:layout_marginTop="@dimen/size_45dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/background_button_circle"
+        android:contentDescription="Button Back"
         android:padding="@dimen/size_10dp"
         android:src="@drawable/ic_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/scan_code"
+        android:textColor="?attr/textColor"
+        android:textSize="@dimen/font_size_22_large"
         app:layout_constraintBottom_toBottomOf="@id/imgBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/imgBack" />
 
-    <ImageView
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgSwitchCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/size_16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/background_button_circle"
+        android:contentDescription="Button switch camera"
         android:padding="@dimen/size_10dp"
         android:src="@drawable/ic_camera_switch"
         app:layout_constraintBottom_toBottomOf="@id/imgBack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imgBack"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="@id/imgBack" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnToggleFlash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="@dimen/size_10dp"
+        android:background="@drawable/background_button_circle"
+        android:contentDescription="Button Turn On Flash"
+        android:padding="@dimen/size_14dp"
         android:src="@drawable/ic_flash_off"
         app:layout_constraintBottom_toTopOf="@id/tvToggleFlash"
         app:layout_constraintEnd_toStartOf="@id/btnSelectPhoto"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvToggleFlash"
@@ -70,22 +74,24 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_32dp"
         android:text="@string/flash"
+        android:textColor="?attr/textColor"
+        android:textSize="@dimen/font_size_17_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/btnToggleFlash"
         app:layout_constraintStart_toStartOf="@id/btnToggleFlash" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnSelectPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="@dimen/size_10dp"
+        android:background="@drawable/background_button_circle"
+        android:contentDescription="Button select photo"
+        android:padding="@dimen/size_14dp"
         android:src="@drawable/ic_photo_library"
         app:layout_constraintBottom_toTopOf="@id/tvSelectPhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnToggleFlash"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toEndOf="@id/btnToggleFlash" />
 
     <TextView
         android:id="@+id/tvSelectPhoto"
@@ -93,6 +99,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_32dp"
         android:text="@string/photo"
+        android:textColor="?attr/textColor"
+        android:textSize="@dimen/font_size_17_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/btnSelectPhoto"
         app:layout_constraintStart_toStartOf="@id/btnSelectPhoto" />

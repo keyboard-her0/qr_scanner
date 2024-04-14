@@ -26,7 +26,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editFirstName"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -45,7 +45,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editLastName"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -102,7 +102,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editCompany"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -121,7 +121,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editJob"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -140,7 +140,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editStreet"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -159,7 +159,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editCity"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -178,7 +178,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editState"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -197,7 +197,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editCountry"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -216,7 +216,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editZipCode"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                style="@style/styleTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8dp"

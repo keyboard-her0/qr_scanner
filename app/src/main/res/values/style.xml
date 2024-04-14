@@ -20,4 +20,10 @@
         <item name="android:textColor">?attr/textColor</item>
         <item name="android:textSize">@dimen/font_size_22_large</item>
     </style>
+
+    <style name="styleTextInput" parent="Widget.Material3.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
 </resources>

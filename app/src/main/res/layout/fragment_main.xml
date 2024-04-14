@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
 
     <TextView
         android:id="@+id/tvNameApp"
@@ -31,8 +32,8 @@
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_qr_code_scanner_24"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/scan_code"
+            android:src="@drawable/ic_qr_code_scanner_24" />
 
         <TextView
             style="@style/styleItemFeature"
@@ -61,6 +62,7 @@
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
+            android:contentDescription="@string/create"
             android:src="@drawable/ic_add_qr_code_24"
             tools:ignore="ContentDescription" />
 
@@ -73,15 +75,16 @@
             android:layout_marginStart="@dimen/size_32dp"
             android:layout_toEndOf="@id/imgCreate"
             android:text="@string/create"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="RelativeOverlap" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_forward_24"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="Next"
+            android:src="@drawable/ic_forward_24" />
 
     </RelativeLayout>
 
@@ -100,8 +103,8 @@
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_history_24"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/history"
+            android:src="@drawable/ic_history_24" />
 
         <TextView
             android:id="@+id/tvHistory"
@@ -112,15 +115,16 @@
             android:layout_marginStart="@dimen/size_32dp"
             android:layout_toEndOf="@id/imgHistory"
             android:text="@string/history"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="RelativeOverlap" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_forward_24"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="Next"
+            android:src="@drawable/ic_forward_24" />
 
     </RelativeLayout>
 
@@ -139,8 +143,8 @@
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_settings_24"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/settings"
+            android:src="@drawable/ic_settings_24" />
 
         <TextView
             android:id="@+id/tvSettings"
@@ -151,15 +155,16 @@
             android:layout_marginStart="@dimen/size_32dp"
             android:layout_toEndOf="@id/imgSettings"
             android:text="@string/settings"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="RelativeOverlap" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_forward_24"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="Next"
+            android:src="@drawable/ic_forward_24" />
 
     </RelativeLayout>
 
