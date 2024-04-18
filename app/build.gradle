@@ -13,8 +13,8 @@ plugins {
 android {
     defaultConfig {
         applicationId "com.keyboardhero.qr"
-        versionCode 8
-        versionName "0.1.8"
+        versionCode 9
+        versionName "0.1.9"
     }
 
     buildTypes {
