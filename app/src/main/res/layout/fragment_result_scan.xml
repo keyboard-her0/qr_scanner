@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/size_8dp"
                 android:textSize="@dimen/font_size_20_medium"
+                android:textColor="?attr/textColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/imgType"
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_6dp"
                 android:textSize="@dimen/font_size_16_small"
+                android:textColor="?attr/textColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvType"
                 app:layout_constraintTop_toBottomOf="@id/tvType"
@@ -71,6 +73,7 @@
                 android:layout_marginVertical="@dimen/size_20dp"
                 android:gravity="center"
                 android:textSize="@dimen/font_size_20_medium"
+                android:textColor="?attr/textColor"
                 app:layout_constraintTop_toBottomOf="@id/divider"
                 tools:text="@string/title_generate_result_screen" />
 

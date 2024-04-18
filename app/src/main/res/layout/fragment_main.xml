@@ -27,13 +27,12 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/tvNameApp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgScan"
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_qr_code_scanner_24"
-            tools:ignore="ContentDescription" />
+            android:src="@drawable/ic_qr_code_scanner_24" />
 
         <TextView
             style="@style/styleItemFeature"
@@ -57,13 +56,12 @@
         android:padding="@dimen/size_16dp"
         app:layout_constraintTop_toBottomOf="@id/itemScan">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgCreate"
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_add_qr_code_24"
-            tools:ignore="ContentDescription" />
+            android:src="@drawable/ic_add_qr_code_24" />
 
         <TextView
             android:id="@+id/tvCreate"
@@ -77,7 +75,7 @@
             android:textSize="20sp"
             tools:ignore="RelativeOverlap" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -96,13 +94,12 @@
         android:padding="@dimen/size_16dp"
         app:layout_constraintTop_toBottomOf="@id/itemCreate">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgHistory"
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_history_24"
-            tools:ignore="ContentDescription" />
+            android:src="@drawable/ic_history_24" />
 
         <TextView
             android:id="@+id/tvHistory"
@@ -116,7 +113,7 @@
             android:textSize="20sp"
             tools:ignore="RelativeOverlap" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -135,13 +132,12 @@
         android:padding="@dimen/size_16dp"
         app:layout_constraintTop_toBottomOf="@id/itemHistory">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSettings"
             android:layout_width="@dimen/size_40dp"
             android:layout_height="@dimen/size_40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_settings_24"
-            tools:ignore="ContentDescription" />
+            android:src="@drawable/ic_settings_24" />
 
         <TextView
             android:id="@+id/tvSettings"
@@ -155,7 +151,7 @@
             android:textSize="20sp"
             tools:ignore="RelativeOverlap" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

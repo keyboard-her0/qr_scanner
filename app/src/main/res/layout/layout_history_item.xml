@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/size_4dp"
     app:cardBackgroundColor="?attr/colorOnSurface"
     app:cardCornerRadius="@dimen/size_8dp"
-    android:layout_marginHorizontal="@dimen/size_4dp"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
-        android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         android:padding="@dimen/size_16dp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgIcon"
             android:layout_width="@dimen/size_60dp"
             android:layout_height="@dimen/size_60dp"
@@ -23,7 +23,6 @@
             android:layout_marginEnd="@dimen/size_16dp"
             android:background="@drawable/background_image_item_history"
             android:padding="@dimen/size_16dp"
-            tools:ignore="ContentDescription"
             tools:src="@drawable/ic_wifi" />
 
         <TextView
@@ -56,7 +55,7 @@
             android:maxLines="1"
             tools:text="15:00 22/12/2023" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgEndIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,9 +63,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/size_16dp"
             android:padding="@dimen/size_4dp"
-            android:src="@drawable/ic_forward_24"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_forward_24" />
+            android:src="@drawable/ic_forward_24" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

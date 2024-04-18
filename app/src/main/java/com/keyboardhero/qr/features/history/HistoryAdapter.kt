@@ -56,6 +56,10 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
                 itemView.setMargin(
                     bottom = CommonUtils.getNavigationBarHeight(context) + space
                 )
+            } else {
+                itemView.setMargin(
+                    bottom = 0
+                )
             }
             with(binding) {
                 tvTitle.text = itemView.context.getString(history.barcodeType.typeNameResId)

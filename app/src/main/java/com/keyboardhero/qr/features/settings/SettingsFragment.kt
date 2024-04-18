@@ -42,7 +42,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     private fun initItemAppVersion() {
         with(binding) {
             tvVersion.apply {
-                text = getString(R.string.app_version, CommonUtils.getAppVersion(requireContext()))
+                text = getString(R.string.app_version, CommonUtils.getAppVersion())
                 setMargin(
                     bottom = CommonUtils.getNavigationBarHeight(requireContext())
                             + requireContext().resources.getDimensionPixelOffset(R.dimen.size_16dp)

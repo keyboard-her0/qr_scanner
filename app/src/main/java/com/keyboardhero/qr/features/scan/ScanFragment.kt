@@ -33,6 +33,7 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.core.utils.views.onSafeClick
+import com.keyboardhero.qr.core.utils.views.setMargin
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.scan.resutl.ResultScanFragmentArgs
 import com.keyboardhero.qr.features.scan.resutl.ResultScanScreen
@@ -75,7 +76,10 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
     }
 
     override fun initViews() {
-        //Do nothing
+        val marginBottom = CommonUtils.getNavigationBarHeight(requireContext()) +
+                requireContext().resources.getDimensionPixelSize(R.dimen.size_32dp)
+        binding.tvToggleFlash.setMargin(bottom = marginBottom)
+        binding.tvSelectPhoto.setMargin(bottom = marginBottom)
     }
 
     @OptIn(ExperimentalGetImage::class)

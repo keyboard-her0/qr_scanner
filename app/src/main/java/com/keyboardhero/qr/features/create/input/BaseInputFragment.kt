@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
+import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.databinding.LayoutBottomInputBinding
 
 abstract class BaseInputFragment<VB : ViewBinding> : BaseFragment<VB>(), IBaseInputDataFragment {
@@ -50,7 +48,13 @@ abstract class BaseInputFragment<VB : ViewBinding> : BaseFragment<VB>(), IBaseIn
     }
 
     final override fun initViews() {
-
+        val padding = requireContext().resources.getDimensionPixelOffset(R.dimen.size_16dp)
+        bottomLayoutContainer.setPadding(
+            padding,
+            padding,
+            padding,
+            padding + CommonUtils.getNavigationBarHeight(requireContext())
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

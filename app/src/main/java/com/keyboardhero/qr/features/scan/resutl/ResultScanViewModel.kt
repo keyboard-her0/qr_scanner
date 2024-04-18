@@ -16,6 +16,7 @@ import com.keyboardhero.qr.shared.domain.dto.barcodedata.WifiBarcode
 import com.keyboardhero.qr.shared.domain.usecase.SaveHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,9 +50,9 @@ class ResultScanViewModel @Inject constructor(
     }
 
     private fun handleData(data: String): Triple<BarcodeType, BarcodeData, List<Action>> {
-        var barcodeType: BarcodeType
-        var barcodeData: BarcodeData
-        var actions: List<Action>
+        val barcodeType: BarcodeType
+        val barcodeData: BarcodeData
+        val actions: List<Action>
 
         var regexPattern = Regex(REGEX_PHONE)
         var matchResult = regexPattern.find(data)
@@ -86,24 +87,6 @@ class ResultScanViewModel @Inject constructor(
             return Triple(barcodeType, barcodeData, actions)
         }
 
-        regexPattern = Regex(REGEX_WIFI)
-        matchResult = regexPattern.find(data)
-        if (matchResult != null && matchResult.groupValues.isNotEmpty()) {
-            barcodeData = WifiBarcode(
-                ssid = matchResult.groupValues[1],
-                type = WifiBarcode.TypeSecurity.getValue(matchResult.groupValues[2]),
-                password = matchResult.groupValues[3],
-                isHide = matchResult.groupValues[4] == "true"
-            )
-            barcodeType = BarcodeType.Wifi
-            actions = listOf(
-                Action.Copy(
-                    barcodeData.ssid + "\n" + barcodeData.password + "\n" + barcodeData.type
-                ),
-            )
-            return Triple(barcodeType, barcodeData, actions)
-        }
-
         regexPattern = Regex(REGEX_EMAIL)
         matchResult = regexPattern.find(data)
         if (matchResult != null && matchResult.groupValues.isNotEmpty()) {
@@ -135,6 +118,33 @@ class ResultScanViewModel @Inject constructor(
             return Triple(barcodeType, barcodeData, actions)
         }
 
+        if (data.startsWith("WIFI:")) {
+            val regex = Regex(REGEX_WIFI, RegexOption.IGNORE_CASE)
+            val matches = regex.findAll(data)
+            val values = mutableMapOf<String, String>()
+            matches.forEach {match->
+                val key = match.groupValues[1].uppercase(Locale.getDefault())
+                val value = match.groupValues[2]
+                values[key] = value
+            }
+
+            if (values.containsKey("S") && values.containsKey("T") && values.containsKey("P")) {
+                barcodeData = WifiBarcode(
+                    ssid = values["S"]!!,
+                    type = WifiBarcode.TypeSecurity.getValue(values["T"]!!),
+                    password = values["P"]!!,
+                    isHide = values["H"] == "true"
+                )
+                barcodeType = BarcodeType.Wifi
+                actions = listOf(
+                    Action.Copy(
+                        barcodeData.ssid + "\n" + barcodeData.password + "\n" + barcodeData.type
+                    ),
+                )
+                return Triple(barcodeType, barcodeData, actions)
+            }
+        }
+
         barcodeData = TextBarcode(value = data)
         barcodeType = BarcodeType.Text
         actions = listOf(
@@ -149,7 +159,7 @@ class ResultScanViewModel @Inject constructor(
     }
 
     companion object {
-        private const val REGEX_WIFI = "WIFI:S:(.*?);T:(.*?);P:(.*?);H:(.*?);"
+        private const val REGEX_WIFI = "([STPH]):([^;]+);"
         private const val REGEX_PHONE = "tel:(\\+?[0-9]+)"
         private const val REGEX_SMS = "SMSTO:(.*?):(.*?)\$"
         private const val REGEX_EMAIL = "MATMSG:TO:(.*?);SUB:(.*?);BODY:(.*?);"

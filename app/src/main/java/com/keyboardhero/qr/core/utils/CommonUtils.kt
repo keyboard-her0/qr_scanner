@@ -257,12 +257,11 @@ object CommonUtils {
         }
     }
 
-    fun getAppVersion(context: Context): String {
+    fun getAppVersion(): String {
         try {
-            val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             return if (BuildConfig.DEBUG) {
-                pInfo.versionName + " - ${BuildConfig.BUILD_TYPE}"
-            } else pInfo.versionName
+                BuildConfig.VERSION_NAME + " - ${BuildConfig.BUILD_TYPE}"
+            } else BuildConfig.VERSION_NAME
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }

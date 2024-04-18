@@ -25,12 +25,16 @@
             android:id="@+id/editText"
             style="@style/styleTextInput"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
             android:background="@drawable/background_input_view"
             android:gravity="start"
+            android:minHeight="@dimen/size_240dp"
+            android:scrollbarSize="@dimen/size_2dp"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvText" />
+            app:layout_constraintTop_toBottomOf="@id/tvText"
+            app:layout_constraintVertical_bias="0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout

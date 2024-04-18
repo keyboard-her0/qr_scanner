@@ -4,7 +4,6 @@
     android:id="@+id/btnCreate"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_48dp"
-    android:layout_margin="@dimen/size_30dp"
     android:background="@drawable/background_border_16"
     android:gravity="center"
     android:orientation="horizontal"
@@ -23,4 +22,5 @@
         android:layout_marginStart="@dimen/size_16dp"
         android:text="@string/create_qr_code"
         android:textColor="@color/white" />
+
 </LinearLayout>

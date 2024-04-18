@@ -74,14 +74,17 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
 
                     when (barcodeData) {
                         is TextBarcode -> {
+                            tvData.gravity = Gravity.CENTER
                             tvData.text = barcodeData.value
                         }
 
                         is UrlBarcode -> {
+                            tvData.gravity = Gravity.CENTER
                             tvData.text = barcodeData.url
                         }
 
                         is PhoneBarcode -> {
+                            tvData.gravity = Gravity.CENTER
                             tvData.text = barcodeData.phoneNumber
                         }
 
@@ -110,11 +113,11 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
                                 R.string.result_wifi,
                                 barcodeData.ssid,
                                 barcodeData.password,
-                                barcodeData.type
+                                barcodeData.type.typeName
                             )
                             val isHide =
                                 if (barcodeData.isHide) getString(R.string.hide_network) else ""
-                            tvData.text = "$data\\n$isHide"
+                            tvData.text = "$data\n$isHide"
                         }
                     }
                 }

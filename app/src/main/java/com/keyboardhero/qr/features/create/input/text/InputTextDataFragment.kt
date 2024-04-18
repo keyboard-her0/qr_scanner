@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
@@ -34,6 +35,16 @@ class InputTextDataFragment : BaseInputFragment<FragmentInputTextDataBinding>() 
         binding.editText.doAfterTextChanged {
             bottomBinding?.btnCreate?.isEnabled = it?.isNotBlank() == true
         }
+        binding.root.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                binding.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                val screenHeight = binding.root.height
+                val buttonHeight = binding.layoutBottom.height
+                binding.editText.maxHeight = screenHeight - buttonHeight - binding.tvText.height -
+                        requireContext().resources.getDimensionPixelSize(R.dimen.size_16dp)
+            }
+        })
     }
 
     override fun initObserversInput() {
