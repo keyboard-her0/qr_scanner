@@ -30,6 +30,7 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
+import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
@@ -141,6 +142,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         val barcode = barcodes.getOrNull(0)?.rawValue
         if (barcode?.isNotBlank() == true) {
             navigateToResultScreen(barcode)
+            if (viewModel.currentState.allowVibration) {
+                CommonUtils.vibrate(requireContext())
+            }
         }
     }
 

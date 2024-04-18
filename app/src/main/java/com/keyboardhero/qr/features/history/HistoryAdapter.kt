@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.keyboardhero.qr.R
+import com.keyboardhero.qr.core.utils.CommonUtils
+import com.keyboardhero.qr.core.utils.views.setMargin
 import com.keyboardhero.qr.databinding.LayoutHistoryItemBinding
 import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
@@ -27,7 +30,7 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position == itemCount - 1)
     }
 
     class HistoryViewHolder(
@@ -43,8 +46,17 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
             }
         }
 
-        fun bind(history: HistoryDTO) {
+        fun bind(history: HistoryDTO, showSpace: Boolean) {
+            val context = itemView.context
             historyDTO = history
+            if (showSpace) {
+                val space = context.resources.getDimensionPixelOffset(
+                    R.dimen.size_30dp
+                )
+                itemView.setMargin(
+                    bottom = CommonUtils.getNavigationBarHeight(context) + space
+                )
+            }
             with(binding) {
                 tvTitle.text = itemView.context.getString(history.barcodeType.typeNameResId)
                 tvDescription.text = getDescription(barcodeData = history.barcodeData)

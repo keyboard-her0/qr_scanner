@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/styleItemSetting"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background_generate_item"
-    android:paddingHorizontal="@dimen/size_8dp"
-    android:paddingVertical="@dimen/size_16dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/startIcon"
@@ -13,29 +11,30 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="@dimen/size_8dp"
-        android:src="@drawable/ic_dark_mode_24"
+        android:src="@drawable/ic_night_mode"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_dark_mode_24" />
+        tools:src="@drawable/ic_night_mode" />
 
     <TextView
         android:id="@+id/tvTitle"
-        android:textColor="?attr/textColor"
+        style="@style/styleItemSettingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toStartOf="@id/endIcon"
         android:layout_toEndOf="@id/startIcon"
-        android:textSize="@dimen/font_size_18_medium"
+        android:textColor="?attr/textColor"
         tools:text="Title" />
 
     <TextView
         android:id="@+id/tvDescription"
+        style="@style/styleItemSettingDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
         android:layout_alignStart="@id/tvTitle"
         android:layout_marginTop="@dimen/size_4dp"
         android:layout_toStartOf="@id/endIcon"
-        android:textSize="@dimen/font_size_16_small"
         android:visibility="gone"
         tools:text="Description" />
 

@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/tvPhone"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
@@ -32,6 +33,7 @@
 
         <TextView
             android:id="@+id/tvMessage"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"

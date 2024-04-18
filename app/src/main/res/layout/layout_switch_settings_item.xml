@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/styleItemSetting"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,16 +17,18 @@
 
     <TextView
         android:id="@+id/tvTitle"
+        style="@style/styleItemSettingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_4dp"
         android:layout_toStartOf="@id/switchWidget"
         android:layout_toEndOf="@id/startIcon"
-        android:textSize="@dimen/font_size_16_small"
+        android:textColor="?attr/textColor"
         tools:text="Title" />
 
     <TextView
         android:id="@+id/tvDescription"
+        style="@style/styleItemSettingDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
@@ -33,7 +36,6 @@
         android:layout_marginTop="@dimen/size_4dp"
         android:layout_marginBottom="@dimen/size_4dp"
         android:layout_toStartOf="@id/switchWidget"
-        android:textSize="@dimen/font_size_12_small"
         tools:text="Description" />
 
     <androidx.appcompat.widget.SwitchCompat

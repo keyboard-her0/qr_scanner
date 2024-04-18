@@ -25,6 +25,11 @@
     <string name="share">Share</string>
     <string name="save">Save</string>
     <string name="select_theme">Select theme</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="app_version">App Version: %s</string>
+    <string name="vibrate_message">Vibration when scan is done.</string>
+    <string name="change_themes">Change Themes</string>
 
 
     <string name="enter_text">Enter text</string>
@@ -72,6 +77,7 @@
     <string name="call">Call</string>
     <string name="send_sms">Send SMS</string>
     <string name="send_email">Send Email</string>
+
 
     <string name="result_wifi">Wifi name: %s\nPassword: %s\nType: %s\n</string>
     <string name="result_email">Email to: %s\nSubject: %s\nMessage: %s</string>

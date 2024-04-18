@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/tvEmail"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
@@ -32,6 +33,7 @@
 
         <TextView
             android:id="@+id/tvSubject"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
@@ -45,13 +47,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
-            android:inputType="textEmailSubject"
             android:background="@drawable/background_input_view"
             android:gravity="start"
+            android:inputType="textEmailSubject"
             app:layout_constraintTop_toBottomOf="@id/tvSubject" />
 
         <TextView
             android:id="@+id/tvMessage"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
@@ -68,7 +71,6 @@
             android:background="@drawable/background_input_view"
             android:gravity="start"
             app:layout_constraintTop_toBottomOf="@id/tvMessage" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

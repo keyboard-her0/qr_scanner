@@ -8,6 +8,7 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
 import com.keyboardhero.qr.core.base.BaseViewModel
 import com.keyboardhero.qr.core.utils.CommonUtils
+import com.keyboardhero.qr.shared.domain.dto.Action
 import com.keyboardhero.qr.shared.domain.dto.BarcodeType
 import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.BarcodeData
@@ -59,7 +60,15 @@ class GenerateResultViewModel @Inject constructor(
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888).apply {
                 setPixels(pixels, 0, width, 0, 0, width, height)
             }
-            dispatchState(currentState.copy(bitmap = bitmap))
+            dispatchState(
+                currentState.copy(
+                    bitmap = bitmap,
+                    actions = listOf(
+                        Action.ShareImage(bitmap = bitmap),
+                        Action.Save(bitmap = bitmap)
+                    )
+                )
+            )
         }
     }
 

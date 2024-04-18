@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/tvPhone"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
@@ -32,6 +33,7 @@
 
         <TextView
             android:id="@+id/tvPassword"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
@@ -51,9 +53,10 @@
 
         <TextView
             android:id="@+id/tvEncryption"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_5dp"
             android:text="@string/encryption"
             app:layout_constraintBottom_toBottomOf="@id/layoutAutoCompleteTextView"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,12 +78,13 @@
                 android:background="@color/transparent"
                 android:focusable="false"
                 android:inputType="none"
-                android:textSize="@dimen/font_size_14_small" />
+                android:textSize="@dimen/font_size_16_small" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/cbHide"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hide_network"

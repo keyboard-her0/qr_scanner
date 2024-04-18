@@ -5,14 +5,25 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Base64
+import android.view.WindowInsets
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.customtabs.CustomTabColorSchemeParams
+import androidx.browser.customtabs.CustomTabsIntent
+import com.keyboardhero.qr.BuildConfig
 import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
 import java.io.IOException
@@ -180,5 +191,81 @@ object CommonUtils {
             }
         }
 
+    }
+
+    fun vibrate(context: Context, timeInMillis: Long = 200L) {
+        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager =
+                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            context.getSystemService(AppCompatActivity.VIBRATOR_SERVICE) as Vibrator
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(timeInMillis, 125))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(timeInMillis)
+        }
+    }
+
+    fun openUriInApp(context: Context, uri: Uri) {
+        val stringUri = uri.toString()
+        val newUri = if (!stringUri.startsWith("https://") && !stringUri.startsWith("http://")) {
+            Uri.parse("https://$stringUri")
+        } else uri
+        val defaultColors = CustomTabColorSchemeParams.Builder()
+            .setToolbarColor(
+                getColorFromAttr(
+                    context,
+                    com.google.android.material.R.attr.colorPrimaryVariant
+                )
+            )
+            .setNavigationBarColor(
+                getColorFromAttr(
+                    context,
+                    com.google.android.material.R.attr.colorPrimaryVariant
+                )
+            )
+            .build()
+
+        val builder = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setDefaultColorSchemeParams(defaultColors)
+
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(context, newUri)
+    }
+
+    @SuppressLint("DiscouragedApi", "InternalInsetResource")
+    fun getNavigationBarHeight(context: Context): Int {
+        val resources: Resources = context.resources
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowMetrics =
+                context.getSystemService(WindowManager::class.java).currentWindowMetrics
+            val insets = windowMetrics.windowInsets
+                .getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars())
+            insets.bottom
+        } else {
+            val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+            if (resourceId > 0) {
+                resources.getDimensionPixelSize(resourceId)
+            } else {
+                0
+            }
+        }
+    }
+
+    fun getAppVersion(context: Context): String {
+        try {
+            val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            return if (BuildConfig.DEBUG) {
+                pInfo.versionName + " - ${BuildConfig.BUILD_TYPE}"
+            } else pInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return "--"
     }
 }

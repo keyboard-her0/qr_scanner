@@ -130,7 +130,7 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
-                layoutParams.updateMargins(30,4,30,4)
+                layoutParams.updateMargins(30, 4, 30, 4)
 
                 actions.forEach { action ->
 
@@ -203,6 +203,10 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
                     putExtra(Intent.EXTRA_TEXT, action.message)
                 }
                 startActivity(intent)
+            }
+
+            else -> {
+                //Do nothing
             }
         }
     }

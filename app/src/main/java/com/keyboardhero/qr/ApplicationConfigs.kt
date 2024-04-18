@@ -22,4 +22,5 @@ object Constant {
     const val EMPTY_STRING = ""
 
     const val SUFFIX_US = ".00"
+    const val PRIVACY_URL = "https://sites.google.com/view/privacy-policy-scan-qr-code/"
 }

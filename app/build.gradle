@@ -13,8 +13,8 @@ plugins {
 android {
     defaultConfig {
         applicationId "com.keyboardhero.qr"
-        versionCode 6
-        versionName "0.1.6"
+        versionCode 7
+        versionName "0.1.7"
     }
 
     buildTypes {
@@ -59,6 +59,7 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.RUNTIME
     implementation Libs.AndroidX.Lifecycle.VIEWMODEL_KTX
     implementation Libs.AndroidX.Lifecycle.LIVEDATA_KTX
+    implementation 'androidx.browser:browser:1.8.0'
     kapt Libs.AndroidX.Lifecycle.COMPILER
 
     implementation Libs.AndroidX.Room.RUNTIME

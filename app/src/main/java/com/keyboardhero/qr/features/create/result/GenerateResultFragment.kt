@@ -1,11 +1,19 @@
 package com.keyboardhero.qr.features.create.result
 
+import android.graphics.Bitmap
+import android.graphics.drawable.InsetDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.view.updateMargins
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -15,6 +23,7 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.databinding.FragmentGenerateResultBinding
+import com.keyboardhero.qr.shared.domain.dto.Action
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,7 +49,16 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
     }
 
     override fun initViews() {
+    }
 
+    private fun handleActionButtonClick(action: Action) {
+        when (action) {
+            is Action.Save -> handleSaveImage(action.bitmap)
+            is Action.ShareImage -> handleShareQr(action.bitmap)
+            else -> {
+                //DO nothing
+            }
+        }
     }
 
     override fun initHeaderAppBar() {
@@ -55,35 +73,25 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
         headerAppBar.navigationOnClickListener = {
             onBackPressed()
         }
-
-        binding.btnShare.onSafeClick {
-            handleShareQr()
-        }
-
-        binding.btnSave.onSafeClick {
-            handleSaveImage()
-        }
     }
 
-    private fun handleSaveImage() {
-        viewModel.currentState.bitmap?.let { bitmap ->
-            lifecycleScope.launch {
-                val result = withContext(Dispatchers.IO) {
-                    CommonUtils.saveImage(bitmap, requireContext())
-                }
-                Toast.makeText(
-                    requireContext(),
-                    if (result) "Lưu ảnh thành công" else "Lưu ảnh thất bại",
-                    Toast.LENGTH_SHORT
-                ).show()
+    private fun handleSaveImage(bitmap: Bitmap) {
+        lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                CommonUtils.saveImage(bitmap, requireContext())
             }
+            Toast.makeText(
+                requireContext(),
+                if (result) "Lưu ảnh thành công" else "Lưu ảnh thất bại",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private fun handleShareQr() {
+    private fun handleShareQr(bitmap: Bitmap) {
         val path = MediaStore.Images.Media.insertImage(
             requireContext().contentResolver,
-            viewModel.currentState.bitmap,
+            bitmap,
             "temp-file_qr",
             null
         )
@@ -100,6 +108,52 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
             selector = { state -> state.bitmap },
             observer = { bitmap ->
                 Glide.with(requireContext()).load(bitmap).into(binding.imgQr)
+            }
+        )
+
+        viewModel.observe(
+            owner = viewLifecycleOwner,
+            selector = { state -> state.actions },
+            observer = { actions ->
+                binding.layoutAction.removeAllViews()
+
+                val layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                layoutParams.updateMargins(
+                    resources.getDimensionPixelOffset(R.dimen.size_35dp),
+                    resources.getDimensionPixelOffset(R.dimen.size_2dp),
+                    resources.getDimensionPixelOffset(R.dimen.size_35dp),
+                    resources.getDimensionPixelOffset(R.dimen.size_2dp),
+                )
+
+                actions.forEach { action ->
+
+                    val drawable = ContextCompat.getDrawable(requireContext(), action.iconRes)
+                    val paddingDrawable = resources.getDimensionPixelOffset(R.dimen.size_8dp)
+                    val padding = resources.getDimensionPixelOffset(R.dimen.size_10dp)
+                    val insetDrawable = InsetDrawable(drawable, 0, paddingDrawable, 0, 0)
+
+                    val actionButton = TextView(requireContext()).apply {
+                        setCompoundDrawablesWithIntrinsicBounds(null, insetDrawable, null, null)
+                        text = getString(action.actionNameResId)
+                        setPadding(padding, padding, padding, padding)
+                        setBackgroundResource(R.drawable.background_generate_item)
+                        gravity = Gravity.CENTER
+                        minWidth = resources.getDimensionPixelOffset(R.dimen.size_80dp)
+                        onSafeClick {
+                            handleActionButtonClick(action = action)
+                        }
+                    }
+
+                    val card = CardView(requireContext()).apply {
+                        radius = resources.getDimensionPixelOffset(R.dimen.size_8dp).toFloat()
+                    }
+                    card.addView(actionButton)
+
+                    binding.layoutAction.addView(card, layoutParams)
+                }
             }
         )
     }

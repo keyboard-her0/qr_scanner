@@ -13,9 +13,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="@color/white"
         android:src="@drawable/ic_add_qr_code_24"
-        android:contentDescription="Button Generate"
+        android:tint="@color/white"
         tools:ignore="HardcodedText" />
 
     <TextView
