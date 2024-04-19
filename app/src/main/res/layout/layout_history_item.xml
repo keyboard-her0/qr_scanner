@@ -21,6 +21,7 @@
             android:layout_height="@dimen/size_60dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/size_16dp"
+            android:tint="?attr/colorPrimary"
             android:background="@drawable/background_image_item_history"
             android:padding="@dimen/size_16dp"
             tools:src="@drawable/ic_wifi" />
@@ -32,6 +33,8 @@
             android:layout_toStartOf="@+id/imgEndIcon"
             android:layout_toEndOf="@id/imgIcon"
             android:maxLines="1"
+            android:textColor="?attr/textColor"
+            android:textSize="@dimen/font_size_16_small"
             android:textStyle="bold"
             tools:text="Wifi" />
 
@@ -40,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTitle"
+            android:layout_marginTop="@dimen/size_4dp"
             android:layout_toStartOf="@+id/imgEndIcon"
             android:layout_toEndOf="@id/imgIcon"
             android:maxLines="1"

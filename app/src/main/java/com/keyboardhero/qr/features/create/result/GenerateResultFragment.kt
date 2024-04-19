@@ -1,8 +1,10 @@
 package com.keyboardhero.qr.features.create.result
 
+import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.drawable.InsetDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Gravity
@@ -76,15 +78,24 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
     }
 
     private fun handleSaveImage(bitmap: Bitmap) {
-        lifecycleScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                CommonUtils.saveImage(bitmap, requireContext())
+        val permissionImage = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        }
+        requestPermissions(permissionImage) { allow, _ ->
+            if (allow) {
+                lifecycleScope.launch {
+                    val result = withContext(Dispatchers.IO) {
+                        CommonUtils.saveImage(bitmap, requireContext())
+                    }
+                    Toast.makeText(
+                        requireContext(),
+                        if (result) "Lưu ảnh thành công" else "Lưu ảnh thất bại",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-            Toast.makeText(
-                requireContext(),
-                if (result) "Lưu ảnh thành công" else "Lưu ảnh thất bại",
-                Toast.LENGTH_SHORT
-            ).show()
         }
     }
 

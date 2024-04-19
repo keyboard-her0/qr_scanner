@@ -19,8 +19,9 @@
 
     <!--    Main-->
     <style name="styleItemFeature">
-        <item name="android:textColor">?attr/textColor</item>
-        <item name="android:textSize">@dimen/font_size_22_large</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_size_20_medium</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 

@@ -17,7 +17,7 @@
 
         <item name="colorOnBackground">#0b0e13</item>
         <item name="colorOnSurface">#12181f</item>
-        <item name="dividerColor">#323942</item>
+        <item name="dividerColor">#353c45</item>
         <item name="iconColor">@color/white</item>
         <item name="textColor">@color/white</item>
         <item name="colorBackgroundItem">#19212a</item>

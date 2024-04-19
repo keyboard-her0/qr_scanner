@@ -21,12 +21,13 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/size_16dp">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgType"
                 android:layout_width="@dimen/size_50dp"
                 android:layout_height="@dimen/size_50dp"
                 android:padding="@dimen/size_6dp"
                 android:scaleType="centerCrop"
+                android:tint="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="@id/tvCreateAt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -38,8 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/size_8dp"
-                android:textSize="@dimen/font_size_20_medium"
                 android:textColor="?attr/textColor"
+                android:textSize="@dimen/font_size_20_medium"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/imgType"
@@ -51,8 +53,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_6dp"
-                android:textSize="@dimen/font_size_16_small"
                 android:textColor="?attr/textColor"
+                android:textSize="@dimen/font_size_16_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvType"
                 app:layout_constraintTop_toBottomOf="@id/tvType"
@@ -63,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_1dp"
                 android:layout_marginTop="@dimen/size_6dp"
-                android:background="#C8C8C8"
+                android:background="?attr/dividerColor"
                 app:layout_constraintTop_toBottomOf="@id/tvCreateAt" />
 
             <TextView
@@ -72,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/size_20dp"
                 android:gravity="center"
-                android:textSize="@dimen/font_size_20_medium"
                 android:textColor="?attr/textColor"
+                android:textSize="@dimen/font_size_20_medium"
                 app:layout_constraintTop_toBottomOf="@id/divider"
                 tools:text="@string/title_generate_result_screen" />
 

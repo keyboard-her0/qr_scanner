@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:tint="?attr/colorPrimary"
         android:layout_marginStart="@dimen/size_8dp"
         tools:src="@drawable/ic_contacts"/>
 
@@ -23,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/size_10dp"
         android:layout_toEndOf="@id/imgIcon"
-        android:background="@color/primary_white_blur" />
+        android:background="?attr/dividerColor" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editText"

@@ -2,22 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="?attr/selectableItemBackground"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?attr/textColor"
         android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/size_16dp"
         android:layout_toStartOf="@id/imgCheck"
         android:paddingVertical="20dp"
+        android:textColor="?attr/textColor"
         android:textSize="@dimen/font_size_16_small"
         tools:text="Auto" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
