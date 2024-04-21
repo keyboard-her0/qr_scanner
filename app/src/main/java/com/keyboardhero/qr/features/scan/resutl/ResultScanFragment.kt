@@ -42,7 +42,7 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
     private val viewModel: ResultScanViewModel by viewModels()
 
     override fun initData(data: Bundle?) {
-        viewModel.iniData(args.scanData, args.isCreateNew)
+        viewModel.iniData(args.scanData, args.isCreateNew, args.createAt)
     }
 
     override fun initViews() {
@@ -70,7 +70,7 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
                 with(binding) {
                     imgType.setImageResource(viewModel.currentState.barcodeType.resIcon)
                     tvType.text = getString(viewModel.currentState.barcodeType.typeNameResId)
-                    tvCreateAt.text = CommonUtils.getTimeNow()
+                    tvCreateAt.text = viewModel.currentState.createAt
 
                     when (barcodeData) {
                         is TextBarcode -> {
@@ -176,7 +176,10 @@ class ResultScanFragment : BaseFragment<FragmentResultScanBinding>() {
             }
 
             is Action.Share -> {
-                val intent = CommonUtils.createIntentShareStringData(action.value, "Chia sẻ với")
+                val intent = CommonUtils.createIntentShareStringData(
+                    action.value,
+                    getString(R.string.share_title)
+                )
                 startActivity(intent)
             }
 

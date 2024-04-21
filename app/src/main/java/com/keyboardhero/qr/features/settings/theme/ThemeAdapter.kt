@@ -26,7 +26,7 @@ class ThemeAdapter :
 
         fun bind(theme: ThemeSetting.Theme) {
             with(binding) {
-                tvTitle.text = theme.title
+                tvTitle.text = itemView.context.getString(theme.titleResId)
                 imgCheck.isVisible = theme.isSelected
             }
         }

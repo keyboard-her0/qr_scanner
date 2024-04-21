@@ -8,7 +8,7 @@ object ThemeSetting {
 
     @Parcelize
     data class Theme(
-        val title: String,
+        val titleResId: Int,
         val resIconId: Int,
         val type: ThemeType = DEFAULT_THEME_MODE,
         val isSelected: Boolean = false

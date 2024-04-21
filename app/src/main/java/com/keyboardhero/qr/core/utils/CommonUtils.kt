@@ -1,6 +1,7 @@
 package com.keyboardhero.qr.core.utils
 
 import android.annotation.SuppressLint
+import android.app.SearchManager
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
@@ -266,5 +267,23 @@ object CommonUtils {
             e.printStackTrace()
         }
         return "--"
+    }
+
+
+//    private fun getSearchEngineUrl(contents: String): String = when(defaultSearchEngine){
+//        "google" -> context.getString(R.string.search_engine_google_url, contents)
+//        "bing" -> context.getString(R.string.search_engine_bing_url, contents)
+//        "duckduckgo" -> context.getString(R.string.search_engine_duck_duck_go_url, contents)
+//        "startpage" -> context.getString(R.string.search_engine_startpage_url, contents)
+//        "bravesearch" -> context.getString(R.string.search_engine_brave_search_url, contents)
+//        "qwant" -> context.getString(R.string.search_engine_qwant_url, contents)
+//        "ecosia" -> context.getString(R.string.search_engine_ecosia_url, contents)
+//        "lilo" -> context.getString(R.string.search_engine_lilo_url, contents)
+//        else -> context.getString(R.string.search_engine_google_url, contents)
+//    }
+    fun createWebSearchIntent(query: String): Intent {
+        return Intent(Intent.ACTION_WEB_SEARCH).apply {
+            putExtra(SearchManager.QUERY, query)
+        }
     }
 }

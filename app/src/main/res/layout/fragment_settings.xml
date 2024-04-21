@@ -5,24 +5,31 @@
     android:orientation="vertical">
 
     <include
+        android:id="@+id/itemChangeLanguage"
+        layout="@layout/layout_drop_down_settings_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_8dp" />
+
+    <include
         android:id="@+id/itemChangeTheme"
         layout="@layout/layout_drop_down_settings_item"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_70dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_8dp" />
 
     <include
         android:id="@+id/itemVibrate"
         layout="@layout/layout_switch_settings_item"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_70dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_8dp" />
 
     <include
         android:id="@+id/itemPrivacyPolicy"
         layout="@layout/layout_settings_item"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_70dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_8dp" />
 
     <TextView

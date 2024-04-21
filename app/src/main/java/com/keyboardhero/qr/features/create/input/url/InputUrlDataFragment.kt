@@ -30,9 +30,9 @@ class InputUrlDataFragment : BaseInputFragment<FragmentInputUrlDataBinding>() {
     }
 
     override fun initViewsInput() {
-        bottomBinding?.btnCreate?.isEnabled = binding.inputUrl.text.isNotBlank() == true
+        buttonCreate?.isEnabled = binding.inputUrl.text.isNotBlank() == true
         binding.inputUrl.editText.doAfterTextChanged {
-            bottomBinding?.btnCreate?.isEnabled = it?.isNotBlank() == true
+            buttonCreate?.isEnabled = it?.isNotBlank() == true
         }
     }
 

@@ -15,5 +15,6 @@ class SaveSettingsConfigUseCase @Inject constructor(
         appPreference.theme = parameters.typeTheme
         appPreference.vibration = parameters.vibration
         appPreference.sound = parameters.sound
+        appPreference.languageCode = parameters.languageCode
     }
 }

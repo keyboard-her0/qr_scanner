@@ -13,9 +13,10 @@ class GetSettingsConfigUseCase @Inject constructor(
 ) : UseCase<Unit, SettingsConfig>(dispatcher) {
     override suspend fun execute(parameters: Unit): SettingsConfig {
         return SettingsConfig(
-            appPreference.theme,
-            appPreference.vibration,
-            appPreference.sound
+            typeTheme = appPreference.theme,
+            vibration = appPreference.vibration,
+            sound = appPreference.sound,
+            languageCode = appPreference.languageCode
         )
     }
 }

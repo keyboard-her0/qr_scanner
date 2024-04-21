@@ -11,6 +11,8 @@ import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.views.setMargin
 import com.keyboardhero.qr.databinding.FragmentSettingsBinding
+import com.keyboardhero.qr.features.settings.language.LanguageManager
+import com.keyboardhero.qr.features.settings.language.SelectLanguageFragment
 import com.keyboardhero.qr.features.settings.theme.SelectThemeFragment
 import com.keyboardhero.qr.shared.data.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,12 +33,26 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     }
 
     override fun initViews() {
+        initChangeLanguageItem()
         initChangeThemeItem()
         initVibrateItem()
         initItemPrivacyPolicy()
         initItemAppVersion()
+    }
 
+    private fun initChangeLanguageItem() {
+        with(binding) {
+            itemChangeLanguage.tvTitle.text = getString(R.string.language)
+            itemChangeLanguage.startIcon.setImageResource(R.drawable.ic_browser)
+        }
+    }
 
+    private fun initChangeThemeItem() {
+        with(binding) {
+            itemChangeTheme.apply {
+                tvTitle.text = getString(R.string.theme)
+            }
+        }
     }
 
     private fun initItemAppVersion() {
@@ -67,14 +83,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
         }
     }
 
-    private fun initChangeThemeItem() {
-        with(binding) {
-            itemChangeTheme.apply {
-                tvTitle.text = getString(R.string.change_themes)
-            }
-        }
-    }
-
     override fun initHeaderAppBar() {
         headerAppBar.title = getString(R.string.settings)
         headerAppBar.navigationIconId = R.drawable.ic_back_24
@@ -89,6 +97,18 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             val bottomSheet =
                 SelectThemeFragment.newInstance(themes = viewModel.currentState.themes) { theme ->
                     viewModel.changeTheme(theme)
+                }
+            bottomSheet.show(childFragmentManager)
+        }
+
+        binding.itemChangeLanguage.root.setOnClickListener {
+            val bottomSheet =
+                SelectLanguageFragment.newInstance(languages = viewModel.currentState.languages) { language ->
+                    viewModel.changeLanguage(language)
+                    LanguageManager.applyLocale(
+                        activity = requireActivity(),
+                        languageCode = language.code,
+                    )
                 }
             bottomSheet.show(childFragmentManager)
         }

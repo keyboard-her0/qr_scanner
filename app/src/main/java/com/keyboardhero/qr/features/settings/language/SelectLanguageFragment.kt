@@ -1,4 +1,4 @@
-package com.keyboardhero.qr.features.settings.theme
+package com.keyboardhero.qr.features.settings.language
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,32 +11,32 @@ import com.keyboardhero.qr.core.base.BaseBottomSheetDialogFragment
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.base.dismissBottomSheet
 import com.keyboardhero.qr.databinding.FragmentSelectThemeBinding
-import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
+import com.keyboardhero.qr.shared.domain.dto.Language
 
-class SelectThemeFragment : BaseFragment<FragmentSelectThemeBinding>() {
+class SelectLanguageFragment : BaseFragment<FragmentSelectThemeBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSelectThemeBinding
         get() = FragmentSelectThemeBinding::inflate
 
-    private var onSelectTheme: ((ThemeSetting.Theme) -> Unit)? = null
+    private var onSelectLanguage: ((Language) -> Unit)? = null
 
-    private val themes = mutableListOf<ThemeSetting.Theme>()
-    private val themeAdapter: ThemeAdapter by lazy { ThemeAdapter() }
+    private val languages = mutableListOf<Language>()
+    private val languageAdapter: LanguageAdapter by lazy { LanguageAdapter() }
 
     override fun initData(data: Bundle?) {
         if (data != null) {
-            themes.clear()
-            themes.addAll(
-                data.getParcelableArrayList(GET_THEMES_KEY) ?: emptyList()
+            languages.clear()
+            languages.addAll(
+                data.getParcelableArrayList(GET_LANGUAGES_KEY) ?: emptyList()
             )
-            themeAdapter.submitList(themes)
+            languageAdapter.submitList(languages)
         }
     }
 
     override fun initViews() {
         with(binding) {
-            tvHeader.text = getString(R.string.select_theme)
+            tvHeader.text = getString(R.string.select_language)
             rvThemes.apply {
-                adapter = themeAdapter
+                adapter = languageAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
@@ -47,8 +47,8 @@ class SelectThemeFragment : BaseFragment<FragmentSelectThemeBinding>() {
     }
 
     override fun initActions() {
-        themeAdapter.onThemeClick = {
-            onSelectTheme?.invoke(it)
+        languageAdapter.onClick = {
+            onSelectLanguage?.invoke(it)
             dismissBottomSheet()
         }
     }
@@ -59,19 +59,19 @@ class SelectThemeFragment : BaseFragment<FragmentSelectThemeBinding>() {
 
     companion object {
         fun newInstance(
-            themes: List<ThemeSetting.Theme>,
-            onSelectTheme: ((ThemeSetting.Theme) -> Unit)
+            languages: List<Language>,
+            onSelectLanguage: ((Language) -> Unit)
         ): BaseBottomSheetDialogFragment {
             return BaseBottomSheetDialogFragment.newInstance(
-                SelectThemeFragment().apply {
+                SelectLanguageFragment().apply {
                     arguments = bundleOf(
-                        GET_THEMES_KEY to arrayListOf<ThemeSetting.Theme>().apply { addAll(themes) }
+                        GET_LANGUAGES_KEY to arrayListOf<Language>().apply { addAll(languages) }
                     )
-                    this.onSelectTheme = onSelectTheme
+                    this.onSelectLanguage = onSelectLanguage
                 }
             )
         }
 
-        private const val GET_THEMES_KEY = "GET_THEMES_KEY"
+        private const val GET_LANGUAGES_KEY = "GET_LANGUAGES_KEY"
     }
 }

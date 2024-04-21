@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.databinding.FragmentInputContactDataBinding

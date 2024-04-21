@@ -78,6 +78,9 @@
             android:name="isCreateNew"
             app:argType="boolean"
             android:defaultValue="true" />
+        <argument
+            android:name="createAt"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/inputPhoneDataFragment"

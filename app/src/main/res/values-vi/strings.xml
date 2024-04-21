@@ -1,0 +1,100 @@
+<resources>
+    <string name="app_name">Scan QR Code</string>
+
+    <!--region All-->
+    <string name="all_button_active">OK</string>
+    <string name="all_button_positive">Huỷ</string>
+    <string name="all_btn_close">Đóng</string>
+    <string name="all_btn_quit">Thoát</string>
+    <string name="all_permission_denied">Quyền bị từ chối</string>
+    <!--endregion-->
+
+    <!--    Home-->
+    <string name="scan_code">Quét QR</string>
+    <string name="scanned">Quét</string>
+    <string name="create">Tạo mã QR</string>
+    <string name="created">Tạo</string>
+    <string name="history">Lịch sử</string>
+    <string name="settings">Cài đặt</string>
+    <string name="result">Kết quả</string>
+    <string name="detail">Chi tiết</string>
+    <string name="title_generate_result_screen">Tạo thành công</string>
+
+    <string name="dialog_process_title">Processing…</string>
+    <string name="dialog_process_message">Please wait a moment</string>
+    <string name="share">Chia sẻ</string>
+    <string name="save">Lưu</string>
+    <string name="select_theme">Chọn chủ đề</string>
+    <string name="select_language">Chọn ngôn ngữ</string>
+    <string name="vibrate">Rung</string>
+    <string name="privacy_policy">Chính sách bảo mật</string>
+    <string name="app_version">Version: %s</string>
+    <string name="vibrate_message">Rung thiết bị khi quét xong.</string>
+    <string name="theme">Chủ đề</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="theme_day">Sáng</string>
+    <string name="theme_night">Tối</string>
+    <string name="theme_auto">Hệ thống</string>
+
+
+    <!--    Input Data Screen-->
+    <string name="phone">Số điện thoại</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="link">URL</string>
+    <string name="photo">Ảnh</string>
+    <string name="sms">Tin nhắn</string>
+    <string name="email">Email</string>
+    <string name="text">Văn bản</string>
+    <string name="message">Tin nhắn</string>
+    <string name="title">Tiêu đề</string>
+    <string name="wifi_name">Tên mạng</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="company">Company</string>
+    <string name="your_job">Your job</string>
+    <string name="street">Street</string>
+    <string name="zip_code">Zip code</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+    <string name="password">Mật khẩu</string>
+    <string name="encryption">Loại bảo mật</string>
+    <string name="hide_network">Mạng ẩn</string>
+    <string name="website">Trang Web</string>
+    <string name="wifi">Wifi</string>
+    <string name="contact">Contact</string>
+    <string name="event">Event</string>
+    <string name="flash">Flash</string>
+    <string name="copy">Copy</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="open">Mở</string>
+    <string name="connect">Kết nối</string>
+    <string name="call">Gọi</string>
+    <string name="send_sms">Gửi tin nhắn</string>
+    <string name="send_email">Gửi Email</string>
+
+
+    <string name="result_wifi">Wifi Name:  %s\nPassword:  %s\nType:  %s</string>
+    <string name="result_email">Email to:  %s\nSubject:  %s\nMessage:  %s</string>
+    <string name="result_sms">Phone number: %s\nMessage: %s</string>
+
+    <string name="result_contact_first_name">First name: %s\n</string>
+    <string name="result_contact_last_name">Last name: %s\n</string>
+    <string name="result_contact_phone_number">Phone number: %s\n</string>
+    <string name="result_contact_email">Email: %s\n</string>
+    <string name="result_contact_company">Company: %s\n</string>
+
+    <string name="share_title">Chia sẻ với</string>
+    <string name="save_image_success">Lưu ảnh thành công</string>
+    <string name="save_image_failed">Lưu ảnh thất bại</string>
+    <string name="failed_to_scan">Không quét được.</string>
+    <string name="error">Lỗi</string>
+    <string name="scan_form_path_error_message">Không có thể tìm thấy nội dung từ ảnh</string>
+    <string name="device_not_support_front_camera_message">Thiết bị của bạn không được hỗ trợ camera trước</string>
+    <string name="device_not_support_flash_camera_message">Thiết bị không hỗ trợ đèn flash</string>
+    <string name="device_not_support_any_camera_message">Thiết bị của bạn không được hỗ trợ camera</string>
+    <string name="no_permission_camera_message">Ứng dụng không có quyền truy cập vào máy ảnh</string>
+    <string name="no_permission_storage_message">Ứng dụng không có quyền truy cập thư viện</string>
+    <string name="language_eng">Tiếng Anh</string>
+    <string name="language_vi">Tiếng Việt</string>
+</resources>

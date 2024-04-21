@@ -91,7 +91,7 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
                     }
                     Toast.makeText(
                         requireContext(),
-                        if (result) "Lưu ảnh thành công" else "Lưu ảnh thất bại",
+                        if (result) getString(R.string.save_image_success) else getString(R.string.save_image_failed),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -108,7 +108,7 @@ class GenerateResultFragment : BaseFragment<FragmentGenerateResultBinding>() {
         )
         if (path != null) {
             val uri = Uri.parse(path)
-            val intent = CommonUtils.createIntentShareUriData(uri, "Chia sẻ với")
+            val intent = CommonUtils.createIntentShareUriData(uri, getString(R.string.share_title))
             startActivity(intent)
         }
     }

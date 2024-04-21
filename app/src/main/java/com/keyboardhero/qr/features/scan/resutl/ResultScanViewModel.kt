@@ -26,14 +26,14 @@ class ResultScanViewModel @Inject constructor(
     BaseViewModel<ResultScanViewState, ResultScanViewEvents>() {
     override fun initState(): ResultScanViewState = ResultScanViewState()
 
-    fun iniData(data: String, isCreateNew: Boolean) {
+    fun iniData(data: String, isCreateNew: Boolean, createAt: String) {
         viewModelScope.launch {
             val dataResult = handleData(data)
             if (isCreateNew) {
                 val historyDTO = HistoryDTO(
                     id = 0,
                     isScan = true,
-                    createAt = CommonUtils.getTimeNow(),
+                    createAt = createAt,
                     barcodeType = dataResult.first,
                     barcodeData = dataResult.second
                 )
@@ -43,7 +43,8 @@ class ResultScanViewModel @Inject constructor(
                 currentState.copy(
                     barcodeData = dataResult.second,
                     barcodeType = dataResult.first,
-                    actions = dataResult.third
+                    actions = dataResult.third,
+                    createAt = createAt
                 )
             )
         }

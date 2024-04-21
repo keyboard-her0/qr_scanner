@@ -17,8 +17,8 @@ sealed class Action(
     data class Save(val bitmap: Bitmap) :
         Action(actionNameResId = R.string.save, R.drawable.ic_save)
 
-//    data class Search(val keySearch: String) :
-//        Action(actionNameResId = R.string.search, R.drawable.ic_search)
+    data class Search(val keySearch: String) :
+        Action(actionNameResId = R.string.search, R.drawable.ic_search)
 
 //    data class Connect(val ssid: String, val password: String) :
 //        Action(actionNameResId = R.string.connect, R.drawable.ic_wifi)

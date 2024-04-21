@@ -65,9 +65,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                             handleScanResult(barcodes)
                         } else {
                             showSingleOptionDialog(
-                                title = "Lỗi",
-                                message = "Không có thể tìm thấy nội dung từ ảnh",
-                                button = "Đóng"
+                                title = getString(R.string.error),
+                                message = getString(R.string.scan_form_path_error_message),
+                                button = getString(R.string.all_btn_close)
                             )
                         }
                     }
@@ -118,7 +118,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 }.addOnFailureListener {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to scan.",
+                        getString(R.string.failed_to_scan),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -156,7 +156,8 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
         router.navigate(
             ResultScanScreen,
             ResultScanFragmentArgs(
-                scanData = barcode
+                scanData = barcode,
+                createAt = CommonUtils.getTimeNow()
             ).toBundle()
         )
     }
@@ -221,9 +222,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                         selectPictureContract.launch(IMAGE_FILTER)
                     } else {
                         showSingleOptionDialog(
-                            title = "Lỗi",
-                            message = "Không có quyền truy cập thư viện",
-                            button = "Đóng"
+                            title = getString(R.string.error),
+                            message = getString(R.string.no_permission_storage_message),
+                            button = getString(R.string.all_btn_close)
                         )
                     }
                 }
@@ -250,9 +251,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             }
         } else {
             showSingleOptionDialog(
-                title = "Lỗi",
-                message = "Thiết bị không hỗ trợ đèn flash",
-                button = "Đóng"
+                title = getString(R.string.error),
+                message = getString(R.string.device_not_support_flash_camera_message),
+                button = getString(R.string.all_btn_close)
             )
         }
     }
@@ -269,9 +270,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             processScan()
         } else {
             showSingleOptionDialog(
-                title = "Lỗi",
-                message = "Thiết bị của bạn không được hỗ trợ camera trước",
-                button = "OK"
+                title = getString(R.string.error),
+                message = getString(R.string.device_not_support_front_camera_message),
+                button = getString(R.string.all_button_active)
             )
         }
     }
@@ -306,17 +307,17 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                     initCamera()
                 } else {
                     showSingleOptionDialog(
-                        title = "Lỗi",
-                        message = "Không có quyền truy cập máy ảnh",
-                        button = "Đóng"
+                        title = getString(R.string.error),
+                        message = getString(R.string.no_permission_camera_message),
+                        button = getString(R.string.all_btn_close)
                     )
                 }
             }
         } else {
             showSingleOptionDialog(
-                title = "Lỗi",
-                message = "Thiết bị của bạn không được hỗ trợ camera",
-                button = "OK"
+                title = getString(R.string.error),
+                message = getString(R.string.device_not_support_any_camera_message),
+                button = getString(R.string.all_button_active)
             )
         }
         startScanAnimation()

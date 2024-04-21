@@ -25,34 +25,29 @@
     <string name="share">Share</string>
     <string name="save">Save</string>
     <string name="select_theme">Select theme</string>
+    <string name="select_language">Select language</string>
     <string name="vibrate">Vibrate</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="app_version">Version: %s</string>
     <string name="vibrate_message">Vibration when scan is done.</string>
-    <string name="change_themes">Change Themes</string>
-
-
-    <string name="enter_text">Enter text</string>
-    <string name="enter_url">Enter Url</string>
-    <string name="enter_email">Enter email</string>
-    <string name="enter_number">Enter number</string>
-    <string name="enter_message">Enter message</string>
-    <string name="enter_ssid">Enter SSID</string>
-    <string name="enter_password">Enter password</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="theme_day">Day</string>
+    <string name="theme_night">Night</string>
+    <string name="theme_auto">System</string>
 
 
     <!--    Input Data Screen-->
-    <string name="create_qr_code">Create QR Code</string>
     <string name="phone">Phone</string>
     <string name="phone_number">Phone number</string>
-    <string name="link">Link</string>
+    <string name="link">URL</string>
     <string name="photo">Photo</string>
     <string name="sms">SMS</string>
     <string name="email">Email</string>
     <string name="text">Text</string>
     <string name="message">Message</string>
-    <string name="subject">Subject</string>
-    <string name="name">Name</string>
+    <string name="title">Title</string>
+    <string name="wifi_name">Wifi name</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="company">Company</string>
@@ -88,6 +83,31 @@
     <string name="result_contact_phone_number">Phone number: %s\n</string>
     <string name="result_contact_email">Email: %s\n</string>
     <string name="result_contact_company">Company: %s\n</string>
+    <string name="share_title">Share with</string>
+    <string name="save_image_success">Saved image successfully</string>
+    <string name="save_image_failed">Save image failed</string>
+    <string name="failed_to_scan">Failed to scan.</string>
+    <string name="error">Error</string>
+    <string name="scan_form_path_error_message">Could not find content from photo</string>
+    <string name="device_not_support_front_camera_message">The device does not support the front camera</string>
+    <string name="device_not_support_flash_camera_message">The device does not support flash</string>
+    <string name="device_not_support_any_camera_message">Your device does not support the camera</string>
+    <string name="no_permission_camera_message">The app does not have access to the camera</string>
+    <string name="no_permission_storage_message">The app does not have permission to access the library</string>
+    <string name="language_eng">English</string>
+    <string name="language_vi">Vietnamese</string>
+
     <!-- endregion-->
 
+
+    <!--    Search Region-->
+    <string name="search_engine_google_url" translatable="false">https://www.google.com/search?q=%1$s</string>
+    <string name="search_engine_bing_url" translatable="false">https://www.bing.com/search?q=%1$s</string>
+    <string name="search_engine_duck_duck_go_url" translatable="false">https://duckduckgo.com/?q=%1$s</string>
+    <string name="search_engine_startpage_url" translatable="false">https://www.startpage.com/do/metasearch.pl?query=%1$s</string>
+    <string name="search_engine_brave_search_url" translatable="false">https://search.brave.com/search?q=%1$s</string>
+    <string name="search_engine_qwant_url" translatable="false">https://www.qwant.com/?q=%1$s</string>
+    <string name="search_engine_ecosia_url" translatable="false">https://www.ecosia.org/search?q=%1$s</string>
+    <string name="search_engine_lilo_url" translatable="false">https://search.lilo.org/?q=%1$s</string>
+    <!-- endregion-->
 </resources>

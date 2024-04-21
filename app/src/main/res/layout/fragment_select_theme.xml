@@ -8,6 +8,7 @@
     tools:context=".features.settings.theme.SelectThemeFragment">
 
     <TextView
+        android:id="@+id/tvHeader"
         android:textColor="?attr/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

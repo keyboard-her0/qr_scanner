@@ -1,7 +1,6 @@
 package com.keyboardhero.qr.core.router
 
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import javax.inject.Inject

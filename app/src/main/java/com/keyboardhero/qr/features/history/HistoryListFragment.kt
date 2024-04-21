@@ -69,7 +69,8 @@ class HistoryListFragment : Fragment() {
                         ResultScanScreen,
                         ResultScanFragmentArgs(
                             scanData = history.barcodeData.getInputData(),
-                            isCreateNew = false
+                            isCreateNew = false,
+                            createAt = history.createAt
                         ).toBundle()
                     )
                 } else {
