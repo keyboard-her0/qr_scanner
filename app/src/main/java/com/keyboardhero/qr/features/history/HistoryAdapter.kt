@@ -23,10 +23,17 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
 
     var listener: HistoryListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+        val context = parent.context
         val binding = LayoutHistoryItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+            LayoutInflater.from(context), parent, false
         )
-        return HistoryViewHolder(binding, listener)
+        val space = context.resources.getDimensionPixelOffset(R.dimen.size_30dp)
+        val navigationHeight = CommonUtils.getNavigationBarHeight(context)
+        return HistoryViewHolder(
+            binding = binding,
+            listener = listener,
+            spaceBottom = space + navigationHeight
+        )
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
@@ -35,7 +42,8 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
 
     class HistoryViewHolder(
         private val binding: LayoutHistoryItemBinding,
-        listener: HistoryListener? = null
+        listener: HistoryListener? = null,
+        val spaceBottom: Int
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var historyDTO: HistoryDTO
@@ -47,20 +55,10 @@ class HistoryAdapter : ListAdapter<HistoryDTO, HistoryAdapter.HistoryViewHolder>
         }
 
         fun bind(history: HistoryDTO, showSpace: Boolean) {
-            val context = itemView.context
             historyDTO = history
-            if (showSpace) {
-                val space = context.resources.getDimensionPixelOffset(
-                    R.dimen.size_30dp
-                )
-                itemView.setMargin(
-                    bottom = CommonUtils.getNavigationBarHeight(context) + space
-                )
-            } else {
-                itemView.setMargin(
-                    bottom = 0
-                )
-            }
+            itemView.setMargin(
+                bottom = if (showSpace) spaceBottom else 0
+            )
             with(binding) {
                 tvTitle.text = itemView.context.getString(history.barcodeType.typeNameResId)
                 tvDescription.text = getDescription(barcodeData = history.barcodeData)

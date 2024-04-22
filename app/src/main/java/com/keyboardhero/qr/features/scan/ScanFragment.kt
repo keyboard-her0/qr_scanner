@@ -47,7 +47,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     private val viewModel: ScanViewModel by viewModels()
 
-    private lateinit var cameraSelector: CameraSelector
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var preview: Preview
     private lateinit var imageAnalysis: ImageAnalysis
@@ -55,6 +55,7 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     private var processCameraProvider: ProcessCameraProvider? = null
     private var camera: Camera? = null
+    private var lastTimeDetect = 0L
 
     override fun initData(data: Bundle?) {
         selectPictureContract =
@@ -109,7 +110,9 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    if (barcodes.isNotEmpty()) {
+                    val currentTimeMillis = System.currentTimeMillis()
+                    if (barcodes.isNotEmpty() && currentTimeMillis - lastTimeDetect >= 300) {
+                        lastTimeDetect = currentTimeMillis
                         stopScanAnimation()
                         handleScanResult(barcodes)
                     } else {
@@ -179,7 +182,6 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
             viewModel.setHasFlashUnit(hasFlashUnit ?: false)
             viewModel.setHasFrontCamera(hasFrontCamera ?: false)
             viewModel.setFlashEnable(false)
-            viewModel.setIsBackCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
 
         } catch (illegalStateException: IllegalStateException) {
             DebugLog.e("Unhandled exception $illegalStateException.message")

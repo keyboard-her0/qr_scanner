@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import com.keyboardhero.qr.BuildConfig
+import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.utils.logging.DebugLog
 import com.keyboardhero.qr.shared.domain.dto.ThemeSetting
 import java.io.IOException
@@ -220,13 +221,13 @@ object CommonUtils {
             .setToolbarColor(
                 getColorFromAttr(
                     context,
-                    com.google.android.material.R.attr.colorPrimaryVariant
+                    R.attr.headerAppBarBackground
                 )
             )
             .setNavigationBarColor(
                 getColorFromAttr(
                     context,
-                    com.google.android.material.R.attr.colorPrimaryVariant
+                    R.attr.headerAppBarBackground
                 )
             )
             .build()
@@ -270,7 +271,7 @@ object CommonUtils {
     }
 
 
-//    private fun getSearchEngineUrl(contents: String): String = when(defaultSearchEngine){
+    //    private fun getSearchEngineUrl(contents: String): String = when(defaultSearchEngine){
 //        "google" -> context.getString(R.string.search_engine_google_url, contents)
 //        "bing" -> context.getString(R.string.search_engine_bing_url, contents)
 //        "duckduckgo" -> context.getString(R.string.search_engine_duck_duck_go_url, contents)

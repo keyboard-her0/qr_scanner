@@ -2,7 +2,6 @@ package com.keyboardhero.qr.features.history
 
 import androidx.lifecycle.viewModelScope
 import com.keyboardhero.qr.core.base.BaseViewModel
-import com.keyboardhero.qr.shared.domain.dto.HistoryDTO
 import com.keyboardhero.qr.shared.domain.usecase.EditHistoryUseCase
 import com.keyboardhero.qr.shared.domain.usecase.GetAllHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

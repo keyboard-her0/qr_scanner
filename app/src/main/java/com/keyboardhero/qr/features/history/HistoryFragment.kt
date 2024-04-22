@@ -64,13 +64,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.observe(
-            owner = viewLifecycleOwner,
-            selector = { state -> state.loading },
-            observer = { loading ->
-                if (loading) showLoading() else hideLoading()
-            }
-        )
+//        viewModel.observe(
+//            owner = viewLifecycleOwner,
+//            selector = { state -> state.loading },
+//            observer = { loading ->
+//                if (loading) showLoading() else hideLoading()
+//            }
+//        )
     }
 
     fun getHistoryViewModel(): HistoryViewModel = viewModel
