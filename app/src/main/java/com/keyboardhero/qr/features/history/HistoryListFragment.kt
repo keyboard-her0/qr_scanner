@@ -97,6 +97,8 @@ class HistoryListFragment : Fragment() {
             selector = { state -> state.listHistory },
             observer = { listHistory ->
                 historyAdapter.submitList(listHistory.filter { it.isScan == isScan })
+                binding.layoutEmpty.isVisible = listHistory.isEmpty()
+                binding.rvHistory.isVisible = listHistory.isNotEmpty()
             }
         )
     }

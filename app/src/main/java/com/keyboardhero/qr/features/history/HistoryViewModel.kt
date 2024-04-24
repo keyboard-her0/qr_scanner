@@ -5,6 +5,7 @@ import com.keyboardhero.qr.core.base.BaseViewModel
 import com.keyboardhero.qr.shared.domain.usecase.EditHistoryUseCase
 import com.keyboardhero.qr.shared.domain.usecase.GetAllHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ class HistoryViewModel @Inject constructor(
     fun getAllHistory() {
         viewModelScope.launch {
             dispatchState(currentState.copy(loading = true))
+            delay(500)
             val result = getAllHistoryUseCase.invoke(Unit)
             dispatchState(
                 currentState.copy(

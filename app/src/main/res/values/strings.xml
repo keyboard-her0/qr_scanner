@@ -20,7 +20,7 @@
     <string name="detail">Detail</string>
     <string name="title_generate_result_screen">Create QR Code Successfully</string>
 
-    <string name="dialog_process_title">Processing…</string>
+    <string name="dialog_process_title">Loading…</string>
     <string name="dialog_process_message">Please wait a moment</string>
     <string name="share">Share</string>
     <string name="save">Save</string>
@@ -96,7 +96,7 @@
     <string name="no_permission_storage_message">The app does not have permission to access the library</string>
     <string name="language_eng">English</string>
     <string name="language_vi">Vietnamese</string>
-
+    <string name="history_is_empty">History is empty</string>
     <!-- endregion-->
 
 

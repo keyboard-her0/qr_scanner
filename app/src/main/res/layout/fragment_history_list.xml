@@ -6,9 +6,35 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistory"
-        android:layout_marginTop="@dimen/size_4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/size_4dp"
+        android:visibility="gone"
         tools:itemCount="10"
         tools:listitem="@layout/layout_history_item" />
+
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_empty_data"
+            android:tint="?attr/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:alpha="0.8"
+            android:text="@string/history_is_empty"
+            android:textColor="?attr/textColor"
+            android:textSize="@dimen/font_size_20_medium" />
+
+    </LinearLayout>
 </FrameLayout>

@@ -20,8 +20,8 @@
     <string name="detail">Chi tiết</string>
     <string name="title_generate_result_screen">Tạo thành công</string>
 
-    <string name="dialog_process_title">Processing…</string>
-    <string name="dialog_process_message">Please wait a moment</string>
+    <string name="dialog_process_title">Đang tải…</string>
+    <string name="dialog_process_message">Xin vui lòng chờ trong giây lát</string>
     <string name="share">Chia sẻ</string>
     <string name="save">Lưu</string>
     <string name="select_theme">Chọn chủ đề</string>
@@ -97,4 +97,5 @@
     <string name="no_permission_storage_message">Ứng dụng không có quyền truy cập thư viện</string>
     <string name="language_eng">Tiếng Anh</string>
     <string name="language_vi">Tiếng Việt</string>
+    <string name="history_is_empty">Lịch sử trống</string>
 </resources>
