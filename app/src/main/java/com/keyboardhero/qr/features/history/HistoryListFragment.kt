@@ -96,9 +96,10 @@ class HistoryListFragment : Fragment() {
             owner = viewLifecycleOwner,
             selector = { state -> state.listHistory },
             observer = { listHistory ->
-                historyAdapter.submitList(listHistory.filter { it.isScan == isScan })
-                binding.layoutEmpty.isVisible = listHistory.isEmpty()
-                binding.rvHistory.isVisible = listHistory.isNotEmpty()
+                val history = listHistory.filter { it.isScan == isScan }
+                historyAdapter.submitList(history)
+                binding.layoutEmpty.isVisible = history.isEmpty()
+                binding.rvHistory.isVisible = history.isNotEmpty()
             }
         )
     }

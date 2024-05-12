@@ -13,8 +13,9 @@ plugins {
 android {
     defaultConfig {
         applicationId "com.keyboardhero.qr"
-        versionCode 11
-        versionName "0.1.11"
+        versionCode 12
+        versionName "0.1.12"
+        setProperty("archivesBaseName", "Scan-QR-Code-$versionName")
     }
 
     buildTypes {
