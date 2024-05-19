@@ -5,6 +5,7 @@ import android.hardware.camera2.CameraManager
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import androidx.room.Room
+import com.google.zxing.MultiFormatWriter
 import com.keyboardhero.qr.shared.data.db.AppDataBase
 import com.keyboardhero.qr.shared.data.db.dao.HistoryDao
 import dagger.Module
@@ -50,6 +51,9 @@ class AppModule {
     fun provideConnectivityManager(@ApplicationContext context: Context): ConnectivityManager =
         context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE)
             as ConnectivityManager
+
+    @Provides
+    fun provideMultiFormatWriter(): MultiFormatWriter = MultiFormatWriter()
 
     @ApplicationScope
     @Singleton

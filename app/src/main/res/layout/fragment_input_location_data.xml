@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="@dimen/size_16dp">
+
+        <TextView
+            android:id="@+id/tvLatitude"
+            style="@style/styleTextHeaderInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:text="@string/latitude"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editLatitude"
+            style="@style/styleTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:background="@drawable/background_input_view"
+            android:gravity="start"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/tvLatitude" />
+
+        <TextView
+            android:id="@+id/tvLongitude"
+            style="@style/styleTextHeaderInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:text="@string/longitude"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editLatitude" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editLongitude"
+            style="@style/styleTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:background="@drawable/background_input_view"
+            android:gravity="start"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/tvLongitude" />
+
+        <Button
+            android:id="@+id/btnGetCurrentLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:text="@string/generate_from_your_location"
+            android:textSize="@dimen/font_size_16_small"
+            app:layout_constraintEnd_toEndOf="@id/editLongitude"
+            app:layout_constraintStart_toStartOf="@id/editLongitude"
+            app:layout_constraintTop_toBottomOf="@id/editLongitude" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

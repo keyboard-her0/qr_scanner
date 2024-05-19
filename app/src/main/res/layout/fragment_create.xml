@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".features.create.CreateFragment">
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvItem"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tvHeaderQR"
+            android:layout_marginTop="@dimen/size_8dp"
+            style="@style/styleTextHeaderInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/size_16dp"
+            android:text="@string/qr_code" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvQRItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp" />
+
+        <TextView
+            style="@style/styleTextHeaderInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:paddingHorizontal="@dimen/size_16dp"
+            android:text="@string/other" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvQROther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

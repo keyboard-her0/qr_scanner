@@ -5,33 +5,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:paddingHorizontal="@dimen/size_16dp">
 
         <TextView
-            android:id="@+id/tvPhoneNumber"
+            android:id="@+id/tvText"
+            style="@style/styleTextHeaderInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="@string/phone_number"
-            style="@style/styleTextHeaderInput"
+            android:text="@string/text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.keyboardhero.qr.features.widget.InputDataView
-            android:id="@+id/inputPhoneNumber"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText"
+            style="@style/styleTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
-            android:inputType="number"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/tvLink"
-            app:startIcon="@drawable/ic_call" />
-    </LinearLayout>
+            android:background="@drawable/background_input_view"
+            android:gravity="start"
+            android:scrollbarSize="@dimen/size_2dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvText"
+            app:layout_constraintVertical_bias="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/layoutBottom"

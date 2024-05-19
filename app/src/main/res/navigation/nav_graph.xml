@@ -94,4 +94,16 @@
         android:id="@+id/inputTextDataFragment"
         android:name="com.keyboardhero.qr.features.create.input.text.InputTextDataFragment"
         android:label="InputTextDataFragment" />
+    <fragment
+        android:id="@+id/inputLocationDataFragment"
+        android:name="com.keyboardhero.qr.features.create.input.location.InputLocationDataFragment"
+        android:label="InputLocationDataFragment" />
+    <fragment
+        android:id="@+id/inputOtherBarcodeDataFragment"
+        android:name="com.keyboardhero.qr.features.create.otherbarcode.InputOtherBarcodeDataFragment"
+        android:label="InputOtherBarcodeDataFragment" >
+        <argument
+            android:name="barcodeType"
+            app:argType="com.keyboardhero.qr.shared.domain.dto.BarcodeType" />
+    </fragment>
 </navigation>

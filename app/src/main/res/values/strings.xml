@@ -62,6 +62,12 @@
     <string name="hide_network">Hide network</string>
     <string name="website">Website</string>
     <string name="wifi">Wifi</string>
+    <string name="location">Location</string>
+    <string name="aztec" translatable="false">AZTEC</string>
+    <string name="data_matrix" translatable="false">Data Matrix</string>
+    <string name="pdf_417" translatable="false">PDF 417</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
     <string name="contact">Contact</string>
     <string name="event">Event</string>
     <string name="flash">Flash</string>
@@ -97,6 +103,9 @@
     <string name="language_eng">English</string>
     <string name="language_vi">Vietnamese</string>
     <string name="history_is_empty">History is empty</string>
+    <string name="generate_from_your_location">Generate from your location</string>
+    <string name="qr_code">QR code</string>
+    <string name="other">Other</string>
     <!-- endregion-->
 
 

@@ -32,7 +32,6 @@ import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.logging.DebugLog
-import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.core.utils.views.setMargin
 import com.keyboardhero.qr.databinding.FragmentScannerBinding
 import com.keyboardhero.qr.features.scan.resutl.ResultScanFragmentArgs
@@ -208,11 +207,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
 
     override fun initActions() {
         with(binding) {
-            imgBack.onSafeClick {
+            imgBack.setOnClickListener {
                 onBackPressed()
             }
 
-            btnSelectPhoto.onSafeClick {
+            btnSelectPhoto.setOnClickListener {
                 val permissionImage = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
                     READ_MEDIA_IMAGES
                 } else {
@@ -232,11 +231,11 @@ class ScanFragment : BaseFragment<FragmentScannerBinding>() {
                 }
             }
 
-            btnToggleFlash.onSafeClick {
+            btnToggleFlash.setOnClickListener {
                 handleActionFlash()
             }
 
-            imgSwitchCamera.onSafeClick {
+            imgSwitchCamera.setOnClickListener {
                 handleSwitchCamera()
             }
         }

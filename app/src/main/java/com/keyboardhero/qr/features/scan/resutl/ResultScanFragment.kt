@@ -24,6 +24,7 @@ import com.keyboardhero.qr.core.utils.CommonUtils
 import com.keyboardhero.qr.core.utils.views.onSafeClick
 import com.keyboardhero.qr.databinding.FragmentResultScanBinding
 import com.keyboardhero.qr.shared.domain.dto.Action
+import com.keyboardhero.qr.shared.domain.dto.barcodedata.AztecBarcode
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.EmailBarcode
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.PhoneBarcode
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.SmsBarcode
