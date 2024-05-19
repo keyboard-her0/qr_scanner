@@ -15,6 +15,7 @@ import com.keyboardhero.qr.features.create.result.GenerateResultScreen
 import com.keyboardhero.qr.shared.domain.dto.BarcodeType
 import com.keyboardhero.qr.shared.domain.dto.barcodedata.UrlBarcode
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class InputUrlDataFragment : BaseInputFragment<FragmentInputUrlDataBinding>() {
@@ -30,10 +31,24 @@ class InputUrlDataFragment : BaseInputFragment<FragmentInputUrlDataBinding>() {
     }
 
     override fun initViewsInput() {
-        buttonCreate?.isEnabled = binding.inputUrl.text.isNotBlank() == true
+        buttonCreate?.isEnabled = isValidURL(binding.inputUrl.text)
         binding.inputUrl.editText.doAfterTextChanged {
-            buttonCreate?.isEnabled = it?.isNotBlank() == true
+            buttonCreate?.isEnabled = isValidURL(binding.inputUrl.text)
         }
+    }
+
+    private fun isValidURL(url: String): Boolean {
+        val urlPattern = ("^((https?|ftp)://)?"
+                + "(([a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\(\\)\\,\\;\\?\\&\\=]|%[0-9a-fA-F]{2})+@)?"
+                + "((([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,6})"
+                + "(:[0-9]{1,5})?"
+                + "((/([a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\(\\)\\,\\;\\?\\&\\=]|%[0-9a-fA-F]{2})*)+|/)?"
+                + "(\\?([a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\(\\)\\,\\;\\?\\&\\=]|%[0-9a-fA-F]{2})*)?"
+                + "(#([a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\(\\)\\,\\;\\?\\&\\=]|%[0-9a-fA-F]{2})*)?$")
+
+        val pattern = Pattern.compile(urlPattern)
+        val matcher = pattern.matcher(url)
+        return matcher.matches()
     }
 
     override fun initObserversInput() {

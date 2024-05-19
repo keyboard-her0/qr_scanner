@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.databinding.FragmentInputEmailDataBinding
@@ -29,11 +30,28 @@ class InputEmailDataFragment : BaseInputFragment<FragmentInputEmailDataBinding>(
     }
 
     override fun initViewsInput() {
+        checkValidInput()
 
+        binding.inputEmail.editText.doAfterTextChanged {
+            checkValidInput()
+        }
+
+        binding.editTextMessage.doAfterTextChanged {
+            checkValidInput()
+        }
+
+        binding.editSubject.doAfterTextChanged {
+            checkValidInput()
+        }
     }
 
     override fun initObserversInput() {
 
+    }
+
+    private fun checkValidInput() {
+        buttonCreate?.isEnabled =
+            binding.editTextMessage.text?.isNotBlank() == true && binding.inputEmail.text.isNotBlank() && binding.editSubject.text?.isNotBlank() == true
     }
 
     override fun navigateToResultScreen() {

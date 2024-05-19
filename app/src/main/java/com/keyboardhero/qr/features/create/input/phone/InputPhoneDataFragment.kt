@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.databinding.FragmentInputPhoneDataBinding
@@ -29,7 +30,11 @@ class InputPhoneDataFragment : BaseInputFragment<FragmentInputPhoneDataBinding>(
     }
 
     override fun initViewsInput() {
+        buttonCreate?.isEnabled = binding.inputPhoneNumber.text.isNotBlank()
 
+        binding.inputPhoneNumber.editText.doAfterTextChanged {
+            buttonCreate?.isEnabled = binding.inputPhoneNumber.text.isNotBlank()
+        }
     }
 
     override fun initObserversInput() {

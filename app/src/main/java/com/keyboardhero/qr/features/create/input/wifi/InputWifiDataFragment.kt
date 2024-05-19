@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.navOptions
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.utils.views.hideKeyboard
@@ -36,6 +37,8 @@ class InputWifiDataFragment : BaseInputFragment<FragmentInputWifiDataBinding>() 
     private var typeSecuritySelected = 0
 
     override fun initViewsInput() {
+        checkValidInput()
+
         val adapterSecurity: ArrayAdapter<String> = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_selectable_list_item,
@@ -57,6 +60,14 @@ class InputWifiDataFragment : BaseInputFragment<FragmentInputWifiDataBinding>() 
                     }
             }
         }
+
+        binding.inputName.editText.doAfterTextChanged { checkValidInput() }
+        binding.inputPassword.editText.doAfterTextChanged { checkValidInput() }
+    }
+
+    private fun checkValidInput() {
+        buttonCreate?.isEnabled =
+            binding.inputName.text.isNotBlank() && binding.inputPassword.text.isNotBlank()
     }
 
     override fun initObserversInput() {

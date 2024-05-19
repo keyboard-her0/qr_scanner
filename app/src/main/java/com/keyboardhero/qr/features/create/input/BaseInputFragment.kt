@@ -1,5 +1,6 @@
 package com.keyboardhero.qr.features.create.input
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.annotation.CallSuper
 import androidx.core.view.setPadding
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.color.MaterialColors
 import com.keyboardhero.qr.R
 import com.keyboardhero.qr.core.base.BaseFragment
 import com.keyboardhero.qr.core.utils.CommonUtils
@@ -47,6 +49,7 @@ abstract class BaseInputFragment<VB : ViewBinding> : BaseFragment<VB>(), IBaseIn
 
     }
 
+    @SuppressLint("ResourceAsColor")
     final override fun initViews() {
         val padding = requireContext().resources.getDimensionPixelOffset(R.dimen.size_16dp)
         bottomLayoutContainer.setPadding(
@@ -62,7 +65,7 @@ abstract class BaseInputFragment<VB : ViewBinding> : BaseFragment<VB>(), IBaseIn
                 navigateToResultScreen()
             }
             textSize = 18F
-            setTextColor(Color.WHITE)
+            setTextColor(MaterialColors.getColor(requireContext(), R.attr.textColor, R.color.white))
             setPadding(context.resources.getDimensionPixelSize(R.dimen.size_16dp))
         }
         val layoutParams = LinearLayout.LayoutParams(

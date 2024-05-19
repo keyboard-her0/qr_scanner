@@ -16,7 +16,7 @@
         <item name="headerAppBarBackground">#12181f</item>
 
         <item name="colorOnBackground">#0b0e13</item>
-        <item name="colorOnSurface">#12181f</item>
+        <item name="colorBackgroundInput">#12181f</item>
         <item name="dividerColor">#353c45</item>
         <item name="iconColor">@color/white</item>
         <item name="textColor">@color/white</item>
